@@ -57,7 +57,7 @@ async function generateResume() {
     color: rgb(0.68, 0.78, 1.0), // Ice blue
   });
 
-  page.drawText('Coimbatore, India   *   bajayy1812@gmail.com   *   linkedin.com/in/ajay-b-0b0789328   *   github.com/ajayb1812', {
+  page.drawText('Coimbatore, India   *   bajayy1812@gmail.com   *   linkedin.com/in/ajay-b-0b0789328   *   github.com/bajayy1812-code', {
     x: 40,
     y: height - 82,
     size: 8.5,

@@ -26,7 +26,7 @@ const navLinks = [
 
 const socials = [
   { icon: LinkedinIcon, href: 'https://www.linkedin.com/in/ajay-b-0b0789328/', label: 'LinkedIn' },
-  { icon: GithubIcon, href: 'https://github.com/ajayb1812', label: 'GitHub' },
+  { icon: GithubIcon, href: 'https://github.com/bajayy1812-code', label: 'GitHub' },
   { icon: Mail, href: 'mailto:bajayy1812@gmail.com', label: 'Email' },
 ];
 
@@ -97,7 +97,7 @@ export default function Footer() {
               <a href="https://www.linkedin.com/in/ajay-b-0b0789328/" target="_blank" rel="noopener noreferrer" className="block text-text-secondary text-sm hover:text-blue-electric transition-colors">
                 LinkedIn Profile
               </a>
-              <a href="https://github.com/ajayb1812" target="_blank" rel="noopener noreferrer" className="block text-text-secondary text-sm hover:text-purple-light transition-colors">
+              <a href="https://github.com/bajayy1812-code" target="_blank" rel="noopener noreferrer" className="block text-text-secondary text-sm hover:text-purple-light transition-colors">
                 GitHub Portfolio
               </a>
             </div>

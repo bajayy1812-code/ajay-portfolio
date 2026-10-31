@@ -181,7 +181,7 @@ export default function Hero() {
         <motion.div variants={itemVariants} className="flex items-center gap-4">
           {[
             { icon: LinkedinIcon, href: 'https://www.linkedin.com/in/ajay-b-0b0789328/', label: 'LinkedIn', color: 'hover:text-blue-electric hover:border-blue-electric/40' },
-            { icon: GithubIcon, href: 'https://github.com/ajayb1812', label: 'GitHub', color: 'hover:text-purple-light hover:border-purple-light/40' },
+            { icon: GithubIcon, href: 'https://github.com/bajayy1812-code', label: 'GitHub', color: 'hover:text-purple-light hover:border-purple-light/40' },
             { icon: Mail, href: 'mailto:bajayy1812@gmail.com', label: 'Email', color: 'hover:text-green-400 hover:border-green-400/40' },
           ].map(({ icon: Icon, href, label, color }) => (
             <motion.a

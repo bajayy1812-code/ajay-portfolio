@@ -50,8 +50,8 @@ const contactLinks = [
   {
     icon: GithubIcon,
     label: 'GitHub Portfolio',
-    value: 'ajayb1812',
-    href: 'https://github.com/ajayb1812',
+    value: 'bajayy1812-code',
+    href: 'https://github.com/bajayy1812-code',
     color: 'text-purple-light',
     bg: 'bg-purple-primary/10',
     border: 'border-purple-primary/25',

@@ -52,7 +52,7 @@ const projects = [
       solution: 'Iron Pulse delivers a unified single-dashboard interface with segregated roles (Admin vs. Member), automated status calculations, and instant visibility into member health.',
       keyTakeaways: 'Deepened hands-on mastery in JWT lifecycle management, MongoDB compound indexes, and designing responsive tabular data layouts for administrative productivity.'
     },
-    github: 'https://github.com/ajayb1812',
+    github: 'https://github.com/bajayy1812-code/ajay-portfolio',
     gradient: 'from-purple-primary/20 via-transparent to-transparent',
     accent: 'border-purple-primary/30',
     accentText: 'text-purple-light',
@@ -91,7 +91,7 @@ const projects = [
       solution: 'A zero-friction financial dashboard enabling one-click transaction logging, immediate balance recalculation, and visual breakdown by category.',
       keyTakeaways: 'Refined understanding of data aggregation pipelines in MongoDB, modular REST controller separation, and form UX validation.'
     },
-    github: 'https://github.com/ajayb1812',
+    github: 'https://github.com/bajayy1812-code/ajay-portfolio',
     gradient: 'from-blue-electric/15 via-transparent to-transparent',
     accent: 'border-blue-electric/30',
     accentText: 'text-blue-electric',
@@ -520,7 +520,7 @@ export default function Projects() {
             {/* Bottom GitHub Link */}
             <motion.div variants={fadeUp} className="mt-14 text-center">
               <motion.a
-                href="https://github.com/ajayb1812"
+                href="https://github.com/bajayy1812-code"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(139,92,246,0.3)' }}
