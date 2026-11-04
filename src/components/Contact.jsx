@@ -1,299 +1,321 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { Mail, Send, MapPin, CheckCircle2, Copy, Check } from 'lucide-react';
-
-const LinkedinIcon = ({ size = 18 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-  </svg>
-);
+import { Mail, Send, MapPin, Copy, Check, AlertCircle, CheckCircle2, MessageSquare } from 'lucide-react';
 
 const GithubIcon = ({ size = 18 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/>
+    <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z" />
+  </svg>
+);
+
+const LinkedinIcon = ({ size = 18 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
   </svg>
 );
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } }
+  hidden: { opacity: 0, y: 25 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
 };
-
-const stagger = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.12 } }
-};
-
-const contactLinks = [
-  {
-    icon: Mail,
-    label: 'Direct Email',
-    value: 'bajayy1812@gmail.com',
-    href: 'mailto:bajayy1812@gmail.com',
-    color: 'text-green-400',
-    bg: 'bg-green-400/10',
-    border: 'border-green-400/25',
-    hover: 'hover:border-green-400/50 hover:shadow-[0_0_20px_rgba(74,222,128,0.15)]',
-    copyable: true,
-  },
-  {
-    icon: LinkedinIcon,
-    label: 'LinkedIn Profile',
-    value: 'Ajay B',
-    href: 'https://www.linkedin.com/in/ajay-b-0b0789328/',
-    color: 'text-blue-electric',
-    bg: 'bg-blue-electric/10',
-    border: 'border-blue-electric/25',
-    hover: 'hover:border-blue-electric/50 hover:shadow-[0_0_20px_rgba(56,189,248,0.15)]',
-  },
-  {
-    icon: GithubIcon,
-    label: 'GitHub Portfolio',
-    value: 'bajayy1812-code',
-    href: 'https://github.com/bajayy1812-code',
-    color: 'text-purple-light',
-    bg: 'bg-purple-primary/10',
-    border: 'border-purple-primary/25',
-    hover: 'hover:border-purple-primary/50 hover:shadow-[0_0_20px_rgba(139,92,246,0.15)]',
-  },
-];
 
 export default function Contact() {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-80px' });
+  const inView = useInView(ref, { once: true, margin: '-60px' });
 
-  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
-  const [status, setStatus] = useState('idle'); // idle | sending | success
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
+  });
+
+  const [status, setStatus] = useState('idle'); // 'idle' | 'sending' | 'success' | 'error'
+  const [errorMessage, setErrorMessage] = useState('');
   const [copied, setCopied] = useState(false);
 
-  const handleCopyEmail = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const handleCopyEmail = () => {
     navigator.clipboard.writeText('bajayy1812@gmail.com');
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setStatus('sending');
-    await new Promise((r) => setTimeout(r, 900));
-    setStatus('success');
-    
-    // Also build a mailto fallback link for seamless real-world delivery
-    const mailtoUrl = `mailto:bajayy1812@gmail.com?subject=${encodeURIComponent(
-      form.subject || 'Portfolio Inquiry'
-    )}&body=${encodeURIComponent(
-      `From: ${form.name} (${form.email})\n\n${form.message}`
-    )}`;
-    window.open(mailtoUrl, '_blank');
-
-    setForm({ name: '', email: '', subject: '', message: '' });
-    setTimeout(() => setStatus('idle'), 6000);
+  const handleChange = (e) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    if (status === 'error') {
+      setStatus('idle');
+      setErrorMessage('');
+    }
   };
 
-  const handleChange = (e) => {
-    setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Client-side Validation
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+      setStatus('error');
+      setErrorMessage('Please fill in all required fields.');
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email.trim())) {
+      setStatus('error');
+      setErrorMessage('Please provide a valid email address.');
+      return;
+    }
+
+    setStatus('sending');
+
+    // Create a robust mailto fallback that immediately launches the recruiter's native client
+    const mailSubject = encodeURIComponent(formData.subject || `Inquiry from ${formData.name}`);
+    const mailBody = encodeURIComponent(
+      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+    );
+    const mailtoLink = `mailto:bajayy1812@gmail.com?subject=${mailSubject}&body=${mailBody}`;
+
+    setTimeout(() => {
+      window.location.href = mailtoLink;
+      setStatus('success');
+      setFormData({ name: '', email: '', subject: '', message: '' });
+      setTimeout(() => setStatus('idle'), 8000);
+    }, 600);
   };
 
   return (
-    <section id="contact" className="section-padding bg-bg-main relative overflow-hidden">
-      {/* Background Lighting */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(circle at 25% 75%, rgba(139,92,246,0.08) 0%, transparent 60%), radial-gradient(circle at 75% 25%, rgba(56,189,248,0.08) 0%, transparent 60%)'
-        }}
-      />
-
-      <div className="container-custom relative z-10" ref={ref}>
-        <motion.div variants={stagger} initial="hidden" animate={inView ? 'visible' : 'hidden'}>
-          {/* Label */}
-          <motion.div variants={fadeUp} className="flex items-center gap-3 mb-4">
-            <div className="w-8 h-px bg-purple-primary" />
-            <span className="text-purple-light text-sm font-semibold tracking-widest uppercase">Contact</span>
+    <section id="contact" className="section-padding bg-[#0B0F19] relative border-t border-[#1E293B]">
+      <div className="container-custom" ref={ref}>
+        <motion.div
+          initial="hidden"
+          animate={inView ? 'visible' : 'hidden'}
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.1 } },
+          }}
+        >
+          {/* Section Header */}
+          <motion.div variants={fadeUp} className="mb-12">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="w-6 h-px bg-[#6366F1]" />
+              <span className="text-xs font-mono uppercase tracking-widest text-[#6366F1]">Get In Touch</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold text-[#F8FAFC]">
+              Let's Connect & <span className="text-gradient-accent">Collaborate.</span>
+            </h2>
+            <p className="mt-2 text-sm sm:text-base text-[#94A3B8] max-w-2xl">
+              I am open to full-time engineering roles, frontend or full stack opportunities, and technical discussions.
+            </p>
           </motion.div>
 
-          {/* Heading */}
-          <motion.h2
-            variants={fadeUp}
-            className="text-4xl md:text-5xl font-black mb-4 text-text-primary max-w-2xl leading-tight"
-          >
-            Let's Build Something <span className="text-gradient-purple">Meaningful Together.</span>
-          </motion.h2>
-          <motion.p variants={fadeUp} className="text-text-secondary max-w-xl mb-16 text-lg">
-            Have an opportunity, collaboration, or interesting idea? I'd love to connect.
-          </motion.p>
-
-          <div className="grid lg:grid-cols-5 gap-10">
-            {/* Left — contact channels */}
-            <motion.div variants={stagger} className="lg:col-span-2 space-y-4">
-              {contactLinks.map(({ icon: Icon, label, value, href, color, bg, border, hover, copyable }) => (
-                <motion.div
-                  key={label}
-                  variants={fadeUp}
-                  whileHover={{ scale: 1.02, x: 4 }}
-                  className={`flex items-center justify-between glass-card rounded-2xl p-5 border ${border} ${hover} transition-all duration-300`}
-                >
-                  <a
-                    href={href}
-                    target={href.startsWith('http') ? '_blank' : undefined}
-                    rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    className="flex items-center gap-4 flex-1"
-                  >
-                    <div className={`w-11 h-11 rounded-xl ${bg} border ${border} flex items-center justify-center flex-shrink-0`}>
-                      <Icon size={18} className={color} />
+          <div className="grid lg:grid-cols-12 gap-8 items-start">
+            {/* Left Column: Direct Communication Channels */}
+            <motion.div variants={fadeUp} className="lg:col-span-5 space-y-4">
+              {/* Email Card with 1-Click Copy */}
+              <div className="glass-card rounded-2xl p-6 border border-[#1E293B]">
+                <div className="flex items-start justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2.5 rounded-lg bg-[#6366F1]/10 text-[#6366F1] border border-[#6366F1]/20">
+                      <Mail size={18} />
                     </div>
                     <div>
-                      <p className="text-text-muted text-[11px] font-semibold uppercase tracking-wider mb-0.5">{label}</p>
-                      <p className={`font-semibold text-sm ${color}`}>{value}</p>
+                      <span className="text-[11px] font-mono text-[#94A3B8] uppercase tracking-wider block">
+                        Direct Email
+                      </span>
+                      <a
+                        href="mailto:bajayy1812@gmail.com"
+                        className="text-sm font-bold text-[#F8FAFC] hover:text-[#22D3EE] transition-colors"
+                      >
+                        bajayy1812@gmail.com
+                      </a>
                     </div>
-                  </a>
+                  </div>
 
-                  {copyable && (
-                    <button
-                      onClick={handleCopyEmail}
-                      className="p-2 rounded-xl glass border border-white/10 text-text-muted hover:text-text-primary transition-colors ml-2"
-                      title="Copy email address"
-                      aria-label="Copy email address"
-                    >
-                      {copied ? <Check size={14} className="text-green-400" /> : <Copy size={14} />}
-                    </button>
-                  )}
-                </motion.div>
-              ))}
-
-              {/* Location Card */}
-              <motion.div variants={fadeUp} className="flex items-center gap-4 glass-card rounded-2xl p-5 border border-white/8">
-                <div className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0">
-                  <MapPin size={18} className="text-text-secondary" />
+                  <button
+                    onClick={handleCopyEmail}
+                    className="p-2 rounded-lg bg-[#0B0F19] border border-[#1E293B] text-[#94A3B8] hover:text-[#F8FAFC] transition-colors"
+                    title="Copy email to clipboard"
+                    aria-label="Copy email address"
+                  >
+                    {copied ? <Check size={14} className="text-green-400" /> : <Copy size={14} />}
+                  </button>
                 </div>
-                <div>
-                  <p className="text-text-muted text-[11px] font-semibold uppercase tracking-wider mb-0.5">Location</p>
-                  <p className="text-text-primary font-semibold text-sm">Coimbatore, India</p>
-                </div>
-              </motion.div>
+                {copied && (
+                  <span className="text-[11px] font-mono text-green-400 mt-2 block">
+                    ✓ Email address copied to clipboard!
+                  </span>
+                )}
+              </div>
 
-              {/* Quick Status Pill */}
-              <motion.div variants={fadeUp} className="p-4 rounded-2xl bg-purple-primary/10 border border-purple-primary/20 flex items-center gap-3">
-                <div className="w-2.5 h-2.5 rounded-full bg-green-400 animate-pulse flex-shrink-0" />
-                <p className="text-xs text-text-secondary leading-relaxed">
-                  <span className="text-text-primary font-semibold">Active Availability:</span> Available for UI/UX Design, Frontend, or Full Stack Developer roles.
-                </p>
-              </motion.div>
+              {/* LinkedIn Link Card */}
+              <a
+                href="https://www.linkedin.com/in/ajay-b-0b0789328/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="glass-card rounded-2xl p-6 border border-[#1E293B] flex items-center justify-between glass-card-hover group"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="p-2.5 rounded-lg bg-[#22D3EE]/10 text-[#22D3EE] border border-[#22D3EE]/20">
+                    <LinkedinIcon size={18} />
+                  </div>
+                  <div>
+                    <span className="text-[11px] font-mono text-[#94A3B8] uppercase tracking-wider block">
+                      Professional Network
+                    </span>
+                    <span className="text-sm font-bold text-[#F8FAFC] group-hover:text-[#22D3EE] transition-colors">
+                      Ajay B on LinkedIn
+                    </span>
+                  </div>
+                </div>
+                <span className="text-xs font-mono text-[#64748B] group-hover:text-[#F8FAFC] transition-colors">
+                  View Profile ↗
+                </span>
+              </a>
+
+              {/* GitHub Link Card */}
+              <a
+                href="https://github.com/bajayy1812-code"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="glass-card rounded-2xl p-6 border border-[#1E293B] flex items-center justify-between glass-card-hover group"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="p-2.5 rounded-lg bg-[#6366F1]/10 text-[#6366F1] border border-[#6366F1]/20">
+                    <GithubIcon size={18} />
+                  </div>
+                  <div>
+                    <span className="text-[11px] font-mono text-[#94A3B8] uppercase tracking-wider block">
+                      Source Code & Repositories
+                    </span>
+                    <span className="text-sm font-bold text-[#F8FAFC] group-hover:text-[#6366F1] transition-colors">
+                      @bajayy1812-code on GitHub
+                    </span>
+                  </div>
+                </div>
+                <span className="text-xs font-mono text-[#64748B] group-hover:text-[#F8FAFC] transition-colors">
+                  Repositories ↗
+                </span>
+              </a>
+
+              {/* Location & Status Card */}
+              <div className="glass-card rounded-2xl p-6 border border-[#1E293B]">
+                <div className="flex items-center gap-3">
+                  <div className="p-2.5 rounded-lg bg-[#111827] text-[#94A3B8] border border-[#1E293B]">
+                    <MapPin size={18} />
+                  </div>
+                  <div>
+                    <span className="text-[11px] font-mono text-[#64748B] uppercase tracking-wider block">
+                      Based In
+                    </span>
+                    <span className="text-sm font-semibold text-[#F8FAFC]">
+                      Coimbatore, Tamil Nadu, India
+                    </span>
+                  </div>
+                </div>
+              </div>
             </motion.div>
 
-            {/* Right — Contact Form */}
-            <motion.div variants={fadeUp} className="lg:col-span-3">
-              <form onSubmit={handleSubmit} className="glass-card rounded-3xl p-7 sm:p-8 border border-white/10 space-y-4 shadow-2xl">
+            {/* Right Column: Contact Form */}
+            <motion.div variants={fadeUp} className="lg:col-span-7">
+              <form
+                onSubmit={handleSubmit}
+                className="glass-card rounded-2xl p-6 sm:p-8 border border-[#1E293B] space-y-4"
+                noValidate
+              >
+                <div className="flex items-center justify-between pb-3 border-b border-[#1E293B]">
+                  <h3 className="text-sm font-mono uppercase tracking-wider text-[#F8FAFC] font-semibold flex items-center gap-2">
+                    <MessageSquare size={16} className="text-[#6366F1]" />
+                    Send a Message
+                  </h3>
+                  <span className="text-[11px] font-mono text-[#64748B]">
+                    Direct Mail Delivery
+                  </span>
+                </div>
+
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-text-muted text-xs font-semibold uppercase tracking-wider mb-2">
-                      Your Name
+                    <label className="block text-xs font-mono text-[#94A3B8] mb-1.5 uppercase">
+                      Name <span className="text-[#6366F1]">*</span>
                     </label>
                     <input
                       type="text"
                       name="name"
-                      value={form.name}
+                      value={formData.name}
                       onChange={handleChange}
+                      placeholder="e.g. Hiring Manager / Recruiter"
+                      className="w-full px-3.5 py-2.5 rounded-lg bg-[#0B0F19] border border-[#1E293B] text-sm text-[#F8FAFC] placeholder-[#64748B] focus:outline-none focus:border-[#6366F1] transition-colors"
                       required
-                      placeholder="e.g. Sarah Jenkins"
-                      className="w-full px-4 py-3 rounded-xl bg-bg-main border border-white/10 text-text-primary text-sm placeholder-text-muted focus:outline-none focus:border-purple-primary/50 focus:ring-1 focus:ring-purple-primary/30 transition-colors"
                     />
                   </div>
+
                   <div>
-                    <label className="block text-text-muted text-xs font-semibold uppercase tracking-wider mb-2">
-                      Email Address
+                    <label className="block text-xs font-mono text-[#94A3B8] mb-1.5 uppercase">
+                      Email Address <span className="text-[#6366F1]">*</span>
                     </label>
                     <input
                       type="email"
                       name="email"
-                      value={form.email}
+                      value={formData.email}
                       onChange={handleChange}
+                      placeholder="name@company.com"
+                      className="w-full px-3.5 py-2.5 rounded-lg bg-[#0B0F19] border border-[#1E293B] text-sm text-[#F8FAFC] placeholder-[#64748B] focus:outline-none focus:border-[#6366F1] transition-colors"
                       required
-                      placeholder="e.g. sarah@company.com"
-                      className="w-full px-4 py-3 rounded-xl bg-bg-main border border-white/10 text-text-primary text-sm placeholder-text-muted focus:outline-none focus:border-purple-primary/50 focus:ring-1 focus:ring-purple-primary/30 transition-colors"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-text-muted text-xs font-semibold uppercase tracking-wider mb-2">
+                  <label className="block text-xs font-mono text-[#94A3B8] mb-1.5 uppercase">
                     Subject
                   </label>
                   <input
                     type="text"
                     name="subject"
-                    value={form.subject}
+                    value={formData.subject}
                     onChange={handleChange}
-                    required
-                    placeholder="Job Opportunity / Design Project / Full Stack Role"
-                    className="w-full px-4 py-3 rounded-xl bg-bg-main border border-white/10 text-text-primary text-sm placeholder-text-muted focus:outline-none focus:border-purple-primary/50 focus:ring-1 focus:ring-purple-primary/30 transition-colors"
+                    placeholder="Full Stack Developer Opportunity / Project Inquiry"
+                    className="w-full px-3.5 py-2.5 rounded-lg bg-[#0B0F19] border border-[#1E293B] text-sm text-[#F8FAFC] placeholder-[#64748B] focus:outline-none focus:border-[#6366F1] transition-colors"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-text-muted text-xs font-semibold uppercase tracking-wider mb-2">
-                    Message
+                  <label className="block text-xs font-mono text-[#94A3B8] mb-1.5 uppercase">
+                    Message <span className="text-[#6366F1]">*</span>
                   </label>
                   <textarea
                     name="message"
-                    value={form.message}
+                    rows={4}
+                    value={formData.message}
                     onChange={handleChange}
+                    placeholder="Briefly describe the role, project, or topic you'd like to discuss..."
+                    className="w-full px-3.5 py-2.5 rounded-lg bg-[#0B0F19] border border-[#1E293B] text-sm text-[#F8FAFC] placeholder-[#64748B] focus:outline-none focus:border-[#6366F1] transition-colors resize-none"
                     required
-                    rows={5}
-                    placeholder="Describe the opportunity, role requirements, or idea you'd like to collaborate on..."
-                    className="w-full px-4 py-3 rounded-xl bg-bg-main border border-white/10 text-text-primary text-sm placeholder-text-muted focus:outline-none focus:border-purple-primary/50 focus:ring-1 focus:ring-purple-primary/30 transition-colors resize-none"
                   />
                 </div>
 
-                {/* Status Alert */}
-                {status === 'success' && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="flex items-center gap-2.5 px-4 py-3 rounded-xl bg-green-400/10 border border-green-400/25 text-green-400 text-sm"
-                  >
-                    <CheckCircle2 size={16} />
-                    <span>Inquiry ready! Opening your default email client to send directly to Ajay.</span>
-                  </motion.div>
+                {/* Validation and Success Notifications */}
+                {status === 'error' && (
+                  <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-xs flex items-center gap-2">
+                    <AlertCircle size={15} />
+                    <span>{errorMessage}</span>
+                  </div>
                 )}
 
-                <motion.button
+                {status === 'success' && (
+                  <div className="p-3 rounded-lg bg-green-500/10 border border-green-500/20 text-green-400 text-xs flex items-center gap-2">
+                    <CheckCircle2 size={15} />
+                    <span>Your message has been initiated in your default email client. Thank you for connecting!</span>
+                  </div>
+                )}
+
+                <button
                   type="submit"
                   disabled={status === 'sending'}
-                  whileHover={{
-                    scale: status !== 'sending' ? 1.02 : 1,
-                    boxShadow: status !== 'sending' ? '0 0 30px rgba(139,92,246,0.4)' : 'none'
-                  }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-purple-primary text-white font-semibold text-sm transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed hover:bg-purple-dark shadow-lg shadow-purple-primary/25"
+                  className="w-full py-3 rounded-lg bg-[#6366F1] hover:bg-[#4F46E5] text-white font-semibold text-xs tracking-wider uppercase transition-all duration-200 flex items-center justify-center gap-2 shadow-md shadow-[#6366F1]/20 disabled:opacity-50"
                 >
-                  {status === 'sending' ? (
-                    <>
-                      <motion.div
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-                        className="w-4 h-4 border-2 border-white/40 border-t-white rounded-full"
-                      />
-                      Preparing message...
-                    </>
-                  ) : (
-                    <>
-                      <Send size={15} />
-                      Send Message
-                    </>
-                  )}
-                </motion.button>
-
-                <p className="text-center text-text-muted text-xs pt-1">
-                  Or write directly to{' '}
-                  <a href="mailto:bajayy1812@gmail.com" className="text-purple-light hover:underline font-mono">
-                    bajayy1812@gmail.com
-                  </a>
-                </p>
+                  <Send size={14} />
+                  <span>{status === 'sending' ? 'Preparing Email...' : 'Send Message'}</span>
+                </button>
               </form>
             </motion.div>
           </div>

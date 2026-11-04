@@ -14,97 +14,95 @@ async function generateResume() {
   const helveticaBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
   const helveticaOblique = await pdfDoc.embedFont(StandardFonts.HelveticaOblique);
   
-  // Colors (Dark luxury palette translated for clean PDF print/digital)
-  const darkNavy = rgb(0.06, 0.08, 0.14); // #0F1424
-  const primaryPurple = rgb(0.48, 0.28, 0.88); // #7C4DFF / #8B5CF6
-  const charcoal = rgb(0.18, 0.22, 0.28);
-  const slate = rgb(0.38, 0.44, 0.52);
-  const lightGray = rgb(0.92, 0.94, 0.96);
-  const dividerColor = rgb(0.82, 0.85, 0.90);
+  // Colors (Modern Developer Indigo & Cyan Palette for Print/Digital)
+  const darkNavy = rgb(0.043, 0.059, 0.098); // #0B0F19
+  const primaryIndigo = rgb(0.388, 0.400, 0.945); // #6366F1
+  const secondaryCyan = rgb(0.133, 0.827, 0.933); // #22D3EE
+  const charcoal = rgb(0.15, 0.18, 0.24);
+  const slate = rgb(0.35, 0.40, 0.48);
+  const dividerColor = rgb(0.85, 0.88, 0.92);
   
   // Header top banner
   page.drawRectangle({
     x: 0,
-    y: height - 100,
+    y: height - 95,
     width: width,
-    height: 100,
+    height: 95,
     color: darkNavy,
   });
 
-  // Top accent line
+  // Top accent line (Indigo)
   page.drawRectangle({
     x: 0,
-    y: height - 5,
+    y: height - 4,
     width: width,
-    height: 5,
-    color: primaryPurple,
+    height: 4,
+    color: primaryIndigo,
   });
 
   // Header Text
   page.drawText('AJAY B', {
     x: 40,
-    y: height - 44,
+    y: height - 42,
     size: 24,
     font: helveticaBold,
     color: rgb(0.97, 0.98, 1.0),
   });
 
-  page.drawText('Aspiring UI/UX Designer  |  Full Stack Developer', {
+  page.drawText('Aspiring Full Stack Developer  |  MERN Stack Developer', {
     x: 40,
-    y: height - 64,
+    y: height - 62,
     size: 11,
     font: helveticaBold,
-    color: rgb(0.68, 0.78, 1.0), // Ice blue
+    color: secondaryCyan,
   });
 
   page.drawText('Coimbatore, India   *   bajayy1812@gmail.com   *   linkedin.com/in/ajay-b-0b0789328   *   github.com/bajayy1812-code', {
     x: 40,
-    y: height - 82,
+    y: height - 80,
     size: 8.5,
     font: helvetica,
-    color: rgb(0.85, 0.88, 0.94),
+    color: rgb(0.88, 0.90, 0.95),
   });
 
-  let curY = height - 120;
+  let curY = height - 116;
   const leftX = 40;
-  const contentWidth = width - 80;
 
   function drawSectionHeader(title) {
     page.drawText(title.toUpperCase(), {
       x: leftX,
       y: curY,
-      size: 10.5,
+      size: 10,
       font: helveticaBold,
-      color: primaryPurple,
+      color: primaryIndigo,
     });
     page.drawLine({
-      start: { x: leftX + helveticaBold.widthOfTextAtSize(title.toUpperCase(), 10.5) + 10, y: curY + 3 },
+      start: { x: leftX + helveticaBold.widthOfTextAtSize(title.toUpperCase(), 10) + 10, y: curY + 3 },
       end: { x: width - leftX, y: curY + 3 },
       thickness: 1,
       color: dividerColor,
     });
-    curY -= 16;
+    curY -= 15;
   }
 
   // --- SUMMARY ---
   drawSectionHeader('Professional Summary');
   const summaryText = 
-    "Aspiring UI/UX Designer and Full Stack Developer passionate about creating meaningful digital experiences and building modern web applications. Combines creative design thinking with robust technical development to transform complex ideas into intuitive, functional, and visually engaging products. Solid foundation in MERN stack architecture, modern frontend frameworks, and user-centered design.";
+    "Aspiring Full Stack Developer and MERN Stack Developer with hands-on experience designing and building scalable web applications. Proficient in React.js frontend development, Node.js and Express.js RESTful API architecture, MongoDB schema modeling, and secure authentication (JWT, bcrypt). Passionate about writing clean, maintainable code, test automation, and solving complex engineering challenges.";
   
-  // Wrap summary
-  page.drawText(summaryText.slice(0, 142), { x: leftX, y: curY, size: 8.5, font: helvetica, color: charcoal });
+  page.drawText(summaryText.slice(0, 140), { x: leftX, y: curY, size: 8.5, font: helvetica, color: charcoal });
   curY -= 12;
-  page.drawText(summaryText.slice(142, 280), { x: leftX, y: curY, size: 8.5, font: helvetica, color: charcoal });
+  page.drawText(summaryText.slice(140, 275), { x: leftX, y: curY, size: 8.5, font: helvetica, color: charcoal });
   curY -= 12;
-  page.drawText(summaryText.slice(280), { x: leftX, y: curY, size: 8.5, font: helvetica, color: charcoal });
-  curY -= 20;
+  page.drawText(summaryText.slice(275), { x: leftX, y: curY, size: 8.5, font: helvetica, color: charcoal });
+  curY -= 18;
 
   // --- EDUCATION ---
   drawSectionHeader('Education');
   page.drawText('Sri Shakthi Institute of Engineering and Technology', {
     x: leftX,
     y: curY,
-    size: 10,
+    size: 9.5,
     font: helveticaBold,
     color: darkNavy,
   });
@@ -129,7 +127,7 @@ async function generateResume() {
     y: curY,
     size: 9,
     font: helveticaBold,
-    color: primaryPurple,
+    color: primaryIndigo,
   });
   curY -= 12;
   page.drawText('Location: Coimbatore, Tamil Nadu, India', {
@@ -139,14 +137,14 @@ async function generateResume() {
     font: helveticaOblique,
     color: slate,
   });
-  curY -= 20;
+  curY -= 18;
 
   // --- EXPERIENCE ---
   drawSectionHeader('Internship Experience');
   page.drawText('MERN Stack Developer Intern', {
     x: leftX,
     y: curY,
-    size: 10,
+    size: 9.5,
     font: helveticaBold,
     color: darkNavy,
   });
@@ -164,7 +162,7 @@ async function generateResume() {
     y: curY,
     size: 9,
     font: helveticaBold,
-    color: primaryPurple,
+    color: primaryIndigo,
   });
   curY -= 14;
 
@@ -177,9 +175,9 @@ async function generateResume() {
   ];
 
   for (const bullet of internBullets) {
-    page.drawText('*', { x: leftX + 4, y: curY, size: 8, font: helveticaBold, color: primaryPurple });
+    page.drawText('*', { x: leftX + 4, y: curY, size: 8, font: helveticaBold, color: primaryIndigo });
     page.drawText(bullet, { x: leftX + 16, y: curY, size: 8.5, font: helvetica, color: charcoal });
-    curY -= 12.5;
+    curY -= 12;
   }
   curY -= 8;
 
@@ -205,13 +203,13 @@ async function generateResume() {
 
   const proj1Bullets = [
     'Built full-stack fitness management platform featuring role-based access control (Admin / Member) and protected routing.',
-    'Implemented member registration, recurring subscription tracking, and payment record auditing with secure REST APIs.',
+    'Implemented member registration, attendance logs, BMI calculation, and diet plan allocations with secure REST APIs.',
     'Engineered an interactive administrative dashboard equipped with real-time membership analytics and statistics.'
   ];
   for (const bullet of proj1Bullets) {
-    page.drawText('*', { x: leftX + 4, y: curY, size: 8, font: helveticaBold, color: primaryPurple });
+    page.drawText('*', { x: leftX + 4, y: curY, size: 8, font: helveticaBold, color: primaryIndigo });
     page.drawText(bullet, { x: leftX + 16, y: curY, size: 8.5, font: helvetica, color: charcoal });
-    curY -= 12;
+    curY -= 11.5;
   }
   curY -= 6;
 
@@ -238,30 +236,31 @@ async function generateResume() {
     'Created a responsive analytics overview providing visual spending summaries and category breakdowns.'
   ];
   for (const bullet of proj2Bullets) {
-    page.drawText('*', { x: leftX + 4, y: curY, size: 8, font: helveticaBold, color: primaryPurple });
+    page.drawText('*', { x: leftX + 4, y: curY, size: 8, font: helveticaBold, color: primaryIndigo });
     page.drawText(bullet, { x: leftX + 16, y: curY, size: 8.5, font: helvetica, color: charcoal });
-    curY -= 12;
+    curY -= 11.5;
   }
   curY -= 8;
 
   // --- TECHNICAL SKILLS ---
-  drawSectionHeader('Technical Skills & Design Competencies');
+  drawSectionHeader('Technical Skills & Competencies');
 
   const skillGroups = [
-    { label: 'Frontend Development:', list: 'React.js, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, Responsive Web Design' },
-    { label: 'Backend & APIs:', list: 'Node.js, Express.js, RESTful APIs, API Integration, Middleware Architecture' },
-    { label: 'Database & Security:', list: 'MongoDB, MongoDB Atlas, Mongoose ODM, JWT Authentication, RBAC, bcrypt Hashing' },
-    { label: 'Tools & Workflow:', list: 'Git, GitHub, VS Code, Browser DevTools, Debugging, Postman' },
-    { label: 'Design & UX (Learning):', list: 'UI Design, UX Fundamentals, Wireframing, Prototyping, Figma, Typography, Color Theory' }
+    { label: 'Frontend Development:', list: 'HTML, CSS, JavaScript, React.js, Tailwind CSS, Responsive Web Design' },
+    { label: 'Backend Development:', list: 'Node.js, Express.js, RESTful APIs, Middleware, JWT, bcrypt' },
+    { label: 'Databases:', list: 'MongoDB, MongoDB Atlas, Mongoose ODM, SQL' },
+    { label: 'Programming Languages:', list: 'JavaScript (ES6+), Python' },
+    { label: 'Testing & Automation:', list: 'Playwright (E2E Test Automation)' },
+    { label: 'Tools & Workflow:', list: 'Git, GitHub, VS Code, Postman, Browser DevTools' }
   ];
 
   for (const sg of skillGroups) {
     page.drawText(sg.label, { x: leftX, y: curY, size: 8.5, font: helveticaBold, color: darkNavy });
     const labelW = helveticaBold.widthOfTextAtSize(sg.label, 8.5);
     page.drawText(sg.list, { x: leftX + labelW + 6, y: curY, size: 8.5, font: helvetica, color: charcoal });
-    curY -= 13;
+    curY -= 12.5;
   }
-  curY -= 7;
+  curY -= 6;
 
   // --- CERTIFICATIONS & ACHIEVEMENTS ---
   drawSectionHeader('Certifications & Achievements');
@@ -304,4 +303,3 @@ async function generateResume() {
 }
 
 generateResume().catch(console.error);
-
