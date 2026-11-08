@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { Mail, Send, MapPin, Copy, Check, AlertCircle, CheckCircle2, MessageSquare, ArrowRight, ExternalLink } from 'lucide-react';
+import { MapPin, Copy, Check, AlertCircle, CheckCircle2, MessageSquare, ArrowRight } from 'lucide-react';
 
 const GithubIcon = ({ size = 18 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
@@ -24,12 +24,21 @@ export default function Contact() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-60px' });
 
+  // 1. Initial form state strictly empty without sample values
   const [formData, setFormData] = useState({
-    name: '',
+    fullName: '',
     email: '',
     subject: '',
     message: '',
     botField: '', // Hidden honeypot field
+  });
+
+  // 2. Field-specific validation errors
+  const [fieldErrors, setFieldErrors] = useState({
+    fullName: '',
+    email: '',
+    subject: '',
+    message: '',
   });
 
   const [status, setStatus] = useState('idle'); // 'idle' | 'sending' | 'success' | 'error'
@@ -43,17 +52,64 @@ export default function Contact() {
   };
 
   const handleChange = (e) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+
+    // Clear field-specific validation error on input
+    if (fieldErrors[name]) {
+      setFieldErrors((prev) => ({ ...prev, [name]: '' }));
+    }
+
     if (status === 'error') {
       setStatus('idle');
       setErrorMessage('');
     }
   };
 
+  const validateForm = () => {
+    const errors = {};
+    const trimmedName = formData.fullName.trim();
+    const trimmedEmail = formData.email.trim();
+    const trimmedSubject = formData.subject.trim();
+    const trimmedMessage = formData.message.trim();
+
+    if (!trimmedName) {
+      errors.fullName = 'Full Name is required.';
+    } else if (trimmedName.length > 100) {
+      errors.fullName = 'Name must be 100 characters or fewer.';
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!trimmedEmail) {
+      errors.email = 'Email address is required.';
+    } else if (!emailRegex.test(trimmedEmail)) {
+      errors.email = 'Please enter a valid email address.';
+    } else if (trimmedEmail.length > 120) {
+      errors.email = 'Email must be 120 characters or fewer.';
+    }
+
+    if (!trimmedSubject) {
+      errors.subject = 'Subject is required.';
+    } else if (trimmedSubject.length > 150) {
+      errors.subject = 'Subject must be 150 characters or fewer.';
+    }
+
+    if (!trimmedMessage) {
+      errors.message = 'Message cannot be empty.';
+    } else if (trimmedMessage.length < 10) {
+      errors.message = 'Message must be at least 10 characters long.';
+    } else if (trimmedMessage.length > 5000) {
+      errors.message = 'Message must be 5000 characters or fewer.';
+    }
+
+    setFieldErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
   const launchMailtoFallback = () => {
-    const mailSubject = encodeURIComponent(formData.subject || `Inquiry from ${formData.name || 'Visitor'}`);
+    const mailSubject = encodeURIComponent(formData.subject.trim() || `Inquiry from ${formData.fullName.trim() || 'Visitor'}`);
     const mailBody = encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+      `Name: ${formData.fullName.trim()}\nEmail: ${formData.email.trim()}\n\nMessage:\n${formData.message.trim()}`
     );
     window.location.href = `mailto:bajayy1812@gmail.com?subject=${mailSubject}&body=${mailBody}`;
   };
@@ -61,23 +117,13 @@ export default function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Client-side Validation
-    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
-      setStatus('error');
-      setErrorMessage('Please fill in all required fields (Name, Email, and Message).');
-      return;
-    }
+    // Prevent duplicate submission while already sending
+    if (status === 'sending') return;
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email.trim())) {
+    // Validate fields
+    if (!validateForm()) {
       setStatus('error');
-      setErrorMessage('Please enter a valid email address.');
-      return;
-    }
-
-    if (formData.message.trim().length < 10) {
-      setStatus('error');
-      setErrorMessage('Message must be at least 10 characters long.');
+      setErrorMessage('Please correct the highlighted fields before submitting.');
       return;
     }
 
@@ -90,24 +136,46 @@ export default function Contact() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          fullName: formData.fullName.trim(),
+          email: formData.email.trim(),
+          subject: formData.subject.trim(),
+          message: formData.message.trim(),
+          botField: formData.botField,
+        }),
       });
 
       const data = await response.json().catch(() => ({}));
 
       if (response.ok && data.success) {
         setStatus('success');
-        setFormData({ name: '', email: '', subject: '', message: '', botField: '' });
+        // Reset form after successful submission
+        setFormData({
+          fullName: '',
+          email: '',
+          subject: '',
+          message: '',
+          botField: '',
+        });
+        setFieldErrors({
+          fullName: '',
+          email: '',
+          subject: '',
+          message: '',
+        });
       } else {
         setStatus('error');
         setErrorMessage(
-          data.error || 'Unable to deliver message through the server. You can use the fallback mail client link below.'
+          data.error || "Unable to send your message right now. Please try again or contact me directly."
         );
+        if (data.validationErrors) {
+          setFieldErrors((prev) => ({ ...prev, ...data.validationErrors }));
+        }
       }
     } catch (err) {
       console.error('Contact Form Fetch Error:', err);
       setStatus('error');
-      setErrorMessage('Network connection error. You can directly send via your mail client below.');
+      setErrorMessage("Unable to send your message right now. Please try again or contact me directly.");
     }
   };
 
@@ -137,7 +205,7 @@ export default function Contact() {
           </motion.div>
 
           <div className="grid lg:grid-cols-12 gap-8 items-start">
-            {/* Left Contact Information & Profiles */}
+            {/* Left Column: Contact Information & Profiles */}
             <motion.div variants={fadeUp} className="lg:col-span-5 space-y-6">
               {/* Status / Availability Card */}
               <div className="burgundy-card p-6 space-y-4">
@@ -192,7 +260,7 @@ export default function Contact() {
                 </div>
               </div>
 
-              {/* Verified Profiles */}
+              {/* Verified Professional Profiles */}
               <div className="burgundy-card p-6">
                 <span className="text-xs font-mono uppercase text-[#8D7B80] font-bold block mb-3">
                   Professional Profiles
@@ -221,7 +289,7 @@ export default function Contact() {
               </div>
             </motion.div>
 
-            {/* Right: Actual Email Contact Form */}
+            {/* Right Column: Contact Form */}
             <motion.div variants={fadeUp} className="lg:col-span-7">
               <div className="burgundy-card p-6 sm:p-8">
                 <h3 className="text-lg font-bold text-[#FFF7F7] mb-2 flex items-center gap-2">
@@ -239,12 +307,12 @@ export default function Contact() {
                       <AlertCircle size={16} />
                       <span>{errorMessage}</span>
                     </div>
-                    <div className="pt-2 border-t border-[#49333D] flex items-center justify-between">
-                      <span className="text-[#B9A6AA]">Want to send immediately via your default mail client?</span>
+                    <div className="pt-2 border-t border-[#49333D] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                      <span className="text-[#B9A6AA]">Want to send immediately via your mail client?</span>
                       <button
                         type="button"
                         onClick={launchMailtoFallback}
-                        className="px-3 py-1 rounded bg-[#E87991] text-[#171114] font-bold text-xs hover:bg-[#D4637B] transition-colors"
+                        className="px-3 py-1 rounded bg-[#E87991] text-[#171114] font-bold text-xs hover:bg-[#D4637B] transition-colors self-start sm:self-auto cursor-pointer"
                       >
                         Launch Mail Client
                       </button>
@@ -257,16 +325,16 @@ export default function Contact() {
                   <div className="mb-6 p-4 rounded-lg bg-[#241820] border border-emerald-500/50 text-xs text-[#FFF7F7] space-y-1">
                     <div className="flex items-center gap-2 text-emerald-400 font-bold text-sm">
                       <CheckCircle2 size={16} />
-                      <span>Message successfully delivered!</span>
+                      <span>Your message has been sent successfully! I'll get back to you soon.</span>
                     </div>
                     <p className="text-[#B9A6AA]">
-                      Thank you for getting in touch. Your message has been sent to bajayy1812@gmail.com. I will review and reply within 24 hours.
+                      Thank you for getting in touch. Your message has been delivered to bajayy1812@gmail.com.
                     </p>
                   </div>
                 )}
 
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  {/* Hidden Honeypot Spam Protection */}
+                <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+                  {/* Honeypot Spam Protection (hidden from real users) */}
                   <input
                     type="text"
                     name="botField"
@@ -275,24 +343,33 @@ export default function Contact() {
                     style={{ display: 'none' }}
                     tabIndex={-1}
                     autoComplete="off"
+                    aria-hidden="true"
                   />
 
                   <div className="grid sm:grid-cols-2 gap-4">
+                    {/* Full Name */}
                     <div>
                       <label className="block text-xs font-mono uppercase tracking-wider text-[#FFF7F7] font-semibold mb-1.5">
                         Full Name *
                       </label>
                       <input
                         type="text"
-                        name="name"
-                        value={formData.name}
+                        name="fullName"
+                        value={formData.fullName}
                         onChange={handleChange}
-                        placeholder="e.g. Jane Doe"
-                        className="w-full px-3.5 py-2.5 rounded-lg bg-[#241820] border border-[#49333D] text-xs text-[#FFF7F7] placeholder-[#8D7B80] focus:outline-none focus:border-[#E87991] focus:bg-[#171114] transition-all"
+                        placeholder="Enter your full name"
+                        disabled={status === 'sending'}
+                        className={`w-full px-3.5 py-2.5 rounded-lg bg-[#241820] border text-xs text-[#FFF7F7] placeholder-[#8D7B80] focus:outline-none focus:bg-[#171114] transition-all disabled:opacity-60 ${
+                          fieldErrors.fullName ? 'border-[#E87991]' : 'border-[#49333D] focus:border-[#E87991]'
+                        }`}
                         required
                       />
+                      {fieldErrors.fullName && (
+                        <p className="text-[11px] text-[#E87991] mt-1 font-mono">{fieldErrors.fullName}</p>
+                      )}
                     </div>
 
+                    {/* Email Address */}
                     <div>
                       <label className="block text-xs font-mono uppercase tracking-wider text-[#FFF7F7] font-semibold mb-1.5">
                         Email Address *
@@ -302,27 +379,42 @@ export default function Contact() {
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        placeholder="e.g. jane@company.com"
-                        className="w-full px-3.5 py-2.5 rounded-lg bg-[#241820] border border-[#49333D] text-xs text-[#FFF7F7] placeholder-[#8D7B80] focus:outline-none focus:border-[#E87991] focus:bg-[#171114] transition-all"
+                        placeholder="Enter your email address"
+                        disabled={status === 'sending'}
+                        className={`w-full px-3.5 py-2.5 rounded-lg bg-[#241820] border text-xs text-[#FFF7F7] placeholder-[#8D7B80] focus:outline-none focus:bg-[#171114] transition-all disabled:opacity-60 ${
+                          fieldErrors.email ? 'border-[#E87991]' : 'border-[#49333D] focus:border-[#E87991]'
+                        }`}
                         required
                       />
+                      {fieldErrors.email && (
+                        <p className="text-[11px] text-[#E87991] mt-1 font-mono">{fieldErrors.email}</p>
+                      )}
                     </div>
                   </div>
 
+                  {/* Subject */}
                   <div>
                     <label className="block text-xs font-mono uppercase tracking-wider text-[#FFF7F7] font-semibold mb-1.5">
-                      Subject
+                      Subject *
                     </label>
                     <input
                       type="text"
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      placeholder="e.g. Full Stack Developer Opportunity"
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-[#241820] border border-[#49333D] text-xs text-[#FFF7F7] placeholder-[#8D7B80] focus:outline-none focus:border-[#E87991] focus:bg-[#171114] transition-all"
+                      placeholder="What would you like to discuss?"
+                      disabled={status === 'sending'}
+                      className={`w-full px-3.5 py-2.5 rounded-lg bg-[#241820] border text-xs text-[#FFF7F7] placeholder-[#8D7B80] focus:outline-none focus:bg-[#171114] transition-all disabled:opacity-60 ${
+                        fieldErrors.subject ? 'border-[#E87991]' : 'border-[#49333D] focus:border-[#E87991]'
+                      }`}
+                      required
                     />
+                    {fieldErrors.subject && (
+                      <p className="text-[11px] text-[#E87991] mt-1 font-mono">{fieldErrors.subject}</p>
+                    )}
                   </div>
 
+                  {/* Message */}
                   <div>
                     <label className="block text-xs font-mono uppercase tracking-wider text-[#FFF7F7] font-semibold mb-1.5">
                       Message *
@@ -332,21 +424,28 @@ export default function Contact() {
                       rows={5}
                       value={formData.message}
                       onChange={handleChange}
-                      placeholder="Tell me a little about your project, role scope, or opportunity..."
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-[#241820] border border-[#49333D] text-xs text-[#FFF7F7] placeholder-[#8D7B80] focus:outline-none focus:border-[#E87991] focus:bg-[#171114] transition-all resize-none"
+                      placeholder="Write your message here..."
+                      disabled={status === 'sending'}
+                      className={`w-full px-3.5 py-2.5 rounded-lg bg-[#241820] border text-xs text-[#FFF7F7] placeholder-[#8D7B80] focus:outline-none focus:bg-[#171114] transition-all resize-none disabled:opacity-60 ${
+                        fieldErrors.message ? 'border-[#E87991]' : 'border-[#49333D] focus:border-[#E87991]'
+                      }`}
                       required
                     />
+                    {fieldErrors.message && (
+                      <p className="text-[11px] text-[#E87991] mt-1 font-mono">{fieldErrors.message}</p>
+                    )}
                   </div>
 
+                  {/* Submit Button */}
                   <button
                     type="submit"
                     disabled={status === 'sending'}
-                    className="btn-primary w-full py-3 text-sm mt-2 font-bold cursor-pointer"
+                    className="btn-primary w-full py-3 text-sm mt-2 font-bold cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
                   >
                     {status === 'sending' ? (
                       <span className="flex items-center gap-2">
                         <span className="w-3.5 h-3.5 border-2 border-[#171114] border-t-transparent rounded-full animate-spin" />
-                        <span>Delivering Message...</span>
+                        <span>Sending Message...</span>
                       </span>
                     ) : (
                       <>
