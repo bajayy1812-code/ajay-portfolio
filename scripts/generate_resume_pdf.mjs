@@ -14,29 +14,30 @@ async function generateResume() {
   const helveticaBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
   const helveticaOblique = await pdfDoc.embedFont(StandardFonts.HelveticaOblique);
   
-  // Colors (Editorial Cream + Ink Black + Burnt Orange Palette)
-  const darkInk = rgb(0.067, 0.067, 0.067); // #111111
-  const burntOrange = rgb(0.851, 0.329, 0.118); // #D9541E
+  // Colors (Dark Burgundy & Rose Palette)
+  const darkBurgundy = rgb(0.090, 0.067, 0.078); // #171114
+  const roseAccent = rgb(0.910, 0.475, 0.569); // #E87991
+  const secondaryRose = rgb(0.839, 0.651, 0.627); // #D6A6A0
   const charcoal = rgb(0.18, 0.18, 0.18);
-  const slate = rgb(0.42, 0.40, 0.38); // #77736B
-  const dividerColor = rgb(0.85, 0.82, 0.76); // #D8D0C2
+  const slate = rgb(0.40, 0.40, 0.40);
+  const dividerColor = rgb(0.82, 0.78, 0.80);
   
-  // Header top banner (Ink Black with Burnt Orange Accent)
+  // Header top banner (Dark Burgundy)
   page.drawRectangle({
     x: 0,
     y: height - 95,
     width: width,
     height: 95,
-    color: darkInk,
+    color: darkBurgundy,
   });
 
-  // Top accent line (Burnt Orange)
+  // Top accent line (Rose)
   page.drawRectangle({
     x: 0,
     y: height - 4,
     width: width,
     height: 4,
-    color: burntOrange,
+    color: roseAccent,
   });
 
   // Header Text
@@ -45,15 +46,15 @@ async function generateResume() {
     y: height - 42,
     size: 24,
     font: helveticaBold,
-    color: rgb(0.98, 0.98, 0.98),
+    color: rgb(1.0, 0.97, 0.97),
   });
 
-  page.drawText('Aspiring Full Stack Developer  |  MERN Stack Developer', {
+  page.drawText('Full Stack Developer  |  MERN Stack Development', {
     x: 40,
     y: height - 62,
     size: 11,
     font: helveticaBold,
-    color: burntOrange,
+    color: roseAccent,
   });
 
   page.drawText('Coimbatore, India   *   bajayy1812@gmail.com   *   linkedin.com/in/ajay-b-0b0789328   *   github.com/bajayy1812-code', {
@@ -61,7 +62,7 @@ async function generateResume() {
     y: height - 80,
     size: 8.5,
     font: helvetica,
-    color: rgb(0.88, 0.88, 0.88),
+    color: rgb(0.88, 0.85, 0.86),
   });
 
   let curY = height - 116;
@@ -73,7 +74,7 @@ async function generateResume() {
       y: curY,
       size: 10,
       font: helveticaBold,
-      color: burntOrange,
+      color: roseAccent,
     });
     page.drawLine({
       start: { x: leftX + helveticaBold.widthOfTextAtSize(title.toUpperCase(), 10) + 10, y: curY + 3 },
@@ -87,7 +88,7 @@ async function generateResume() {
   // --- SUMMARY ---
   drawSectionHeader('Professional Summary');
   const summaryText = 
-    "Aspiring Full Stack Developer and MERN Stack Developer with hands-on experience designing and building scalable web applications. Proficient in React.js frontend development, Node.js and Express.js RESTful API architecture, MongoDB schema modeling, and secure authentication (JWT, bcrypt). Passionate about writing clean, maintainable code, test automation, and solving complex engineering challenges.";
+    "Full Stack Developer specializing in MERN stack development and modern web application engineering. Hands-on experience building responsive React interfaces, scalable Node.js and Express.js RESTful APIs, and modeled MongoDB databases with JWT authentication and role-based access control. Passionate about problem-solving, test automation, and writing clean, maintainable code.";
   
   page.drawText(summaryText.slice(0, 140), { x: leftX, y: curY, size: 8.5, font: helvetica, color: charcoal });
   curY -= 12;
@@ -103,10 +104,10 @@ async function generateResume() {
     y: curY,
     size: 9.5,
     font: helveticaBold,
-    color: darkInk,
+    color: darkBurgundy,
   });
-  page.drawText('2023 - 2027', {
-    x: width - leftX - 60,
+  page.drawText('2023 - 2027 (Expected)', {
+    x: width - leftX - 95,
     y: curY,
     size: 9,
     font: helveticaBold,
@@ -126,7 +127,7 @@ async function generateResume() {
     y: curY,
     size: 9,
     font: helveticaBold,
-    color: burntOrange,
+    color: roseAccent,
   });
   curY -= 12;
   page.drawText('Location: Coimbatore, Tamil Nadu, India', {
@@ -145,7 +146,7 @@ async function generateResume() {
     y: curY,
     size: 9.5,
     font: helveticaBold,
-    color: darkInk,
+    color: darkBurgundy,
   });
   page.drawText('2025', {
     x: width - leftX - 35,
@@ -161,20 +162,21 @@ async function generateResume() {
     y: curY,
     size: 9,
     font: helveticaBold,
-    color: burntOrange,
+    color: roseAccent,
   });
   curY -= 14;
 
   const internBullets = [
-    'Engineered full-stack MERN application architecture encompassing frontend state management and backend services.',
-    'Built responsive, reusable React.js interface components delivering seamless experiences across mobile and desktop devices.',
-    'Designed RESTful APIs using Node.js and Express.js with robust routing, error handling, and middleware integration.',
-    'Implemented secure authentication, CRUD operations, and schema modeling with MongoDB and Mongoose ODM.',
+    'Developed a full-stack MERN application with seamless client-server state synchronization.',
+    'Created modular, reusable React.js interface components following DRY principles.',
+    'Engineered responsive, accessible frontends tested across multiple screen resolutions.',
+    'Built RESTful API endpoints using Node.js and Express.js with custom error handlers.',
+    'Integrated MongoDB database layers using Mongoose ODM with strict schema definitions.',
     'Practiced continuous version control and collaborative workflows utilizing Git and GitHub.'
   ];
 
   for (const bullet of internBullets) {
-    page.drawText('*', { x: leftX + 4, y: curY, size: 8, font: helveticaBold, color: burntOrange });
+    page.drawText('*', { x: leftX + 4, y: curY, size: 8, font: helveticaBold, color: roseAccent });
     page.drawText(bullet, { x: leftX + 16, y: curY, size: 8.5, font: helvetica, color: charcoal });
     curY -= 12;
   }
@@ -184,12 +186,12 @@ async function generateResume() {
   drawSectionHeader('Featured Technical Projects');
   
   // Project 1
-  page.drawText('Iron Pulse - Gym Membership Management System', {
+  page.drawText('Gym Membership Management System (Iron Pulse)', {
     x: leftX,
     y: curY,
     size: 9.5,
     font: helveticaBold,
-    color: darkInk,
+    color: darkBurgundy,
   });
   page.drawText('React.js, Node.js, Express.js, MongoDB Atlas, JWT, bcrypt', {
     x: width - leftX - 250,
@@ -208,7 +210,7 @@ async function generateResume() {
   ];
 
   for (const bullet of ironPulseBullets) {
-    page.drawText('*', { x: leftX + 4, y: curY, size: 8, font: helveticaBold, color: burntOrange });
+    page.drawText('*', { x: leftX + 4, y: curY, size: 8, font: helveticaBold, color: roseAccent });
     page.drawText(bullet, { x: leftX + 16, y: curY, size: 8.5, font: helvetica, color: charcoal });
     curY -= 12;
   }
@@ -220,9 +222,9 @@ async function generateResume() {
     y: curY,
     size: 9.5,
     font: helveticaBold,
-    color: darkInk,
+    color: darkBurgundy,
   });
-  page.drawText('JavaScript (ES6+), Node.js, Express.js, MongoDB, RESTful APIs', {
+  page.drawText('JavaScript ES6+, Node.js, Express.js, MongoDB, RESTful APIs', {
     x: width - leftX - 265,
     y: curY,
     size: 8,
@@ -238,7 +240,7 @@ async function generateResume() {
   ];
 
   for (const bullet of expenseBullets) {
-    page.drawText('*', { x: leftX + 4, y: curY, size: 8, font: helveticaBold, color: burntOrange });
+    page.drawText('*', { x: leftX + 4, y: curY, size: 8, font: helveticaBold, color: roseAccent });
     page.drawText(bullet, { x: leftX + 16, y: curY, size: 8.5, font: helvetica, color: charcoal });
     curY -= 12;
   }
@@ -248,15 +250,15 @@ async function generateResume() {
   drawSectionHeader('Technical Skills');
   
   const skillLines = [
-    { label: 'Frontend Development:', text: 'React.js, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, Responsive Web Design' },
-    { label: 'Backend Development:', text: 'Node.js, Express.js, RESTful API Design, Middleware, JWT, bcrypt' },
-    { label: 'Database Systems:', text: 'MongoDB, MongoDB Atlas, Mongoose ODM, SQL (Relational Queries & Constraints)' },
-    { label: 'Programming & Testing:', text: 'JavaScript, Python, Playwright (Automated E2E Testing)' },
-    { label: 'Tools & Workflow:', text: 'Git, GitHub, VS Code, Postman, Linux Terminal' }
+    { label: 'Frontend Development:', text: 'React.js, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, Responsive Design' },
+    { label: 'Backend Development:', text: 'Node.js, Express.js, RESTful API Design, Middleware, CRUD Operations' },
+    { label: 'Database Systems:', text: 'MongoDB, MongoDB Atlas, Mongoose ODM, Data Modeling' },
+    { label: 'Security & Auth:', text: 'JWT Authentication, bcrypt Password Hashing, RBAC, Protected Routes' },
+    { label: 'Tools & Workflow:', text: 'Git, GitHub, Debugging, Data Structures & Algorithms, Clean Code' }
   ];
 
   for (const skill of skillLines) {
-    page.drawText(skill.label, { x: leftX, y: curY, size: 8.5, font: helveticaBold, color: darkInk });
+    page.drawText(skill.label, { x: leftX, y: curY, size: 8.5, font: helveticaBold, color: darkBurgundy });
     const labelW = helveticaBold.widthOfTextAtSize(skill.label, 8.5);
     page.drawText(skill.text, { x: leftX + labelW + 6, y: curY, size: 8.5, font: helvetica, color: charcoal });
     curY -= 13;
@@ -269,12 +271,12 @@ async function generateResume() {
   const achievements = [
     { name: 'JavaScript (Basic & Intermediate)', org: 'HackerRank Certified Competency' },
     { name: 'Introduction to MERN Stack', org: 'Simplilearn SkillUp Verified Course' },
-    { name: 'Data Structures & Algorithms', org: '100+ Problems Solved on HackerRank & Competitive Platforms' }
+    { name: 'Problem Solving Milestone', org: '100+ DSA Problems Solved on Competitive Platforms' }
   ];
 
   for (const ach of achievements) {
-    page.drawText('*', { x: leftX + 4, y: curY, size: 8, font: helveticaBold, color: burntOrange });
-    page.drawText(ach.name, { x: leftX + 16, y: curY, size: 8.5, font: helveticaBold, color: darkInk });
+    page.drawText('*', { x: leftX + 4, y: curY, size: 8, font: helveticaBold, color: roseAccent });
+    page.drawText(ach.name, { x: leftX + 16, y: curY, size: 8.5, font: helveticaBold, color: darkBurgundy });
     const nameW = helveticaBold.widthOfTextAtSize(ach.name, 8.5);
     page.drawText(`- ${ach.org}`, { x: leftX + 16 + nameW + 6, y: curY, size: 8.5, font: helvetica, color: slate });
     curY -= 13;

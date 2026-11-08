@@ -5,15 +5,16 @@
 @tailwind utilities;
 
 :root {
-  --color-cream: #F3EEE3;
-  --color-cream-secondary: #E9E2D5;
-  --color-cream-card: #FFFFFF;
-  --color-ink: #111111;
-  --color-orange: #D9541E;
-  --color-orange-hover: #C24513;
-  --color-orange-subtle: rgba(217, 84, 30, 0.08);
-  --color-muted: #77736B;
-  --color-border: #D8D0C2;
+  --color-main-bg: #171114;
+  --color-secondary-bg: #241820;
+  --color-card-bg: #302029;
+  --color-primary-accent: #E87991;
+  --color-secondary-accent: #D6A6A0;
+  --color-primary-text: #FFF7F7;
+  --color-secondary-text: #B9A6AA;
+  --color-border: #49333D;
+  --color-hover-bg: #422633;
+  --color-muted-bg: #281B22;
 }
 
 @layer base {
@@ -27,99 +28,98 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: var(--color-cream);
-    color: var(--color-ink);
+    background-color: #171114;
+    color: #FFF7F7;
   }
 
   body {
-    background-color: #F3EEE3;
-    color: #111111;
+    background-color: #171114;
+    color: #FFF7F7;
     font-family: 'Plus Jakarta Sans', Inter, system-ui, -apple-system, sans-serif;
     overflow-x: hidden;
   }
 
-  /* Editorial Typography Styles */
   h1, h2, h3, h4, h5, h6 {
-    color: #111111;
+    color: #FFF7F7;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 
   p {
-    color: #77736B;
+    color: #B9A6AA;
   }
 
-  /* Custom Clean Scrollbar */
+  /* Custom Burgundy & Rose Scrollbar */
   ::-webkit-scrollbar {
     width: 7px;
   }
 
   ::-webkit-scrollbar-track {
-    background: #F3EEE3;
+    background: #171114;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #D8D0C2;
+    background: #49333D;
     border-radius: 4px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #D9541E;
+    background: #E87991;
   }
 
   ::selection {
-    background: rgba(217, 84, 30, 0.2);
-    color: #111111;
+    background: rgba(232, 121, 145, 0.35);
+    color: #FFF7F7;
   }
 }
 
 @layer components {
-  /* Editorial Primary Button */
+  /* Dark Burgundy & Rose Primary Button */
   .btn-primary {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    background-color: #D9541E;
-    color: #FFFFFF;
-    font-weight: 600;
+    background-color: #E87991;
+    color: #171114;
+    font-weight: 700;
     font-size: 0.875rem;
     padding: 0.65rem 1.35rem;
     border-radius: 0.5rem;
     border: 1px solid transparent;
     transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 1px 3px rgba(217, 84, 30, 0.15);
+    box-shadow: 0 2px 10px rgba(232, 121, 145, 0.25);
   }
 
   .btn-primary:hover {
-    background-color: #C24513;
+    background-color: #D4637B;
     transform: translateY(-1px);
-    box-shadow: 0 4px 14px rgba(217, 84, 30, 0.3);
+    box-shadow: 0 4px 18px rgba(232, 121, 145, 0.38);
   }
 
   .btn-primary:active {
     transform: translateY(0);
   }
 
-  /* Editorial Secondary Button */
+  /* Dark Burgundy Secondary Button */
   .btn-secondary {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    background-color: transparent;
-    color: #111111;
+    background-color: #241820;
+    color: #FFF7F7;
     font-weight: 600;
     font-size: 0.875rem;
     padding: 0.65rem 1.35rem;
     border-radius: 0.5rem;
-    border: 1px solid #111111;
+    border: 1px solid #49333D;
     transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .btn-secondary:hover {
-    color: #D9541E;
-    border-color: #D9541E;
-    background-color: rgba(217, 84, 30, 0.04);
+    color: #E87991;
+    border-color: #E87991;
+    background-color: #422633;
     transform: translateY(-1px);
   }
 
@@ -127,26 +127,26 @@
     transform: translateY(0);
   }
 
-  /* Editorial Secondary Cream Card */
-  .editorial-card {
-    background-color: #FFFFFF;
-    border: 1px solid #D8D0C2;
+  /* Card Surfaces */
+  .burgundy-card {
+    background-color: #302029;
+    border: 1px solid #49333D;
     border-radius: 0.75rem;
-    box-shadow: 0 2px 10px rgba(17, 17, 17, 0.03);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .editorial-card-warm {
-    background-color: #E9E2D5;
-    border: 1px solid #D8D0C2;
+  .burgundy-card-secondary {
+    background-color: #241820;
+    border: 1px solid #49333D;
     border-radius: 0.75rem;
     transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .editorial-card-hover:hover {
+  .burgundy-card-hover:hover {
     transform: translateY(-2px);
-    border-color: #BDB3A3;
-    box-shadow: 0 8px 24px rgba(17, 17, 17, 0.06);
+    border-color: #E87991;
+    box-shadow: 0 8px 30px rgba(232, 121, 145, 0.15);
   }
 }
 

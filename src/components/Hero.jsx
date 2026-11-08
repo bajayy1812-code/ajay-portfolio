@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  ArrowDown, Download, FolderGit2, Mail, ExternalLink, Code2,
-  Database, Server, Terminal, Copy, Check, Sparkles, Send,
-  Cpu, Play, Layers, ArrowRight
+  Code2, Database, Server, Terminal, Copy, Check, Sparkles,
+  ArrowRight, Play, Layers, User
 } from 'lucide-react';
 
 const GithubIcon = ({ size = 18 }) => (
@@ -18,21 +17,26 @@ const LinkedinIcon = ({ size = 18 }) => (
   </svg>
 );
 
-const RESUME_PATH = '/resume/Ajay_B_Full_Stack_Developer_Resume_Final.pdf';
+const MailIcon = ({ size = 18 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect width="20" height="16" x="2" y="4" rx="2" />
+    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+  </svg>
+);
 
 const roles = [
   'Full Stack Developer',
-  'MERN Stack Specialist',
-  'Frontend Engineer',
-  'API & Database Architect',
+  'MERN Stack Development',
+  'Frontend Engineering',
+  'REST API & Database Systems',
 ];
 
 export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
   const [activeTab, setActiveTab] = useState('code'); // 'code' | 'terminal' | 'stats'
   const [terminalHistory, setTerminalHistory] = useState([
-    { cmd: 'ajay.currentFocus', output: '"Full Stack MERN Architecture & Performant Web Apps"' },
-    { cmd: 'ajay.status', output: '● "Ready for full-time engineering opportunities"' },
+    { cmd: 'ajay.currentFocus', output: '"Full Stack MERN Architecture & Practical Solutions"' },
+    { cmd: 'ajay.status', output: '● "Open to Full-Time Roles & Internships"' },
   ]);
   const [terminalInput, setTerminalInput] = useState('');
   const [copiedCode, setCopiedCode] = useState(false);
@@ -54,13 +58,13 @@ export default function Hero() {
     const cleanCmd = cmdStr.trim().toLowerCase();
     let res = '';
     if (cleanCmd.includes('skills')) {
-      res = '["React.js", "Node.js", "Express.js", "MongoDB", "JavaScript (ES6+)", "Tailwind CSS", "Playwright"]';
+      res = '["React.js", "Node.js", "Express.js", "MongoDB", "JavaScript ES6+", "Tailwind CSS", "REST APIs"]';
     } else if (cleanCmd.includes('projects')) {
-      res = '["01: Iron Pulse (Gym Management)", "02: Expense Tracker (MERN Ledger)"]';
+      res = '["01: Gym Membership Management System", "02: Expense Tracker"]';
     } else if (cleanCmd.includes('contact')) {
       res = 'Email: bajayy1812@gmail.com | LinkedIn: /in/ajay-b-0b0789328';
     } else if (cleanCmd.includes('hire') || cleanCmd.includes('status')) {
-      res = '● Open to Full-Time Software Engineering & Developer roles.';
+      res = '● Open to Full-Time Roles & Internships.';
     } else if (cleanCmd === 'clear') {
       setTerminalHistory([]);
       return;
@@ -73,12 +77,18 @@ export default function Hero() {
   };
 
   const handleCopySnippet = () => {
-    const codeSnippet = `const developer = {
+    const codeSnippet = `const ajay = {
   name: "Ajay B.",
-  title: "Full Stack Developer",
-  stack: ["React.js", "Node.js", "Express.js", "MongoDB"],
-  location: "Coimbatore, India",
-  available: true
+  role: "Full Stack Developer",
+  degree: "B.E. Electronics & Communication",
+  cgpa: 7.94,
+  coreStack: [
+    "React.js",
+    "Node.js",
+    "Express.js",
+    "MongoDB"
+  ],
+  dsaProblemsSolved: "100+"
 };`;
     navigator.clipboard.writeText(codeSnippet);
     setCopiedCode(true);
@@ -88,56 +98,56 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-[94vh] flex items-center justify-center bg-[#F3EEE3] text-[#111111] pt-28 pb-16 overflow-hidden"
+      className="relative min-h-[94vh] flex items-center justify-center bg-[#171114] text-[#FFF7F7] pt-28 pb-16 overflow-hidden"
     >
-      {/* Subtle Editorial Grid Lines */}
+      {/* Subtle Burgundy Architectural Mesh */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.35]"
+        className="absolute inset-0 pointer-events-none opacity-20"
         style={{
           backgroundImage: `
-            linear-gradient(to right, #D8D0C2 1px, transparent 1px),
-            linear-gradient(to bottom, #D8D0C2 1px, transparent 1px)
+            linear-gradient(to right, #49333D 1px, transparent 1px),
+            linear-gradient(to bottom, #49333D 1px, transparent 1px)
           `,
-          backgroundSize: '80px 80px',
+          backgroundSize: '70px 70px',
         }}
       />
 
+      {/* Gentle Radial Ambient Rose Glow */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-[#E87991]/5 rounded-full blur-[120px] pointer-events-none" />
+
       <div className="container-custom relative z-10 w-full py-8">
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-14 items-center">
-          {/* Left Editorial Narrative Column */}
+          {/* Left Narrative Column */}
           <motion.div
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
             className="lg:col-span-7 space-y-6"
           >
-            {/* Status Pill Badge */}
-            <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-[#E9E2D5] border border-[#D8D0C2]">
+            {/* Availability Badge */}
+            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#241820] border border-[#49333D] shadow-sm">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D9541E] opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#D9541E]" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E87991] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#E87991]" />
               </span>
-              <span className="text-xs font-semibold tracking-wider text-[#111111] uppercase font-mono">
-                Available for Full-time Roles & Internships
+              <span className="text-xs font-semibold tracking-wider text-[#FFF7F7] font-mono">
+                Open to Full-Time Roles & Internships
               </span>
             </div>
 
-            {/* Editorial Heading */}
+            {/* Greeting & Main Heading */}
             <div className="space-y-3">
-              <h2 className="text-base sm:text-lg font-mono text-[#77736B] tracking-wide">
-                Hi, I'm <span className="font-bold text-[#111111]">Ajay B.</span>
+              <h2 className="text-base sm:text-lg font-mono text-[#B9A6AA] tracking-wide">
+                Hi, I'm <span className="font-bold text-[#FFF7F7]">Ajay B.</span>
               </h2>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#111111] leading-[1.12]">
-                Designing <span className="editorial-serif font-medium text-[#D9541E]">meaningful</span> web architectures.{' '}
-                <span className="block mt-1">
-                  Engineering <span className="editorial-serif font-medium text-[#111111]">scalable</span> solutions.
-                </span>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-[#FFF7F7] leading-[1.14]">
+                Building <span className="editorial-serif font-medium text-[#E87991]">meaningful</span> web experiences.
               </h1>
 
-              {/* Dynamic Title Switcher */}
+              {/* Professional Designation */}
               <div className="h-8 flex items-center pt-1">
-                <span className="text-xs font-mono uppercase tracking-widest text-[#77736B] mr-2">
+                <span className="text-xs font-mono uppercase tracking-widest text-[#B9A6AA] mr-2">
                   Specialization:
                 </span>
                 <AnimatePresence mode="wait">
@@ -147,7 +157,7 @@ export default function Hero() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -8 }}
                     transition={{ duration: 0.25 }}
-                    className="text-sm sm:text-base font-bold font-mono text-[#D9541E] px-2 py-0.5 rounded bg-[#E9E2D5] border border-[#D8D0C2]"
+                    className="text-sm sm:text-base font-bold font-mono text-[#E87991] px-2.5 py-0.5 rounded bg-[#241820] border border-[#49333D]"
                   >
                     {roles[roleIndex]}
                   </motion.span>
@@ -155,24 +165,24 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* Professional Summary Description */}
-            <p className="text-base sm:text-lg text-[#77736B] leading-relaxed max-w-xl">
-              I build end-to-end web applications with a focus on clean frontend architecture, secure RESTful APIs, and reliable database systems. Passionate about solving real-world engineering challenges through performant code and intuitive user interfaces.
+            {/* Introduction */}
+            <p className="text-base sm:text-lg text-[#B9A6AA] leading-relaxed max-w-xl">
+              I build responsive web applications and practical backend solutions using modern JavaScript technologies. I enjoy solving problems, creating intuitive interfaces and writing clean, maintainable code.
             </p>
 
-            {/* Tech Highlights */}
-            <div className="flex flex-wrap items-center gap-2 pt-1 text-xs font-mono text-[#111111]">
-              <span className="px-3 py-1 rounded-md bg-[#FFFFFF] border border-[#D8D0C2] flex items-center gap-1.5 shadow-sm">
-                <Code2 size={13} className="text-[#D9541E]" />
+            {/* Technology Chips */}
+            <div className="flex flex-wrap items-center gap-2 pt-1 text-xs font-mono text-[#FFF7F7]">
+              <span className="px-3 py-1.5 rounded-md bg-[#241820] border border-[#49333D] flex items-center gap-1.5">
+                <Code2 size={13} className="text-[#E87991]" />
                 React.js & Node.js
               </span>
-              <span className="px-3 py-1 rounded-md bg-[#FFFFFF] border border-[#D8D0C2] flex items-center gap-1.5 shadow-sm">
-                <Database size={13} className="text-[#D9541E]" />
+              <span className="px-3 py-1.5 rounded-md bg-[#241820] border border-[#49333D] flex items-center gap-1.5">
+                <Database size={13} className="text-[#E87991]" />
                 MongoDB & Express.js
               </span>
-              <span className="px-3 py-1 rounded-md bg-[#FFFFFF] border border-[#D8D0C2] flex items-center gap-1.5 shadow-sm">
-                <Layers size={13} className="text-[#D9541E]" />
-                RESTful Architecture
+              <span className="px-3 py-1.5 rounded-md bg-[#241820] border border-[#49333D] flex items-center gap-1.5">
+                <Layers size={13} className="text-[#E87991]" />
+                RESTful APIs
               </span>
             </div>
 
@@ -187,20 +197,20 @@ export default function Hero() {
               </button>
 
               <button
-                onClick={() => handleScroll('#resume')}
+                onClick={() => handleScroll('#about')}
                 className="btn-secondary"
               >
-                <Download size={15} />
-                <span>View Resume</span>
+                <User size={15} />
+                <span>View Background</span>
               </button>
 
-              {/* Verified External Social Icons */}
-              <div className="flex items-center gap-2 pl-2 border-l border-[#D8D0C2]">
+              {/* Social Icons */}
+              <div className="flex items-center gap-2 pl-2 border-l border-[#49333D]">
                 <a
                   href="https://github.com/bajayy1812-code"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2.5 rounded-lg bg-[#E9E2D5] border border-[#D8D0C2] text-[#111111] hover:text-[#D9541E] hover:border-[#D9541E] transition-all"
+                  className="p-2.5 rounded-lg bg-[#241820] border border-[#49333D] text-[#FFF7F7] hover:text-[#E87991] hover:border-[#E87991] transition-all"
                   aria-label="GitHub Profile"
                   title="GitHub: /bajayy1812-code"
                 >
@@ -211,7 +221,7 @@ export default function Hero() {
                   href="https://www.linkedin.com/in/ajay-b-0b0789328/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2.5 rounded-lg bg-[#E9E2D5] border border-[#D8D0C2] text-[#111111] hover:text-[#D9541E] hover:border-[#D9541E] transition-all"
+                  className="p-2.5 rounded-lg bg-[#241820] border border-[#49333D] text-[#FFF7F7] hover:text-[#E87991] hover:border-[#E87991] transition-all"
                   aria-label="LinkedIn Profile"
                   title="LinkedIn: Ajay B"
                 >
@@ -220,43 +230,43 @@ export default function Hero() {
 
                 <a
                   href="mailto:bajayy1812@gmail.com"
-                  className="p-2.5 rounded-lg bg-[#E9E2D5] border border-[#D8D0C2] text-[#111111] hover:text-[#D9541E] hover:border-[#D9541E] transition-all"
+                  className="p-2.5 rounded-lg bg-[#241820] border border-[#49333D] text-[#FFF7F7] hover:text-[#E87991] hover:border-[#E87991] transition-all"
                   aria-label="Email Directly"
                   title="Email: bajayy1812@gmail.com"
                 >
-                  <Mail size={17} />
+                  <MailIcon size={17} />
                 </a>
               </div>
             </div>
           </motion.div>
 
-          {/* Right Interactive Developer Station */}
+          {/* Right Interactive Code-Editor Card */}
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.15, ease: 'easeOut' }}
             className="lg:col-span-5"
           >
-            <div className="rounded-xl bg-[#FFFFFF] border border-[#D8D0C2] shadow-md overflow-hidden">
-              {/* Terminal Title Bar */}
-              <div className="flex items-center justify-between px-4 py-3 bg-[#E9E2D5] border-b border-[#D8D0C2]">
+            <div className="rounded-xl bg-[#241820] border border-[#49333D] shadow-2xl overflow-hidden">
+              {/* Editor Header */}
+              <div className="flex items-center justify-between px-4 py-3 bg-[#171114] border-b border-[#49333D]">
                 <div className="flex items-center gap-2">
-                  <span className="w-3 h-3 rounded-full bg-[#D8D0C2] border border-[#BDB3A3]" />
-                  <span className="w-3 h-3 rounded-full bg-[#D8D0C2] border border-[#BDB3A3]" />
-                  <span className="w-3 h-3 rounded-full bg-[#D9541E]" />
-                  <span className="ml-2 font-mono text-xs text-[#77736B] font-semibold">
-                    ajay-station :: mern-stack
+                  <span className="w-3 h-3 rounded-full bg-[#49333D]" />
+                  <span className="w-3 h-3 rounded-full bg-[#49333D]" />
+                  <span className="w-3 h-3 rounded-full bg-[#E87991]" />
+                  <span className="ml-2 font-mono text-xs text-[#B9A6AA] font-semibold">
+                    ajay-developer :: workspace
                   </span>
                 </div>
 
-                {/* Tabs */}
+                {/* File Tabs */}
                 <div className="flex items-center gap-1">
                   <button
                     onClick={() => setActiveTab('code')}
                     className={`px-2.5 py-1 rounded text-[11px] font-mono transition-colors ${
                       activeTab === 'code'
-                        ? 'bg-[#FFFFFF] text-[#D9541E] font-bold shadow-sm border border-[#D8D0C2]'
-                        : 'text-[#77736B] hover:text-[#111111]'
+                        ? 'bg-[#302029] text-[#E87991] font-bold shadow-sm border border-[#49333D]'
+                        : 'text-[#B9A6AA] hover:text-[#FFF7F7]'
                     }`}
                   >
                     ajay.ts
@@ -265,8 +275,8 @@ export default function Hero() {
                     onClick={() => setActiveTab('terminal')}
                     className={`px-2.5 py-1 rounded text-[11px] font-mono transition-colors ${
                       activeTab === 'terminal'
-                        ? 'bg-[#FFFFFF] text-[#D9541E] font-bold shadow-sm border border-[#D8D0C2]'
-                        : 'text-[#77736B] hover:text-[#111111]'
+                        ? 'bg-[#302029] text-[#E87991] font-bold shadow-sm border border-[#49333D]'
+                        : 'text-[#B9A6AA] hover:text-[#FFF7F7]'
                     }`}
                   >
                     interactive.sh
@@ -275,8 +285,8 @@ export default function Hero() {
                     onClick={() => setActiveTab('stats')}
                     className={`px-2.5 py-1 rounded text-[11px] font-mono transition-colors ${
                       activeTab === 'stats'
-                        ? 'bg-[#FFFFFF] text-[#D9541E] font-bold shadow-sm border border-[#D8D0C2]'
-                        : 'text-[#77736B] hover:text-[#111111]'
+                        ? 'bg-[#302029] text-[#E87991] font-bold shadow-sm border border-[#49333D]'
+                        : 'text-[#B9A6AA] hover:text-[#FFF7F7]'
                     }`}
                   >
                     system.env
@@ -284,18 +294,18 @@ export default function Hero() {
                 </div>
               </div>
 
-              {/* Tab 1: TypeScript Profile Preview */}
+              {/* Tab 1: Code Display */}
               {activeTab === 'code' && (
-                <div className="p-5 font-mono text-xs leading-relaxed overflow-x-auto relative bg-[#FFFFFF] min-h-[310px] flex flex-col justify-between">
+                <div className="p-5 font-mono text-xs leading-relaxed overflow-x-auto relative bg-[#302029] min-h-[320px] flex flex-col justify-between">
                   <button
                     onClick={handleCopySnippet}
-                    className="absolute top-3 right-3 p-1.5 rounded-md bg-[#E9E2D5] border border-[#D8D0C2] text-[#77736B] hover:text-[#111111] hover:border-[#D9541E] transition-all flex items-center gap-1 text-[10px]"
+                    className="absolute top-3 right-3 p-1.5 rounded-md bg-[#241820] border border-[#49333D] text-[#B9A6AA] hover:text-[#FFF7F7] hover:border-[#E87991] transition-all flex items-center gap-1 text-[10px]"
                     title="Copy code snippet"
                   >
                     {copiedCode ? (
                       <>
-                        <Check size={12} className="text-[#D9541E]" />
-                        <span className="text-[#D9541E] font-bold">Copied</span>
+                        <Check size={12} className="text-[#E87991]" />
+                        <span className="text-[#E87991] font-bold">Copied</span>
                       </>
                     ) : (
                       <>
@@ -305,38 +315,36 @@ export default function Hero() {
                     )}
                   </button>
 
-                  <pre className="text-[#111111]">
+                  <pre className="text-[#FFF7F7]">
                     <code>
-                      <span className="text-[#77736B]">// Developer Profile & Verification</span>
+                      <span className="text-[#8D7B80]">// Developer Profile & Verification</span>
                       {'\n'}
-                      <span className="text-[#D9541E] font-semibold">export const</span>{' '}
-                      <span className="text-[#111111] font-bold">ajayDeveloper</span> = {'{'}
-                      {'\n'}  <span className="text-[#77736B]">name:</span>{' '}
-                      <span className="text-[#D9541E]">"Ajay B."</span>,
-                      {'\n'}  <span className="text-[#77736B]">role:</span>{' '}
-                      <span className="text-[#D9541E]">"Aspiring Full Stack Developer"</span>,
-                      {'\n'}  <span className="text-[#77736B]">degree:</span>{' '}
-                      <span className="text-[#D9541E]">"B.E. Electronics & Communication"</span>,
-                      {'\n'}  <span className="text-[#77736B]">institution:</span>{' '}
-                      <span className="text-[#111111]">"Sri Shakthi Inst of Eng & Tech"</span>,
-                      {'\n'}  <span className="text-[#77736B]">cgpa:</span>{' '}
-                      <span className="text-[#D9541E] font-bold">7.94</span>,
-                      {'\n'}  <span className="text-[#77736B]">coreStack:</span> [
-                      {'\n'}    <span className="text-[#D9541E]">"React.js"</span>,{' '}
-                      <span className="text-[#D9541E]">"Node.js"</span>,{' '}
-                      <span className="text-[#D9541E]">"Express.js"</span>,{' '}
-                      <span className="text-[#D9541E]">"MongoDB"</span>
+                      <span className="text-[#E87991] font-semibold">const</span>{' '}
+                      <span className="text-[#FFF7F7] font-bold">ajay</span> = {'{'}
+                      {'\n'}  <span className="text-[#B9A6AA]">name:</span>{' '}
+                      <span className="text-[#D6A6A0]">"Ajay B."</span>,
+                      {'\n'}  <span className="text-[#B9A6AA]">role:</span>{' '}
+                      <span className="text-[#D6A6A0]">"Full Stack Developer"</span>,
+                      {'\n'}  <span className="text-[#B9A6AA]">degree:</span>{' '}
+                      <span className="text-[#D6A6A0]">"B.E. Electronics & Communication"</span>,
+                      {'\n'}  <span className="text-[#B9A6AA]">cgpa:</span>{' '}
+                      <span className="text-[#E87991] font-bold">7.94</span>,
+                      {'\n'}  <span className="text-[#B9A6AA]">coreStack:</span> [
+                      {'\n'}    <span className="text-[#D6A6A0]">"React.js"</span>,
+                      {'\n'}    <span className="text-[#D6A6A0]">"Node.js"</span>,
+                      {'\n'}    <span className="text-[#D6A6A0]">"Express.js"</span>,
+                      {'\n'}    <span className="text-[#D6A6A0]">"MongoDB"</span>
                       {'\n'}  ],
-                      {'\n'}  <span className="text-[#77736B]">status:</span>{' '}
-                      <span className="text-[#D9541E] font-bold">"Ready to Deploy"</span>
+                      {'\n'}  <span className="text-[#B9A6AA]">dsaProblemsSolved:</span>{' '}
+                      <span className="text-[#E87991] font-bold">"100+"</span>
                       {'\n'}{'}'};
                     </code>
                   </pre>
 
-                  <div className="pt-3 border-t border-[#D8D0C2] flex items-center justify-between text-[11px] text-[#77736B]">
+                  <div className="pt-3 border-t border-[#49333D] flex items-center justify-between text-[11px] text-[#B9A6AA]">
                     <span>Language: TypeScript 5.4</span>
-                    <span className="flex items-center gap-1 text-[#D9541E] font-semibold">
-                      <Sparkles size={11} /> Ready for Production
+                    <span className="flex items-center gap-1 text-[#E87991] font-semibold">
+                      <Sparkles size={11} /> Ready to Deploy
                     </span>
                   </div>
                 </div>
@@ -344,25 +352,24 @@ export default function Hero() {
 
               {/* Tab 2: Interactive Terminal */}
               {activeTab === 'terminal' && (
-                <div className="p-4 font-mono text-xs bg-[#FFFFFF] min-h-[310px] flex flex-col justify-between">
+                <div className="p-4 font-mono text-xs bg-[#302029] min-h-[320px] flex flex-col justify-between">
                   <div>
-                    <div className="text-[11px] text-[#77736B] mb-2 pb-2 border-b border-[#D8D0C2]">
-                      Try commands: <span className="text-[#D9541E] font-bold">skills</span>,{' '}
-                      <span className="text-[#D9541E] font-bold">projects</span>,{' '}
-                      <span className="text-[#D9541E] font-bold">contact</span>,{' '}
-                      <span className="text-[#D9541E] font-bold">hire</span>,{' '}
-                      <span className="text-[#77736B]">clear</span>
+                    <div className="text-[11px] text-[#B9A6AA] mb-2 pb-2 border-b border-[#49333D]">
+                      Try commands: <span className="text-[#E87991] font-bold">skills</span>,{' '}
+                      <span className="text-[#E87991] font-bold">projects</span>,{' '}
+                      <span className="text-[#E87991] font-bold">contact</span>,{' '}
+                      <span className="text-[#E87991] font-bold">hire</span>,{' '}
+                      <span className="text-[#8D7B80]">clear</span>
                     </div>
 
-                    {/* Command History */}
-                    <div className="space-y-2 max-h-[170px] overflow-y-auto pr-1">
+                    <div className="space-y-2 max-h-[175px] overflow-y-auto pr-1">
                       {terminalHistory.map((item, idx) => (
                         <div key={idx} className="space-y-0.5">
-                          <div className="flex items-center gap-1.5 text-[#111111]">
-                            <span className="text-[#D9541E] font-bold">$</span>
-                            <span className="text-[#111111] font-semibold">{item.cmd}</span>
+                          <div className="flex items-center gap-1.5 text-[#FFF7F7]">
+                            <span className="text-[#E87991] font-bold">$</span>
+                            <span className="text-[#FFF7F7] font-semibold">{item.cmd}</span>
                           </div>
-                          <p className="text-[#77736B] text-[11px] pl-3.5 leading-relaxed font-mono">
+                          <p className="text-[#B9A6AA] text-[11px] pl-3.5 leading-relaxed font-mono">
                             {item.output}
                           </p>
                         </div>
@@ -370,14 +377,13 @@ export default function Hero() {
                     </div>
                   </div>
 
-                  {/* Runnable quick command pills */}
-                  <div className="pt-3 border-t border-[#D8D0C2]">
+                  <div className="pt-3 border-t border-[#49333D]">
                     <div className="flex flex-wrap gap-1 mb-2">
                       {['skills', 'projects', 'contact', 'hire'].map((cmd) => (
                         <button
                           key={cmd}
                           onClick={() => handleRunCommand(cmd)}
-                          className="px-2 py-0.5 rounded bg-[#E9E2D5] hover:bg-[#D9541E] hover:text-white text-[#111111] text-[10px] transition-colors border border-[#D8D0C2]"
+                          className="px-2 py-0.5 rounded bg-[#241820] hover:bg-[#E87991] hover:text-[#171114] text-[#B9A6AA] text-[10px] transition-colors border border-[#49333D]"
                         >
                           ${cmd}
                         </button>
@@ -391,17 +397,17 @@ export default function Hero() {
                       }}
                       className="flex items-center gap-2"
                     >
-                      <span className="text-[#D9541E] font-bold">$</span>
+                      <span className="text-[#E87991] font-bold">$</span>
                       <input
                         type="text"
                         value={terminalInput}
                         onChange={(e) => setTerminalInput(e.target.value)}
                         placeholder="Type command and press enter..."
-                        className="w-full bg-[#E9E2D5]/50 border border-[#D8D0C2] rounded px-2.5 py-1 text-xs text-[#111111] focus:outline-none focus:border-[#D9541E] placeholder-[#77736B]"
+                        className="w-full bg-[#241820] border border-[#49333D] rounded px-2.5 py-1 text-xs text-[#FFF7F7] focus:outline-none focus:border-[#E87991] placeholder-[#8D7B80]"
                       />
                       <button
                         type="submit"
-                        className="p-1 rounded bg-[#D9541E] text-white hover:bg-[#C24513] transition-colors"
+                        className="p-1.5 rounded bg-[#E87991] text-[#171114] hover:bg-[#D4637B] transition-colors"
                         title="Execute"
                       >
                         <Play size={11} />
@@ -413,42 +419,42 @@ export default function Hero() {
 
               {/* Tab 3: System Environment */}
               {activeTab === 'stats' && (
-                <div className="p-4 font-mono text-xs bg-[#FFFFFF] min-h-[310px] space-y-3">
-                  <div className="text-[11px] font-bold uppercase tracking-wider text-[#77736B] pb-1 border-b border-[#D8D0C2]">
+                <div className="p-4 font-mono text-xs bg-[#302029] min-h-[320px] space-y-3">
+                  <div className="text-[11px] font-bold uppercase tracking-wider text-[#B9A6AA] pb-1 border-b border-[#49333D]">
                     Telemetry & Engineering Environment
                   </div>
 
                   <div className="grid grid-cols-2 gap-2 text-xs">
-                    <div className="p-2.5 rounded bg-[#E9E2D5]/70 border border-[#D8D0C2]">
-                      <span className="text-[#77736B] text-[10px] block">RUNTIME</span>
-                      <span className="text-[#111111] font-bold">Node.js (LTS)</span>
+                    <div className="p-2.5 rounded bg-[#241820] border border-[#49333D]">
+                      <span className="text-[#8D7B80] text-[10px] block">RUNTIME</span>
+                      <span className="text-[#FFF7F7] font-bold">Node.js (LTS)</span>
                     </div>
-                    <div className="p-2.5 rounded bg-[#E9E2D5]/70 border border-[#D8D0C2]">
-                      <span className="text-[#77736B] text-[10px] block">DATABASE</span>
-                      <span className="text-[#111111] font-bold">MongoDB Atlas</span>
+                    <div className="p-2.5 rounded bg-[#241820] border border-[#49333D]">
+                      <span className="text-[#8D7B80] text-[10px] block">DATABASE</span>
+                      <span className="text-[#FFF7F7] font-bold">MongoDB Atlas</span>
                     </div>
-                    <div className="p-2.5 rounded bg-[#E9E2D5]/70 border border-[#D8D0C2]">
-                      <span className="text-[#77736B] text-[10px] block">SECURITY</span>
-                      <span className="text-[#111111] font-bold">JWT + bcrypt</span>
+                    <div className="p-2.5 rounded bg-[#241820] border border-[#49333D]">
+                      <span className="text-[#8D7B80] text-[10px] block">SECURITY</span>
+                      <span className="text-[#FFF7F7] font-bold">JWT + bcrypt</span>
                     </div>
-                    <div className="p-2.5 rounded bg-[#E9E2D5]/70 border border-[#D8D0C2]">
-                      <span className="text-[#77736B] text-[10px] block">TESTING</span>
-                      <span className="text-[#111111] font-bold">Playwright E2E</span>
+                    <div className="p-2.5 rounded bg-[#241820] border border-[#49333D]">
+                      <span className="text-[#8D7B80] text-[10px] block">TESTING</span>
+                      <span className="text-[#FFF7F7] font-bold">Playwright E2E</span>
                     </div>
                   </div>
 
-                  <div className="p-3 rounded bg-[#E9E2D5]/70 border border-[#D8D0C2] space-y-1">
+                  <div className="p-3 rounded bg-[#241820] border border-[#49333D] space-y-1">
                     <div className="flex items-center justify-between text-[11px]">
-                      <span className="text-[#77736B]">Location</span>
-                      <span className="text-[#111111] font-semibold">Coimbatore, Tamil Nadu, India</span>
+                      <span className="text-[#8D7B80]">Location</span>
+                      <span className="text-[#FFF7F7] font-semibold">Coimbatore, Tamil Nadu, India</span>
                     </div>
                     <div className="flex items-center justify-between text-[11px]">
-                      <span className="text-[#77736B]">Problem Solving</span>
-                      <span className="text-[#D9541E] font-bold">100+ DSA Solved</span>
+                      <span className="text-[#8D7B80]">Problem Solving</span>
+                      <span className="text-[#E87991] font-bold">100+ DSA Solved</span>
                     </div>
                     <div className="flex items-center justify-between text-[11px]">
-                      <span className="text-[#77736B]">Internship</span>
-                      <span className="text-[#111111] font-semibold">Frenzo Academy (2025)</span>
+                      <span className="text-[#8D7B80]">Internship</span>
+                      <span className="text-[#FFF7F7] font-semibold">Frenzo Academy (2025)</span>
                     </div>
                   </div>
                 </div>

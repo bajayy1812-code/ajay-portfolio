@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { Mail, Send, MapPin, Copy, Check, AlertCircle, CheckCircle2, MessageSquare, ArrowRight } from 'lucide-react';
+import { Mail, Send, MapPin, Copy, Check, AlertCircle, CheckCircle2, MessageSquare, ArrowRight, ExternalLink } from 'lucide-react';
 
 const GithubIcon = ({ size = 18 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
@@ -29,6 +29,7 @@ export default function Contact() {
     email: '',
     subject: '',
     message: '',
+    botField: '', // Hidden honeypot field
   });
 
   const [status, setStatus] = useState('idle'); // 'idle' | 'sending' | 'success' | 'error'
@@ -49,41 +50,69 @@ export default function Contact() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const launchMailtoFallback = () => {
+    const mailSubject = encodeURIComponent(formData.subject || `Inquiry from ${formData.name || 'Visitor'}`);
+    const mailBody = encodeURIComponent(
+      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+    );
+    window.location.href = `mailto:bajayy1812@gmail.com?subject=${mailSubject}&body=${mailBody}`;
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Client-side Validation
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
       setStatus('error');
-      setErrorMessage('Please fill in all required fields.');
+      setErrorMessage('Please fill in all required fields (Name, Email, and Message).');
       return;
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email.trim())) {
       setStatus('error');
-      setErrorMessage('Please provide a valid email address.');
+      setErrorMessage('Please enter a valid email address.');
+      return;
+    }
+
+    if (formData.message.trim().length < 10) {
+      setStatus('error');
+      setErrorMessage('Message must be at least 10 characters long.');
       return;
     }
 
     setStatus('sending');
+    setErrorMessage('');
 
-    const mailSubject = encodeURIComponent(formData.subject || `Inquiry from ${formData.name}`);
-    const mailBody = encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-    );
-    const mailtoLink = `mailto:bajayy1812@gmail.com?subject=${mailSubject}&body=${mailBody}`;
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-    setTimeout(() => {
-      window.location.href = mailtoLink;
-      setStatus('success');
-      setFormData({ name: '', email: '', subject: '', message: '' });
-      setTimeout(() => setStatus('idle'), 8000);
-    }, 600);
+      const data = await response.json().catch(() => ({}));
+
+      if (response.ok && data.success) {
+        setStatus('success');
+        setFormData({ name: '', email: '', subject: '', message: '', botField: '' });
+      } else {
+        setStatus('error');
+        setErrorMessage(
+          data.error || 'Unable to deliver message through the server. You can use the fallback mail client link below.'
+        );
+      }
+    } catch (err) {
+      console.error('Contact Form Fetch Error:', err);
+      setStatus('error');
+      setErrorMessage('Network connection error. You can directly send via your mail client below.');
+    }
   };
 
   return (
-    <section id="contact" className="section-padding bg-[#E9E2D5]/40 relative border-t border-[#D8D0C2]">
+    <section id="contact" className="section-padding bg-[#241820]/40 relative border-t border-[#49333D]">
       <div className="container-custom" ref={ref}>
         <motion.div
           initial="hidden"
@@ -96,61 +125,61 @@ export default function Contact() {
           {/* Section Header */}
           <motion.div variants={fadeUp} className="mb-12">
             <div className="flex items-center gap-2 mb-2">
-              <span className="w-6 h-px bg-[#D9541E]" />
-              <span className="text-xs font-mono uppercase tracking-widest text-[#D9541E] font-bold">Get In Touch</span>
+              <span className="w-6 h-px bg-[#E87991]" />
+              <span className="text-xs font-mono uppercase tracking-widest text-[#E87991] font-bold">Get In Touch</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#111111]">
-              Let's Discuss <span className="editorial-serif font-medium text-[#D9541E]">Opportunities.</span>
+            <h2 className="text-3xl sm:text-4xl font-bold text-[#FFF7F7]">
+              Let's build <span className="editorial-serif font-medium text-[#E87991]">something.</span>
             </h2>
-            <p className="mt-2 text-sm sm:text-base text-[#77736B] max-w-2xl">
-              Currently open to full-time engineering roles, MERN stack developer positions, and technical collaborations.
+            <p className="mt-2 text-sm sm:text-base text-[#B9A6AA] max-w-2xl">
+              Have an opportunity, project or just want to connect? Send me a message.
             </p>
           </motion.div>
 
           <div className="grid lg:grid-cols-12 gap-8 items-start">
-            {/* Left Contact Information & Editorial Metadata */}
+            {/* Left Contact Information & Profiles */}
             <motion.div variants={fadeUp} className="lg:col-span-5 space-y-6">
-              {/* Status / Availability Card (Inspired by Reference) */}
-              <div className="editorial-card p-6 space-y-4">
-                <div className="flex items-center justify-between pb-3 border-b border-[#D8D0C2]">
+              {/* Status / Availability Card */}
+              <div className="burgundy-card p-6 space-y-4">
+                <div className="flex items-center justify-between pb-3 border-b border-[#49333D]">
                   <div>
-                    <span className="text-[10px] font-mono uppercase text-[#77736B] block">Status</span>
-                    <span className="text-xs font-bold text-[#D9541E] flex items-center gap-1.5 mt-0.5">
-                      <span className="w-2 h-2 rounded-full bg-[#D9541E] animate-pulse" />
-                      AVAILABLE FOR SELECT ROLES
+                    <span className="text-[10px] font-mono uppercase text-[#8D7B80] block">Status</span>
+                    <span className="text-xs font-bold text-[#E87991] flex items-center gap-1.5 mt-0.5">
+                      <span className="w-2 h-2 rounded-full bg-[#E87991] animate-pulse" />
+                      AVAILABLE FOR SELECT OPPORTUNITIES
                     </span>
                   </div>
                   <div className="text-right">
-                    <span className="text-[10px] font-mono uppercase text-[#77736B] block">Response</span>
-                    <span className="text-xs font-semibold text-[#111111] font-mono">WITHIN 24 HOURS</span>
+                    <span className="text-[10px] font-mono uppercase text-[#8D7B80] block">Response Time</span>
+                    <span className="text-xs font-semibold text-[#FFF7F7] font-mono">WITHIN 24 HOURS</span>
                   </div>
                 </div>
 
                 <div>
-                  <span className="text-[10px] font-mono uppercase text-[#77736B] block">Location</span>
-                  <span className="text-sm font-semibold text-[#111111] flex items-center gap-1.5 mt-0.5">
-                    <MapPin size={14} className="text-[#D9541E]" /> Coimbatore, Tamil Nadu, India
+                  <span className="text-[10px] font-mono uppercase text-[#8D7B80] block">Location</span>
+                  <span className="text-sm font-semibold text-[#FFF7F7] flex items-center gap-1.5 mt-0.5">
+                    <MapPin size={14} className="text-[#E87991]" /> Coimbatore, Tamil Nadu, India
                   </span>
                 </div>
               </div>
 
               {/* Direct Email Card with One-Click Copy */}
-              <div className="editorial-card p-6">
-                <span className="text-xs font-mono uppercase text-[#77736B] font-bold block mb-2">
-                  Direct Email Address
+              <div className="burgundy-card p-6">
+                <span className="text-xs font-mono uppercase text-[#8D7B80] font-bold block mb-2">
+                  Direct Email
                 </span>
-                <div className="flex items-center justify-between p-3 rounded-lg bg-[#FAF7F0] border border-[#D8D0C2]">
-                  <span className="font-mono text-xs sm:text-sm font-semibold text-[#111111]">
+                <div className="flex items-center justify-between p-3 rounded-lg bg-[#241820] border border-[#49333D]">
+                  <span className="font-mono text-xs sm:text-sm font-semibold text-[#FFF7F7]">
                     bajayy1812@gmail.com
                   </span>
                   <button
                     onClick={handleCopyEmail}
-                    className="p-1.5 rounded-md bg-[#E9E2D5] hover:bg-[#D9541E] hover:text-white text-[#111111] transition-colors flex items-center gap-1 text-xs"
+                    className="p-1.5 rounded-md bg-[#302029] hover:bg-[#E87991] hover:text-[#171114] text-[#B9A6AA] transition-colors flex items-center gap-1 text-xs"
                     title="Copy Email"
                   >
                     {copied ? (
                       <>
-                        <Check size={13} className="text-[#D9541E]" />
+                        <Check size={13} className="text-[#E87991]" />
                         <span className="text-[11px] font-bold">Copied</span>
                       </>
                     ) : (
@@ -163,17 +192,17 @@ export default function Contact() {
                 </div>
               </div>
 
-              {/* Verified Professional Profiles */}
-              <div className="editorial-card p-6">
-                <span className="text-xs font-mono uppercase text-[#77736B] font-bold block mb-3">
-                  Verified Engineering Profiles
+              {/* Verified Profiles */}
+              <div className="burgundy-card p-6">
+                <span className="text-xs font-mono uppercase text-[#8D7B80] font-bold block mb-3">
+                  Professional Profiles
                 </span>
                 <div className="grid grid-cols-2 gap-3">
                   <a
                     href="https://github.com/bajayy1812-code"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 rounded-lg bg-[#FAF7F0] border border-[#D8D0C2] hover:border-[#D9541E] hover:bg-[#FFFFFF] transition-all flex items-center gap-2.5 text-xs font-semibold text-[#111111]"
+                    className="p-3 rounded-lg bg-[#241820] border border-[#49333D] hover:border-[#E87991] hover:text-[#E87991] transition-all flex items-center gap-2.5 text-xs font-semibold text-[#FFF7F7]"
                   >
                     <GithubIcon size={16} />
                     <span>GitHub</span>
@@ -183,7 +212,7 @@ export default function Contact() {
                     href="https://www.linkedin.com/in/ajay-b-0b0789328/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 rounded-lg bg-[#FAF7F0] border border-[#D8D0C2] hover:border-[#D9541E] hover:bg-[#FFFFFF] transition-all flex items-center gap-2.5 text-xs font-semibold text-[#111111]"
+                    className="p-3 rounded-lg bg-[#241820] border border-[#49333D] hover:border-[#E87991] hover:text-[#E87991] transition-all flex items-center gap-2.5 text-xs font-semibold text-[#FFF7F7]"
                   >
                     <LinkedinIcon size={16} />
                     <span>LinkedIn</span>
@@ -192,36 +221,66 @@ export default function Contact() {
               </div>
             </motion.div>
 
-            {/* Right: Functional Message Form */}
+            {/* Right: Actual Email Contact Form */}
             <motion.div variants={fadeUp} className="lg:col-span-7">
-              <div className="editorial-card p-6 sm:p-8">
-                <h3 className="text-lg font-bold text-[#111111] mb-2 flex items-center gap-2">
-                  <MessageSquare size={17} className="text-[#D9541E]" />
-                  Send an Inquiry
+              <div className="burgundy-card p-6 sm:p-8">
+                <h3 className="text-lg font-bold text-[#FFF7F7] mb-2 flex items-center gap-2">
+                  <MessageSquare size={17} className="text-[#E87991]" />
+                  Send a Direct Message
                 </h3>
-                <p className="text-xs text-[#77736B] mb-6">
-                  Fill in your details below and your preferred mail client will launch with a pre-formatted inquiry.
+                <p className="text-xs text-[#B9A6AA] mb-6">
+                  Fill in your details below. Your message will be delivered directly to <span className="text-[#FFF7F7] font-semibold">bajayy1812@gmail.com</span>.
                 </p>
 
+                {/* Error Banner with Instant Mailto Fallback */}
                 {status === 'error' && (
-                  <div className="mb-4 p-3 rounded-lg bg-[#D9541E]/10 border border-[#D9541E]/30 text-xs text-[#D9541E] flex items-center gap-2 font-medium">
-                    <AlertCircle size={15} />
-                    <span>{errorMessage}</span>
+                  <div className="mb-4 p-4 rounded-lg bg-[#241820] border border-[#E87991]/50 text-xs text-[#FFF7F7] space-y-2">
+                    <div className="flex items-center gap-2 text-[#E87991] font-semibold">
+                      <AlertCircle size={16} />
+                      <span>{errorMessage}</span>
+                    </div>
+                    <div className="pt-2 border-t border-[#49333D] flex items-center justify-between">
+                      <span className="text-[#B9A6AA]">Want to send immediately via your default mail client?</span>
+                      <button
+                        type="button"
+                        onClick={launchMailtoFallback}
+                        className="px-3 py-1 rounded bg-[#E87991] text-[#171114] font-bold text-xs hover:bg-[#D4637B] transition-colors"
+                      >
+                        Launch Mail Client
+                      </button>
+                    </div>
                   </div>
                 )}
 
+                {/* Success Banner */}
                 {status === 'success' && (
-                  <div className="mb-4 p-3 rounded-lg bg-[#E9E2D5] border border-[#D8D0C2] text-xs text-[#111111] flex items-center gap-2 font-medium">
-                    <CheckCircle2 size={15} className="text-[#D9541E]" />
-                    <span>Inquiry prepared! Launching your mail client...</span>
+                  <div className="mb-6 p-4 rounded-lg bg-[#241820] border border-emerald-500/50 text-xs text-[#FFF7F7] space-y-1">
+                    <div className="flex items-center gap-2 text-emerald-400 font-bold text-sm">
+                      <CheckCircle2 size={16} />
+                      <span>Message successfully delivered!</span>
+                    </div>
+                    <p className="text-[#B9A6AA]">
+                      Thank you for getting in touch. Your message has been sent to bajayy1812@gmail.com. I will review and reply within 24 hours.
+                    </p>
                   </div>
                 )}
 
                 <form onSubmit={handleSubmit} className="space-y-4">
+                  {/* Hidden Honeypot Spam Protection */}
+                  <input
+                    type="text"
+                    name="botField"
+                    value={formData.botField}
+                    onChange={handleChange}
+                    style={{ display: 'none' }}
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-mono uppercase tracking-wider text-[#111111] font-semibold mb-1.5">
-                        Your Name *
+                      <label className="block text-xs font-mono uppercase tracking-wider text-[#FFF7F7] font-semibold mb-1.5">
+                        Full Name *
                       </label>
                       <input
                         type="text"
@@ -229,14 +288,14 @@ export default function Contact() {
                         value={formData.name}
                         onChange={handleChange}
                         placeholder="e.g. Jane Doe"
-                        className="w-full px-3.5 py-2.5 rounded-lg bg-[#FAF7F0] border border-[#D8D0C2] text-xs text-[#111111] placeholder-[#77736B] focus:outline-none focus:border-[#D9541E] focus:bg-[#FFFFFF] transition-all"
+                        className="w-full px-3.5 py-2.5 rounded-lg bg-[#241820] border border-[#49333D] text-xs text-[#FFF7F7] placeholder-[#8D7B80] focus:outline-none focus:border-[#E87991] focus:bg-[#171114] transition-all"
                         required
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-mono uppercase tracking-wider text-[#111111] font-semibold mb-1.5">
-                        Your Email *
+                      <label className="block text-xs font-mono uppercase tracking-wider text-[#FFF7F7] font-semibold mb-1.5">
+                        Email Address *
                       </label>
                       <input
                         type="email"
@@ -244,14 +303,14 @@ export default function Contact() {
                         value={formData.email}
                         onChange={handleChange}
                         placeholder="e.g. jane@company.com"
-                        className="w-full px-3.5 py-2.5 rounded-lg bg-[#FAF7F0] border border-[#D8D0C2] text-xs text-[#111111] placeholder-[#77736B] focus:outline-none focus:border-[#D9541E] focus:bg-[#FFFFFF] transition-all"
+                        className="w-full px-3.5 py-2.5 rounded-lg bg-[#241820] border border-[#49333D] text-xs text-[#FFF7F7] placeholder-[#8D7B80] focus:outline-none focus:border-[#E87991] focus:bg-[#171114] transition-all"
                         required
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-mono uppercase tracking-wider text-[#111111] font-semibold mb-1.5">
+                    <label className="block text-xs font-mono uppercase tracking-wider text-[#FFF7F7] font-semibold mb-1.5">
                       Subject
                     </label>
                     <input
@@ -260,12 +319,12 @@ export default function Contact() {
                       value={formData.subject}
                       onChange={handleChange}
                       placeholder="e.g. Full Stack Developer Opportunity"
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-[#FAF7F0] border border-[#D8D0C2] text-xs text-[#111111] placeholder-[#77736B] focus:outline-none focus:border-[#D9541E] focus:bg-[#FFFFFF] transition-all"
+                      className="w-full px-3.5 py-2.5 rounded-lg bg-[#241820] border border-[#49333D] text-xs text-[#FFF7F7] placeholder-[#8D7B80] focus:outline-none focus:border-[#E87991] focus:bg-[#171114] transition-all"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-mono uppercase tracking-wider text-[#111111] font-semibold mb-1.5">
+                    <label className="block text-xs font-mono uppercase tracking-wider text-[#FFF7F7] font-semibold mb-1.5">
                       Message *
                     </label>
                     <textarea
@@ -273,8 +332,8 @@ export default function Contact() {
                       rows={5}
                       value={formData.message}
                       onChange={handleChange}
-                      placeholder="Tell me a little about your team, role scope, and timeline..."
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-[#FAF7F0] border border-[#D8D0C2] text-xs text-[#111111] placeholder-[#77736B] focus:outline-none focus:border-[#D9541E] focus:bg-[#FFFFFF] transition-all resize-none"
+                      placeholder="Tell me a little about your project, role scope, or opportunity..."
+                      className="w-full px-3.5 py-2.5 rounded-lg bg-[#241820] border border-[#49333D] text-xs text-[#FFF7F7] placeholder-[#8D7B80] focus:outline-none focus:border-[#E87991] focus:bg-[#171114] transition-all resize-none"
                       required
                     />
                   </div>
@@ -282,13 +341,16 @@ export default function Contact() {
                   <button
                     type="submit"
                     disabled={status === 'sending'}
-                    className="btn-primary w-full py-3 text-sm mt-2 font-semibold"
+                    className="btn-primary w-full py-3 text-sm mt-2 font-bold cursor-pointer"
                   >
                     {status === 'sending' ? (
-                      <span>Preparing Inquiry...</span>
+                      <span className="flex items-center gap-2">
+                        <span className="w-3.5 h-3.5 border-2 border-[#171114] border-t-transparent rounded-full animate-spin" />
+                        <span>Delivering Message...</span>
+                      </span>
                     ) : (
                       <>
-                        <span>Send Inquiry</span>
+                        <span>Send Message</span>
                         <ArrowRight size={16} />
                       </>
                     )}

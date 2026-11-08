@@ -4,7 +4,7 @@ import { useRef, useState, useEffect } from 'react';
 import {
   FolderGit2, ExternalLink, X, CheckCircle2, AlertCircle, Wrench,
   Layers, Lock, Database, UserCheck, ShieldCheck, Dumbbell, Wallet,
-  ChevronRight, ArrowUpRight, Calculator, PlusCircle, RefreshCw, BarChart2
+  ChevronRight, PlusCircle
 } from 'lucide-react';
 
 const GithubIcon = ({ size = 16 }) => (
@@ -21,13 +21,13 @@ const fadeUp = {
 const projectsData = [
   {
     id: 'iron-pulse',
-    name: 'IRON PULSE – Gym Management System',
-    shortTitle: 'Iron Pulse',
+    name: 'GYM MEMBERSHIP MANAGEMENT SYSTEM',
+    shortTitle: 'Gym Membership Management System',
     category: 'Full Stack MERN Application',
     tagline: 'End-to-end fitness center operations & membership management portal.',
-    accent: '#D9541E',
+    accent: '#E87991',
     overview:
-      'Iron Pulse is a full-stack gym management platform engineered to automate gym operations. It enables administrators to manage member accounts, track recurring memberships, monitor attendance, configure personalized diet plans, and calculate client BMIs while providing members with self-service dashboard visibility.',
+      'A production-grade full-stack gym management platform engineered to automate gym operations. It enables administrators to manage member accounts, track recurring memberships, monitor attendance, configure personalized diet plans, and calculate client BMIs while providing members with self-service dashboard visibility.',
     problemStatement:
       'Boutique gyms and fitness centers often rely on fragmented paper registers or disparate spreadsheets to track active subscriptions, member attendance, and renewals. This causes manual record reconciliation errors, untracked payment lapses, and difficulty providing personalized fitness guidance.',
     technologiesUsed: [
@@ -35,27 +35,26 @@ const projectsData = [
       'Node.js',
       'Express.js',
       'MongoDB Atlas',
+      'JWT Authentication',
+      'bcrypt Password Hashing',
       'Mongoose ODM',
-      'JSON Web Tokens (JWT)',
-      'bcrypt.js',
       'Tailwind CSS',
     ],
     keyFeatures: [
-      'Secure Authentication with encrypted passwords and stateless JWT session handling.',
-      'Role-Based Authorization (RBAC) separating administrative powers from member self-service views.',
-      'Centralized Admin Dashboard displaying live member tallies, plan distributions, and recent check-ins.',
-      'Membership Lifecycle Management tracking plan types, validity durations, and renewal dates.',
-      'Daily Attendance Tracking with status verification and timestamp records.',
-      'Diet Plan & Routine Management allowing custom nutritional allocations per member.',
-      'Integrated BMI Calculator to monitor physical progress trends over time.',
-      'Modular REST API Architecture with standardized HTTP status codes and centralized error handling.',
+      'Admin and User authentication with encrypted passwords and stateless JWT session handling.',
+      'Role-based authorization (RBAC) separating administrative powers from member self-service views.',
+      'Protected admin signup and secure credential generation.',
+      'RESTful API development with standardized status codes and centralized middleware error handling.',
+      'CRUD operations for members, subscription plans, and nutritional schedules.',
+      'Member management and live profile status verification.',
+      'Subscription management tracking plan types, validity durations, and renewal dates.',
+      'Payment tracking and attendance recording with timestamp logs.',
+      'Responsive React dashboard optimized across mobile, tablet, and desktop devices.',
     ],
     myContribution:
       'Engineered the end-to-end full stack architecture. Built the React single-page interface with protected routes; designed the Express REST API endpoints and validation middleware; modeled the Mongoose schemas for Users, Memberships, Attendance, and Nutrition; and implemented JWT/bcrypt security protocols.',
-    challengesFaced:
-      'Implementing strict role segregation between administrative and standard member views while preventing unauthorized parameter tampering across protected API routes.',
-    solutionsImplemented:
-      'Created custom Express authorization middleware that decodes JWT claims and verifies user role scopes before routing requests to controller actions, combined with React route guards on the client.',
+    technicalImplementation:
+      'Designed modular MVC backend architecture using Express routers, custom authentication middleware to decode JWT bearer tokens, atomic MongoDB transactions for subscription renewals, and reactive React state hooks for optimistic UI updates.',
     githubRepo: 'https://github.com/bajayy1812-code/ajay-portfolio',
     liveDemo: null,
     icon: Dumbbell,
@@ -63,17 +62,17 @@ const projectsData = [
   },
   {
     id: 'expense-tracker',
-    name: 'EXPENSE TRACKER – Personal Finance App',
+    name: 'EXPENSE TRACKER',
     shortTitle: 'Expense Tracker',
     category: 'Full Stack Web Application',
     tagline: 'Zero-friction income & expense logging with real-time financial metrics.',
-    accent: '#D9541E',
+    accent: '#E87991',
     overview:
-      'A full-stack personal finance tracking application designed to help individuals log transactions, categorize expenditures, review net cash flows, and maintain persistent historical financial records through a responsive dashboard.',
+      'A full-stack personal finance tracking application designed to help individuals log transactions, categorize expenditures, review net cash flows, and maintain persistent historical financial records through an intuitive dashboard.',
     problemStatement:
       'Users frequently encounter friction in tracking personal expenditures due to overly complex accounting software, resulting in lack of budget visibility and unmonitored overspending across daily categories.',
     technologiesUsed: [
-      'JavaScript (ES6+)',
+      'JavaScript ES6+',
       'Node.js',
       'Express.js',
       'MongoDB',
@@ -82,21 +81,19 @@ const projectsData = [
       'HTML5 / CSS3',
     ],
     keyFeatures: [
-      'Income & Expense Stream Recording with automatic balance recalculation.',
-      'Category Classification (Housing, Dining, Utilities, Entertainment, Cloud).',
-      'Full CRUD Operations enabling real-time editing and deletion with client confirmations.',
-      'Visual Spending Summaries providing percentage breakdowns of monthly outflow.',
-      'MongoDB Data Persistence ensuring reliable state preservation across sessions.',
-      'Strict Client & Server-side Form Validation checking positive currency inputs and date constraints.',
-      'Chronological Transaction History with date-range ledger filtering.',
-      'Clean, Responsive UI optimized for both desktop and mobile viewports.',
+      'Income and expense management with automatic balance recalculations.',
+      'Category-based tracking (Housing, Dining, Utilities, Entertainment, Cloud, Stipend).',
+      'Full CRUD operations enabling real-time adding, editing, and deletion with client confirmations.',
+      'MongoDB persistence ensuring reliable state preservation across sessions.',
+      'Spending dashboard providing percentage breakdowns of monthly cash outflow.',
+      'Strict client & server-side form validation verifying numeric values and date constraints.',
+      'Chronological transaction history with date-range ledger filtering.',
+      'Responsive interface ensuring smooth interaction on mobile and desktop screens.',
     ],
     myContribution:
       'Developed the complete application stack. Implemented the backend CRUD controller routines in Express, formulated transaction data schemas in Mongoose with balance aggregation logic, and built the responsive client interface with reactive DOM updates.',
-    challengesFaced:
-      'Maintaining precise calculation of net balances and category percentages during asynchronous transaction deletions and rapid state modifications.',
-    solutionsImplemented:
-      'Designed MongoDB aggregation pipelines coupled with defensive server-side validation to re-compute ledger aggregates atomically on every transaction lifecycle event.',
+    technicalImplementation:
+      'Crafted an event-driven architecture using Express REST endpoints, MongoDB aggregation pipelines to aggregate category totals atomically on transaction events, and responsive state synchronization on the client.',
     githubRepo: 'https://github.com/bajayy1812-code/ajay-portfolio',
     liveDemo: null,
     icon: Wallet,
@@ -104,7 +101,7 @@ const projectsData = [
   },
 ];
 
-// Interactive In-Card Simulation for Iron Pulse (Editorial Theme)
+// Interactive In-Card Simulation for Iron Pulse (Dark Burgundy & Rose)
 function IronPulseInteractive() {
   const [activeTab, setActiveTab] = useState('roster'); // 'roster' | 'bmi'
   const [checkInCount, setCheckInCount] = useState(42);
@@ -125,22 +122,22 @@ function IronPulseInteractive() {
   };
 
   return (
-    <div className="w-full rounded-xl bg-[#FAF7F0] border border-[#D8D0C2] p-3 text-xs font-mono shadow-sm select-none">
+    <div className="w-full rounded-xl bg-[#171114] border border-[#49333D] p-3 text-xs font-mono shadow-inner select-none">
       {/* Top Browser Bar */}
-      <div className="flex items-center justify-between pb-2 mb-2 border-b border-[#D8D0C2]">
+      <div className="flex items-center justify-between pb-2 mb-2 border-b border-[#49333D]">
         <div className="flex items-center gap-1.5">
-          <span className="w-2.5 h-2.5 rounded-full bg-[#D8D0C2] border border-[#BDB3A3]" />
-          <span className="w-2.5 h-2.5 rounded-full bg-[#D8D0C2] border border-[#BDB3A3]" />
-          <span className="w-2.5 h-2.5 rounded-full bg-[#D9541E]" />
-          <span className="text-[10px] text-[#77736B] ml-2">ironpulse.app/admin</span>
+          <span className="w-2.5 h-2.5 rounded-full bg-[#49333D]" />
+          <span className="w-2.5 h-2.5 rounded-full bg-[#49333D]" />
+          <span className="w-2.5 h-2.5 rounded-full bg-[#E87991]" />
+          <span className="text-[10px] text-[#B9A6AA] ml-2">ironpulse.app/admin</span>
         </div>
         <div className="flex items-center gap-1">
           <button
             onClick={() => setActiveTab('roster')}
             className={`px-2 py-0.5 rounded text-[10px] transition-colors ${
               activeTab === 'roster'
-                ? 'bg-[#D9541E] text-white font-semibold'
-                : 'text-[#77736B] hover:text-[#111111]'
+                ? 'bg-[#E87991] text-[#171114] font-bold'
+                : 'text-[#B9A6AA] hover:text-[#FFF7F7]'
             }`}
           >
             Live Roster
@@ -149,8 +146,8 @@ function IronPulseInteractive() {
             onClick={() => setActiveTab('bmi')}
             className={`px-2 py-0.5 rounded text-[10px] transition-colors ${
               activeTab === 'bmi'
-                ? 'bg-[#D9541E] text-white font-semibold'
-                : 'text-[#77736B] hover:text-[#111111]'
+                ? 'bg-[#E87991] text-[#171114] font-bold'
+                : 'text-[#B9A6AA] hover:text-[#FFF7F7]'
             }`}
           >
             BMI Tool
@@ -162,23 +159,23 @@ function IronPulseInteractive() {
         <div className="space-y-2">
           {/* Live KPI Header */}
           <div className="grid grid-cols-3 gap-1.5">
-            <div className="p-1.5 rounded bg-[#FFFFFF] border border-[#D8D0C2]">
-              <span className="text-[9px] text-[#77736B] block">Total Members</span>
-              <span className="text-xs font-bold text-[#111111]">184 Active</span>
+            <div className="p-1.5 rounded bg-[#241820] border border-[#49333D]">
+              <span className="text-[9px] text-[#8D7B80] block">Total Members</span>
+              <span className="text-xs font-bold text-[#FFF7F7]">184 Active</span>
             </div>
-            <div className="p-1.5 rounded bg-[#FFFFFF] border border-[#D8D0C2]">
-              <span className="text-[9px] text-[#77736B] block">Today's Check-ins</span>
-              <span className="text-xs font-bold text-[#D9541E]">{checkInCount} Logged</span>
+            <div className="p-1.5 rounded bg-[#241820] border border-[#49333D]">
+              <span className="text-[9px] text-[#8D7B80] block">Today Check-ins</span>
+              <span className="text-xs font-bold text-[#E87991]">{checkInCount} Logged</span>
             </div>
-            <div className="p-1.5 rounded bg-[#FFFFFF] border border-[#D8D0C2]">
-              <span className="text-[9px] text-[#77736B] block">Pending Renew</span>
-              <span className="text-xs font-bold text-[#77736B]">7 Due</span>
+            <div className="p-1.5 rounded bg-[#241820] border border-[#49333D]">
+              <span className="text-[9px] text-[#8D7B80] block">Pending Renew</span>
+              <span className="text-xs font-bold text-[#D6A6A0]">7 Due</span>
             </div>
           </div>
 
           {/* Clickable Member Check-in Rows */}
-          <div className="rounded bg-[#FFFFFF] border border-[#D8D0C2] p-2 space-y-1">
-            <div className="flex justify-between text-[9px] text-[#77736B] pb-1 border-b border-[#D8D0C2]">
+          <div className="rounded bg-[#241820] border border-[#49333D] p-2 space-y-1">
+            <div className="flex justify-between text-[9px] text-[#8D7B80] pb-1 border-b border-[#49333D]">
               <span>Member (Click to simulate check-in)</span>
               <span>Status</span>
             </div>
@@ -192,17 +189,17 @@ function IronPulseInteractive() {
                 <div
                   key={i}
                   onClick={() => handleQuickCheckIn(m.name)}
-                  className="flex justify-between items-center py-1 px-1.5 rounded hover:bg-[#E9E2D5] cursor-pointer transition-colors"
+                  className="flex justify-between items-center py-1 px-1.5 rounded hover:bg-[#302029] cursor-pointer transition-colors"
                 >
                   <div>
-                    <span className="text-[#111111] font-semibold text-[11px] block">{m.name}</span>
-                    <span className="text-[9px] text-[#77736B]">{m.plan}</span>
+                    <span className="text-[#FFF7F7] font-semibold text-[11px] block">{m.name}</span>
+                    <span className="text-[9px] text-[#B9A6AA]">{m.plan}</span>
                   </div>
                   <span
                     className={`text-[9px] px-1.5 py-0.5 rounded font-mono ${
                       isCheckedIn
-                        ? 'bg-[#D9541E]/10 text-[#D9541E] border border-[#D9541E]/30 font-bold'
-                        : 'bg-[#E9E2D5] text-[#77736B] border border-[#D8D0C2]'
+                        ? 'bg-[#E87991]/20 text-[#E87991] border border-[#E87991]/40 font-bold'
+                        : 'bg-[#171114] text-[#B9A6AA] border border-[#49333D]'
                     }`}
                   >
                     {isCheckedIn ? '✓ Logged' : '+ Check-in'}
@@ -211,46 +208,46 @@ function IronPulseInteractive() {
               );
             })}
           </div>
-          <span className="text-[9px] text-[#77736B] block text-center italic">
+          <span className="text-[9px] text-[#8D7B80] block text-center italic">
             Interactive simulation: Click member to record check-in
           </span>
         </div>
       ) : (
         /* BMI Calculator Tool */
-        <div className="p-2 rounded bg-[#FFFFFF] border border-[#D8D0C2] space-y-2">
-          <div className="flex items-center justify-between pb-1 border-b border-[#D8D0C2]">
-            <span className="text-[10px] text-[#111111] font-bold">Interactive Client BMI Assessment</span>
-            <span className="text-xs font-bold text-[#D9541E] font-mono">BMI: {calculateBMI()}</span>
+        <div className="p-2 rounded bg-[#241820] border border-[#49333D] space-y-2">
+          <div className="flex items-center justify-between pb-1 border-b border-[#49333D]">
+            <span className="text-[10px] text-[#FFF7F7] font-bold">Interactive Client BMI Assessment</span>
+            <span className="text-xs font-bold text-[#E87991] font-mono">BMI: {calculateBMI()}</span>
           </div>
 
           <div className="grid grid-cols-2 gap-2 text-[10px]">
             <div>
-              <label className="text-[#77736B] block mb-1">Weight: {weight} kg</label>
+              <label className="text-[#B9A6AA] block mb-1">Weight: {weight} kg</label>
               <input
                 type="range"
                 min="45"
                 max="120"
                 value={weight}
                 onChange={(e) => setWeight(Number(e.target.value))}
-                className="w-full accent-[#D9541E]"
+                className="w-full accent-[#E87991]"
               />
             </div>
             <div>
-              <label className="text-[#77736B] block mb-1">Height: {height} cm</label>
+              <label className="text-[#B9A6AA] block mb-1">Height: {height} cm</label>
               <input
                 type="range"
                 min="140"
                 max="210"
                 value={height}
                 onChange={(e) => setHeight(Number(e.target.value))}
-                className="w-full accent-[#111111]"
+                className="w-full accent-[#D6A6A0]"
               />
             </div>
           </div>
 
-          <div className="p-1.5 rounded bg-[#E9E2D5] text-[10px] text-[#111111] flex items-center justify-between font-mono">
-            <span className="text-[#77736B]">Automated Diet Allocation:</span>
-            <span className="font-bold text-[#D9541E]">
+          <div className="p-1.5 rounded bg-[#171114] text-[10px] text-[#FFF7F7] flex items-center justify-between font-mono border border-[#49333D]">
+            <span className="text-[#B9A6AA]">Automated Diet Allocation:</span>
+            <span className="font-bold text-[#E87991]">
               {calculateBMI() < 24.9 ? 'Maintenance & Lean Protein' : 'Caloric Deficit & Cardio'}
             </span>
           </div>
@@ -260,7 +257,7 @@ function IronPulseInteractive() {
   );
 }
 
-// Interactive In-Card Simulation for Expense Tracker (Editorial Theme)
+// Interactive In-Card Simulation for Expense Tracker (Dark Burgundy & Rose)
 function ExpenseTrackerInteractive() {
   const [balance, setBalance] = useState(38450);
   const [recentTransactions, setRecentTransactions] = useState([
@@ -275,36 +272,36 @@ function ExpenseTrackerInteractive() {
   };
 
   return (
-    <div className="w-full rounded-xl bg-[#FAF7F0] border border-[#D8D0C2] p-3 text-xs font-mono shadow-sm select-none">
+    <div className="w-full rounded-xl bg-[#171114] border border-[#49333D] p-3 text-xs font-mono shadow-inner select-none">
       {/* Top Browser Bar */}
-      <div className="flex items-center justify-between pb-2 mb-2 border-b border-[#D8D0C2]">
+      <div className="flex items-center justify-between pb-2 mb-2 border-b border-[#49333D]">
         <div className="flex items-center gap-1.5">
-          <span className="w-2.5 h-2.5 rounded-full bg-[#D8D0C2] border border-[#BDB3A3]" />
-          <span className="w-2.5 h-2.5 rounded-full bg-[#D8D0C2] border border-[#BDB3A3]" />
-          <span className="w-2.5 h-2.5 rounded-full bg-[#D9541E]" />
-          <span className="text-[10px] text-[#77736B] ml-2">expensetracker.local/ledger</span>
+          <span className="w-2.5 h-2.5 rounded-full bg-[#49333D]" />
+          <span className="w-2.5 h-2.5 rounded-full bg-[#49333D]" />
+          <span className="w-2.5 h-2.5 rounded-full bg-[#E87991]" />
+          <span className="text-[10px] text-[#B9A6AA] ml-2">expensetracker.local/ledger</span>
         </div>
-        <span className="text-[10px] text-[#D9541E] font-bold">MERN LEDGER</span>
+        <span className="text-[10px] text-[#E87991] font-bold">MERN LEDGER</span>
       </div>
 
       {/* Reactive Balance Banner */}
-      <div className="p-2.5 rounded bg-[#FFFFFF] border border-[#D8D0C2] mb-2 flex items-center justify-between">
+      <div className="p-2.5 rounded bg-[#241820] border border-[#49333D] mb-2 flex items-center justify-between">
         <div>
-          <span className="text-[9px] text-[#77736B] uppercase block">Calculated Net Balance</span>
-          <span className="text-sm font-bold text-[#111111]">
+          <span className="text-[9px] text-[#8D7B80] uppercase block">Calculated Net Balance</span>
+          <span className="text-sm font-bold text-[#FFF7F7]">
             ₹ {balance.toLocaleString('en-IN')}.00
           </span>
         </div>
         <div className="flex items-center gap-1">
           <button
             onClick={() => handleAddSampleExpense('Dev API Subscription', 850, 'Cloud')}
-            className="px-2 py-1 rounded bg-[#E9E2D5] hover:bg-[#D9541E] hover:text-white text-[#111111] border border-[#D8D0C2] text-[9px] font-semibold transition-colors flex items-center gap-1"
+            className="px-2 py-1 rounded bg-[#302029] hover:bg-[#E87991] hover:text-[#171114] text-[#E87991] border border-[#49333D] text-[9px] font-semibold transition-colors flex items-center gap-1"
           >
             <PlusCircle size={10} /> -₹850 API
           </button>
           <button
             onClick={() => handleAddSampleExpense('Coffee & Workspace', 250, 'Dining')}
-            className="px-2 py-1 rounded bg-[#E9E2D5] hover:bg-[#D9541E] hover:text-white text-[#111111] border border-[#D8D0C2] text-[9px] font-semibold transition-colors flex items-center gap-1"
+            className="px-2 py-1 rounded bg-[#302029] hover:bg-[#E87991] hover:text-[#171114] text-[#D6A6A0] border border-[#49333D] text-[9px] font-semibold transition-colors flex items-center gap-1"
           >
             <PlusCircle size={10} /> -₹250 Food
           </button>
@@ -312,19 +309,19 @@ function ExpenseTrackerInteractive() {
       </div>
 
       {/* Recent Ledger Entries */}
-      <div className="rounded bg-[#FFFFFF] border border-[#D8D0C2] p-2 space-y-1">
-        <div className="flex justify-between text-[9px] text-[#77736B] pb-1 border-b border-[#D8D0C2]">
+      <div className="rounded bg-[#241820] border border-[#49333D] p-2 space-y-1">
+        <div className="flex justify-between text-[9px] text-[#8D7B80] pb-1 border-b border-[#49333D]">
           <span>Transaction</span>
           <span>Category</span>
           <span>Amount</span>
         </div>
         {recentTransactions.map((tx, idx) => (
           <div key={idx} className="flex justify-between items-center text-[10px]">
-            <span className="text-[#111111] font-medium truncate max-w-[140px]">{tx.title}</span>
-            <span className="text-[9px] text-[#77736B] px-1 rounded bg-[#E9E2D5]">{tx.cat}</span>
+            <span className="text-[#FFF7F7] font-medium truncate max-w-[140px]">{tx.title}</span>
+            <span className="text-[9px] text-[#B9A6AA] px-1 rounded bg-[#171114]">{tx.cat}</span>
             <span
               className={`font-bold ${
-                tx.amount > 0 ? 'text-[#111111]' : 'text-[#D9541E]'
+                tx.amount > 0 ? 'text-emerald-400' : 'text-[#E87991]'
               }`}
             >
               {tx.amount > 0 ? `+₹${tx.amount}` : `-₹${Math.abs(tx.amount)}`}
@@ -333,14 +330,14 @@ function ExpenseTrackerInteractive() {
         ))}
       </div>
 
-      <span className="text-[9px] text-[#77736B] block text-center mt-2 italic">
+      <span className="text-[9px] text-[#8D7B80] block text-center mt-2 italic">
         Interactive sandbox: Click '+ Buttons' above to simulate atomic expense deduction
       </span>
     </div>
   );
 }
 
-// 10-Point Technical Recruiter Dossier Modal (Editorial Theme)
+// 10-Point Technical Recruiter Dossier Modal (Dark Burgundy & Rose)
 function ProjectDetailsModal({ project, onClose }) {
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -357,7 +354,7 @@ function ProjectDetailsModal({ project, onClose }) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-[#111111]/70 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-[#171114]/90 backdrop-blur-md"
       onClick={onClose}
     >
       <motion.div
@@ -366,12 +363,12 @@ function ProjectDetailsModal({ project, onClose }) {
         exit={{ scale: 0.95, opacity: 0, y: 15 }}
         transition={{ type: 'spring', damping: 25, stiffness: 300 }}
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-4xl max-h-[92vh] overflow-y-auto rounded-2xl bg-[#F3EEE3] border border-[#D8D0C2] shadow-2xl p-6 sm:p-8 text-[#77736B]"
+        className="relative w-full max-w-4xl max-h-[92vh] overflow-y-auto rounded-2xl bg-[#241820] border border-[#49333D] shadow-2xl p-6 sm:p-8 text-[#B9A6AA]"
       >
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-6 right-6 p-2 rounded-lg bg-[#E9E2D5] border border-[#D8D0C2] text-[#111111] hover:text-[#D9541E] hover:border-[#D9541E] transition-colors"
+          className="absolute top-6 right-6 p-2 rounded-lg bg-[#302029] border border-[#49333D] text-[#FFF7F7] hover:text-[#E87991] hover:border-[#E87991] transition-colors"
           aria-label="Close project modal"
         >
           <X size={18} />
@@ -379,47 +376,47 @@ function ProjectDetailsModal({ project, onClose }) {
 
         {/* Modal Header */}
         <div className="flex items-center gap-2 mb-2">
-          <span className="text-xs font-mono uppercase tracking-wider text-[#D9541E] font-bold">
+          <span className="text-xs font-mono uppercase tracking-wider text-[#E87991] font-bold">
             {project.category}
           </span>
-          <span className="text-xs text-[#77736B]">· Complete 10-Point Technical Case Study</span>
+          <span className="text-xs text-[#8D7B80]">· Complete Technical Dossier</span>
         </div>
 
-        <h3 className="text-2xl sm:text-3xl font-extrabold text-[#111111] mb-2">
+        <h3 className="text-2xl sm:text-3xl font-extrabold text-[#FFF7F7] mb-2">
           {project.name}
         </h3>
-        <p className="text-sm text-[#D9541E] font-medium mb-6">
+        <p className="text-sm text-[#D6A6A0] font-medium mb-6">
           {project.tagline}
         </p>
 
-        {/* 10-Point Technical Recruiter Dossier */}
+        {/* Technical Dossier Content */}
         <div className="space-y-5 text-xs sm:text-sm leading-relaxed">
           {/* 1. Project Overview */}
-          <div className="p-4 rounded-xl bg-[#FFFFFF] border border-[#D8D0C2]">
-            <h4 className="text-xs font-mono uppercase tracking-wider text-[#111111] font-bold mb-2 flex items-center gap-2">
-              <span className="text-[#D9541E]">01.</span> Project Overview
+          <div className="p-4 rounded-xl bg-[#302029] border border-[#49333D]">
+            <h4 className="text-xs font-mono uppercase tracking-wider text-[#FFF7F7] font-bold mb-2 flex items-center gap-2">
+              <span className="text-[#E87991]">01.</span> Project Overview
             </h4>
-            <p className="text-[#77736B]">{project.overview}</p>
+            <p className="text-[#B9A6AA]">{project.overview}</p>
           </div>
 
           {/* 2. Problem Statement */}
-          <div className="p-4 rounded-xl bg-[#FFFFFF] border border-[#D8D0C2]">
-            <h4 className="text-xs font-mono uppercase tracking-wider text-[#111111] font-bold mb-2 flex items-center gap-2">
-              <span className="text-[#D9541E]">02.</span> Problem Statement
+          <div className="p-4 rounded-xl bg-[#302029] border border-[#49333D]">
+            <h4 className="text-xs font-mono uppercase tracking-wider text-[#FFF7F7] font-bold mb-2 flex items-center gap-2">
+              <span className="text-[#E87991]">02.</span> Problem Statement
             </h4>
-            <p className="text-[#77736B]">{project.problemStatement}</p>
+            <p className="text-[#B9A6AA]">{project.problemStatement}</p>
           </div>
 
           {/* 3. Technologies Used */}
-          <div className="p-4 rounded-xl bg-[#FFFFFF] border border-[#D8D0C2]">
-            <h4 className="text-xs font-mono uppercase tracking-wider text-[#111111] font-bold mb-3 flex items-center gap-2">
-              <span className="text-[#D9541E]">03.</span> Technologies Used & Architecture
+          <div className="p-4 rounded-xl bg-[#302029] border border-[#49333D]">
+            <h4 className="text-xs font-mono uppercase tracking-wider text-[#FFF7F7] font-bold mb-3 flex items-center gap-2">
+              <span className="text-[#E87991]">03.</span> Technologies Used & Architecture
             </h4>
             <div className="flex flex-wrap gap-2">
               {project.technologiesUsed.map((tech) => (
                 <span
                   key={tech}
-                  className="px-2.5 py-1 rounded bg-[#E9E2D5] text-[#111111] font-mono text-xs border border-[#D8D0C2] font-medium"
+                  className="px-2.5 py-1 rounded bg-[#241820] text-[#FFF7F7] font-mono text-xs border border-[#49333D] font-medium"
                 >
                   {tech}
                 </span>
@@ -428,53 +425,44 @@ function ProjectDetailsModal({ project, onClose }) {
           </div>
 
           {/* 4. Key Features */}
-          <div className="p-4 rounded-xl bg-[#FFFFFF] border border-[#D8D0C2]">
-            <h4 className="text-xs font-mono uppercase tracking-wider text-[#111111] font-bold mb-3 flex items-center gap-2">
-              <span className="text-[#D9541E]">04.</span> Key Implemented Features
+          <div className="p-4 rounded-xl bg-[#302029] border border-[#49333D]">
+            <h4 className="text-xs font-mono uppercase tracking-wider text-[#FFF7F7] font-bold mb-3 flex items-center gap-2">
+              <span className="text-[#E87991]">04.</span> Key Implemented Features
             </h4>
             <ul className="grid sm:grid-cols-2 gap-2.5">
               {project.keyFeatures.map((feat, idx) => (
                 <li key={idx} className="flex items-start gap-2 text-xs">
-                  <CheckCircle2 size={14} className="text-[#D9541E] mt-0.5 flex-shrink-0" />
-                  <span className="text-[#111111]">{feat}</span>
+                  <CheckCircle2 size={14} className="text-[#E87991] mt-0.5 flex-shrink-0" />
+                  <span className="text-[#FFF7F7]">{feat}</span>
                 </li>
               ))}
             </ul>
           </div>
 
           {/* 5. My Contribution */}
-          <div className="p-4 rounded-xl bg-[#FFFFFF] border border-[#D8D0C2]">
-            <h4 className="text-xs font-mono uppercase tracking-wider text-[#111111] font-bold mb-2 flex items-center gap-2">
-              <span className="text-[#D9541E]">05.</span> My Engineering Contribution
+          <div className="p-4 rounded-xl bg-[#302029] border border-[#49333D]">
+            <h4 className="text-xs font-mono uppercase tracking-wider text-[#FFF7F7] font-bold mb-2 flex items-center gap-2">
+              <span className="text-[#E87991]">05.</span> Engineering Contribution
             </h4>
-            <p className="text-[#77736B]">{project.myContribution}</p>
+            <p className="text-[#B9A6AA]">{project.myContribution}</p>
           </div>
 
-          {/* 6. Challenges Faced & 7. Solutions Implemented */}
-          <div className="grid sm:grid-cols-2 gap-4">
-            <div className="p-4 rounded-xl bg-[#FFFFFF] border border-[#D8D0C2]">
-              <h4 className="text-xs font-mono uppercase tracking-wider text-[#D9541E] font-bold mb-2 flex items-center gap-1.5">
-                <AlertCircle size={14} /> 06. Challenges Faced
-              </h4>
-              <p className="text-xs leading-relaxed text-[#77736B]">{project.challengesFaced}</p>
-            </div>
-
-            <div className="p-4 rounded-xl bg-[#FFFFFF] border border-[#D8D0C2]">
-              <h4 className="text-xs font-mono uppercase tracking-wider text-[#111111] font-bold mb-2 flex items-center gap-1.5">
-                <Wrench size={14} className="text-[#D9541E]" /> 07. Solutions Implemented
-              </h4>
-              <p className="text-xs leading-relaxed text-[#77736B]">{project.solutionsImplemented}</p>
-            </div>
+          {/* 6. Technical Implementation */}
+          <div className="p-4 rounded-xl bg-[#302029] border border-[#49333D]">
+            <h4 className="text-xs font-mono uppercase tracking-wider text-[#FFF7F7] font-bold mb-2 flex items-center gap-2">
+              <span className="text-[#E87991]">06.</span> Technical Implementation
+            </h4>
+            <p className="text-[#B9A6AA]">{project.technicalImplementation}</p>
           </div>
 
-          {/* 8. Verification & Links (08 GitHub Repo & 09 Deployment Status) */}
-          <div className="p-4 rounded-xl bg-[#E9E2D5] border border-[#D8D0C2] flex flex-wrap items-center justify-between gap-4">
+          {/* Verification & Links */}
+          <div className="p-4 rounded-xl bg-[#171114] border border-[#49333D] flex flex-wrap items-center justify-between gap-4">
             <div>
-              <span className="text-[11px] font-mono text-[#77736B] uppercase block">
-                08 & 09. Deployment & Source Status
+              <span className="text-[11px] font-mono text-[#8D7B80] uppercase block">
+                Source Code & Repository
               </span>
-              <span className="text-xs text-[#111111] font-semibold">
-                Production Codebase hosted on GitHub · Local / Self-Hosted MERN Architecture
+              <span className="text-xs text-[#FFF7F7] font-semibold">
+                Production Codebase hosted on GitHub · Verified Full Stack Implementation
               </span>
             </div>
 
@@ -510,7 +498,7 @@ export default function Projects() {
 
   return (
     <>
-      <section id="projects" className="section-padding bg-[#E9E2D5]/40 relative border-t border-[#D8D0C2]">
+      <section id="projects" className="section-padding bg-[#241820]/40 relative border-t border-[#49333D]">
         <div className="container-custom" ref={ref}>
           <motion.div
             initial="hidden"
@@ -523,13 +511,13 @@ export default function Projects() {
             {/* Section Header */}
             <motion.div variants={fadeUp} className="mb-12">
               <div className="flex items-center gap-2 mb-2">
-                <span className="w-6 h-px bg-[#D9541E]" />
-                <span className="text-xs font-mono uppercase tracking-widest text-[#D9541E] font-bold">Featured Systems</span>
+                <span className="w-6 h-px bg-[#E87991]" />
+                <span className="text-xs font-mono uppercase tracking-widest text-[#E87991] font-bold">Featured Systems</span>
               </div>
-              <h2 className="text-3xl sm:text-4xl font-bold text-[#111111]">
-                Production <span className="editorial-serif font-medium text-[#D9541E]">Full Stack Projects.</span>
+              <h2 className="text-3xl sm:text-4xl font-bold text-[#FFF7F7]">
+                Projects I've <span className="editorial-serif font-medium text-[#E87991]">built.</span>
               </h2>
-              <p className="mt-2 text-sm sm:text-base text-[#77736B] max-w-2xl">
+              <p className="mt-2 text-sm sm:text-base text-[#B9A6AA] max-w-2xl">
                 Real-world full-stack applications with integrated sandboxes, authentication logic, database schema modeling, and complete source code.
               </p>
             </motion.div>
@@ -542,25 +530,25 @@ export default function Projects() {
                   <motion.div
                     key={project.id}
                     variants={fadeUp}
-                    className="editorial-card overflow-hidden editorial-card-hover"
+                    className="burgundy-card overflow-hidden burgundy-card-hover"
                   >
                     <div className="grid lg:grid-cols-12 gap-0">
                       
                       {/* Left: Interactive Live Simulation Sandbox */}
-                      <div className="lg:col-span-5 p-6 sm:p-8 bg-[#FAF7F0] border-b lg:border-b-0 lg:border-r border-[#D8D0C2] flex flex-col justify-between">
+                      <div className="lg:col-span-5 p-6 sm:p-8 bg-[#241820] border-b lg:border-b-0 lg:border-r border-[#49333D] flex flex-col justify-between">
                         <div>
                           <div className="flex items-center justify-between mb-4">
-                            <span className="text-xs font-mono px-2.5 py-1 rounded bg-[#E9E2D5] text-[#111111] border border-[#D8D0C2] font-semibold">
+                            <span className="text-xs font-mono px-2.5 py-1 rounded bg-[#302029] text-[#E87991] border border-[#49333D] font-semibold">
                               0{index + 1} // {project.category}
                             </span>
-                            <div className="p-2 rounded-lg bg-[#E9E2D5] text-[#D9541E] border border-[#D8D0C2]">
+                            <div className="p-2 rounded-lg bg-[#302029] text-[#E87991] border border-[#49333D]">
                               <Icon size={16} />
                             </div>
                           </div>
-                          <h3 className="text-xl font-bold text-[#111111] mb-1">
+                          <h3 className="text-xl font-bold text-[#FFF7F7] mb-1">
                             {project.shortTitle}
                           </h3>
-                          <p className="text-xs text-[#77736B] mb-5">
+                          <p className="text-xs text-[#B9A6AA] mb-5">
                             {project.tagline}
                           </p>
                         </div>
@@ -574,35 +562,35 @@ export default function Projects() {
                           )}
                         </div>
 
-                        <div className="pt-4 mt-4 border-t border-[#D8D0C2] flex items-center justify-between text-[11px] font-mono text-[#77736B]">
+                        <div className="pt-4 mt-4 border-t border-[#49333D] flex items-center justify-between text-[11px] font-mono text-[#8D7B80]">
                           <span>Interactive State Live</span>
-                          <span className="text-[#D9541E] font-semibold">Full Stack Verified</span>
+                          <span className="text-[#E87991] font-semibold">Full Stack Verified</span>
                         </div>
                       </div>
 
                       {/* Right: Technical Details & Case Study Access */}
-                      <div className="lg:col-span-7 p-6 sm:p-8 flex flex-col justify-between bg-[#FFFFFF]">
+                      <div className="lg:col-span-7 p-6 sm:p-8 flex flex-col justify-between bg-[#302029]">
                         <div>
                           {/* Overview snippet */}
                           <div className="mb-5">
-                            <h4 className="text-xs font-mono uppercase tracking-wider text-[#111111] font-bold mb-2">
+                            <h4 className="text-xs font-mono uppercase tracking-wider text-[#FFF7F7] font-bold mb-2">
                               System Overview & Architecture
                             </h4>
-                            <p className="text-xs sm:text-sm text-[#77736B] leading-relaxed">
+                            <p className="text-xs sm:text-sm text-[#B9A6AA] leading-relaxed">
                               {project.overview}
                             </p>
                           </div>
 
                           {/* Core Highlights */}
                           <div className="mb-5">
-                            <h4 className="text-xs font-mono uppercase tracking-wider text-[#111111] font-bold mb-2.5">
+                            <h4 className="text-xs font-mono uppercase tracking-wider text-[#FFF7F7] font-bold mb-2.5">
                               Key Implemented Capabilities
                             </h4>
-                            <div className="grid sm:grid-cols-2 gap-2 text-xs text-[#77736B]">
+                            <div className="grid sm:grid-cols-2 gap-2 text-xs text-[#B9A6AA]">
                               {project.keyFeatures.slice(0, 4).map((f, i) => (
                                 <div key={i} className="flex items-start gap-2">
-                                  <span className="w-1.5 h-1.5 rounded-full bg-[#D9541E] mt-1.5 flex-shrink-0" />
-                                  <span className="text-[#111111]">{f}</span>
+                                  <span className="w-1.5 h-1.5 rounded-full bg-[#E87991] mt-1.5 flex-shrink-0" />
+                                  <span className="text-[#FFF7F7]">{f}</span>
                                 </div>
                               ))}
                             </div>
@@ -610,14 +598,14 @@ export default function Projects() {
 
                           {/* Tech Stack Badges */}
                           <div className="mb-6">
-                            <h4 className="text-xs font-mono uppercase tracking-wider text-[#111111] font-bold mb-2">
+                            <h4 className="text-xs font-mono uppercase tracking-wider text-[#FFF7F7] font-bold mb-2">
                               Technologies & Libraries
                             </h4>
                             <div className="flex flex-wrap gap-1.5">
                               {project.technologiesUsed.map((tech) => (
                                 <span
                                   key={tech}
-                                  className="text-xs px-2.5 py-1 rounded bg-[#E9E2D5] text-[#111111] border border-[#D8D0C2] font-mono font-medium"
+                                  className="text-xs px-2.5 py-1 rounded bg-[#241820] text-[#FFF7F7] border border-[#49333D] font-mono font-medium"
                                 >
                                   {tech}
                                 </span>
@@ -627,12 +615,12 @@ export default function Projects() {
                         </div>
 
                         {/* Card Action Buttons */}
-                        <div className="pt-5 border-t border-[#D8D0C2] flex flex-wrap items-center gap-3">
+                        <div className="pt-5 border-t border-[#49333D] flex flex-wrap items-center gap-3">
                           <button
                             onClick={() => setSelectedProject(project)}
                             className="btn-primary text-xs"
                           >
-                            <span>10-Point Case Study & Specs</span>
+                            <span>View Details</span>
                             <ChevronRight size={14} />
                           </button>
 
@@ -643,8 +631,20 @@ export default function Projects() {
                             className="btn-secondary text-xs"
                           >
                             <GithubIcon size={14} />
-                            <span>GitHub Code</span>
+                            <span>GitHub</span>
                           </a>
+
+                          {project.liveDemo && (
+                            <a
+                              href={project.liveDemo}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="btn-secondary text-xs"
+                            >
+                              <ExternalLink size={14} />
+                              <span>Live Demo</span>
+                            </a>
+                          )}
                         </div>
                       </div>
 

@@ -26,37 +26,37 @@ function ResumeModal({ onClose }) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex flex-col bg-[#111111]/85 backdrop-blur-md"
+      className="fixed inset-0 z-50 flex flex-col bg-[#171114]/95 backdrop-blur-xl"
     >
       {/* Modal Top Control Bar */}
-      <div className="flex items-center justify-between px-4 sm:px-8 py-3.5 border-b border-[#D8D0C2] bg-[#F3EEE3] flex-shrink-0">
+      <div className="flex items-center justify-between px-4 sm:px-8 py-3.5 border-b border-[#49333D] bg-[#241820] flex-shrink-0">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-[#E9E2D5] border border-[#D8D0C2] flex items-center justify-center text-[#D9541E]">
+          <div className="w-8 h-8 rounded-lg bg-[#302029] border border-[#49333D] flex items-center justify-center text-[#E87991]">
             <FileText size={16} />
           </div>
           <div>
-            <p className="text-[#111111] font-bold text-sm tracking-wide">Ajay B — Resume</p>
-            <p className="text-[#77736B] text-[11px] font-mono">Ajay_B_Full_Stack_Developer_Resume_Final.pdf</p>
+            <p className="text-[#FFF7F7] font-bold text-sm tracking-wide">Ajay B — Resume</p>
+            <p className="text-[#B9A6AA] text-[11px] font-mono">Ajay_B_Full_Stack_Developer_Resume_Final.pdf</p>
           </div>
         </div>
 
         <div className="flex items-center gap-2 sm:gap-3">
           {/* Zoom controls */}
-          <div className="hidden sm:flex items-center gap-1 bg-[#E9E2D5] border border-[#D8D0C2] rounded-lg px-2 py-1">
+          <div className="hidden sm:flex items-center gap-1 bg-[#302029] border border-[#49333D] rounded-lg px-2 py-1">
             <button
               onClick={() => setScale((s) => Math.max(0.6, Number((s - 0.1).toFixed(1))))}
-              className="p-1 rounded hover:bg-[#FFFFFF] text-[#77736B] hover:text-[#111111] transition-colors"
+              className="p-1 rounded hover:bg-[#422633] text-[#B9A6AA] hover:text-[#FFF7F7] transition-colors"
               aria-label="Zoom out"
               title="Zoom out"
             >
               <ZoomOut size={14} />
             </button>
-            <span className="text-xs font-mono text-[#D9541E] px-2 min-w-[48px] text-center font-bold">
+            <span className="text-xs font-mono text-[#E87991] px-2 min-w-[48px] text-center font-bold">
               {Math.round(scale * 100)}%
             </span>
             <button
               onClick={() => setScale((s) => Math.min(2.0, Number((s + 0.1).toFixed(1))))}
-              className="p-1 rounded hover:bg-[#FFFFFF] text-[#77736B] hover:text-[#111111] transition-colors"
+              className="p-1 rounded hover:bg-[#422633] text-[#B9A6AA] hover:text-[#FFF7F7] transition-colors"
               aria-label="Zoom in"
               title="Zoom in"
             >
@@ -64,7 +64,7 @@ function ResumeModal({ onClose }) {
             </button>
             <button
               onClick={() => setScale(1)}
-              className="p-1 rounded hover:bg-[#FFFFFF] text-[#77736B] hover:text-[#111111] transition-colors"
+              className="p-1 rounded hover:bg-[#422633] text-[#B9A6AA] hover:text-[#FFF7F7] transition-colors"
               aria-label="Reset zoom"
               title="Reset zoom"
             >
@@ -96,7 +96,7 @@ function ResumeModal({ onClose }) {
           {/* Close/Back Button */}
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg bg-[#E9E2D5] border border-[#D8D0C2] text-[#77736B] hover:text-[#111111] transition-colors ml-1"
+            className="p-1.5 rounded-lg bg-[#302029] border border-[#49333D] text-[#B9A6AA] hover:text-[#FFF7F7] transition-colors ml-1"
             aria-label="Close viewer"
           >
             <X size={18} />
@@ -105,7 +105,7 @@ function ResumeModal({ onClose }) {
       </div>
 
       {/* PDF Viewport */}
-      <div className="flex-1 overflow-auto p-4 sm:p-8 flex items-center justify-center bg-[#111111]/40">
+      <div className="flex-1 overflow-auto p-4 sm:p-8 flex items-center justify-center bg-[#171114]">
         <div
           style={{
             transform: `scale(${scale})`,
@@ -135,7 +135,7 @@ export default function ResumeViewer() {
 
   return (
     <>
-      <section id="resume" className="section-padding bg-[#F3EEE3] relative border-t border-[#D8D0C2]">
+      <section id="resume" className="section-padding bg-[#171114] relative border-t border-[#49333D]">
         <div className="container-custom" ref={ref}>
           <motion.div
             initial="hidden"
@@ -149,13 +149,13 @@ export default function ResumeViewer() {
             <motion.div variants={fadeUp} className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
               <div>
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="w-6 h-px bg-[#D9541E]" />
-                  <span className="text-xs font-mono uppercase tracking-widest text-[#D9541E] font-bold">Curriculum Vitae</span>
+                  <span className="w-6 h-px bg-[#E87991]" />
+                  <span className="text-xs font-mono uppercase tracking-widest text-[#E87991] font-bold">Curriculum Vitae</span>
                 </div>
-                <h2 className="text-3xl sm:text-4xl font-bold text-[#111111]">
-                  Verified <span className="editorial-serif font-medium text-[#D9541E]">Developer Resume.</span>
+                <h2 className="text-3xl sm:text-4xl font-bold text-[#FFF7F7]">
+                  Verified <span className="editorial-serif font-medium text-[#E87991]">Developer Resume.</span>
                 </h2>
-                <p className="mt-2 text-sm sm:text-base text-[#77736B] max-w-xl">
+                <p className="mt-2 text-sm sm:text-base text-[#B9A6AA] max-w-xl">
                   Accurate, recruiter-verified documentation of technical qualifications, project architecture, and engineering background.
                 </p>
               </div>
@@ -184,29 +184,29 @@ export default function ResumeViewer() {
             {/* Embedded Resume Preview Container */}
             <motion.div
               variants={fadeUp}
-              className="editorial-card overflow-hidden shadow-md"
+              className="burgundy-card overflow-hidden shadow-2xl"
             >
               {/* Document Header Bar */}
-              <div className="flex items-center justify-between px-6 py-3.5 bg-[#FAF7F0] border-b border-[#D8D0C2]">
+              <div className="flex items-center justify-between px-6 py-3.5 bg-[#241820] border-b border-[#49333D]">
                 <div className="flex items-center gap-2.5">
-                  <FileText size={16} className="text-[#D9541E]" />
-                  <span className="text-xs font-mono text-[#111111] font-semibold">
+                  <FileText size={16} className="text-[#E87991]" />
+                  <span className="text-xs font-mono text-[#FFF7F7] font-semibold">
                     Ajay_B_Full_Stack_Developer_Resume_Final.pdf
                   </span>
-                  <span className="hidden sm:inline-block text-[10px] font-mono px-2 py-0.5 rounded bg-[#E9E2D5] text-[#77736B] border border-[#D8D0C2]">
+                  <span className="hidden sm:inline-block text-[10px] font-mono px-2 py-0.5 rounded bg-[#302029] text-[#B9A6AA] border border-[#49333D]">
                     Single Page Verified
                   </span>
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <span className="text-xs font-mono text-[#111111] hidden sm:flex items-center gap-1.5 font-medium">
-                    <CheckCircle2 size={13} className="text-[#D9541E]" /> ATS Optimized
+                  <span className="text-xs font-mono text-[#E87991] hidden sm:flex items-center gap-1.5 font-medium">
+                    <CheckCircle2 size={13} /> ATS Optimized
                   </span>
                   <a
                     href={RESUME_PATH}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs font-mono text-[#D9541E] hover:underline flex items-center gap-1 font-semibold"
+                    className="text-xs font-mono text-[#D6A6A0] hover:text-[#E87991] hover:underline flex items-center gap-1 font-semibold"
                   >
                     <span>Open in new tab</span>
                     <ExternalLink size={12} />
@@ -215,8 +215,8 @@ export default function ResumeViewer() {
               </div>
 
               {/* In-page Embedded Document Frame */}
-              <div className="w-full bg-[#E9E2D5]/40 p-3 sm:p-6 flex justify-center">
-                <div className="w-full max-w-4xl bg-white rounded-lg shadow-sm border border-[#D8D0C2] overflow-hidden">
+              <div className="w-full bg-[#171114] p-3 sm:p-6 flex justify-center">
+                <div className="w-full max-w-4xl bg-white rounded-lg shadow-md border border-[#49333D] overflow-hidden">
                   <iframe
                     src={`${RESUME_PATH}#toolbar=0&navpanes=0&scrollbar=1&view=FitH`}
                     title="Ajay B Full Stack Developer Resume"
@@ -226,9 +226,9 @@ export default function ResumeViewer() {
               </div>
 
               {/* Bottom Footer Information */}
-              <div className="px-6 py-3 bg-[#FAF7F0] border-t border-[#D8D0C2] flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-[#77736B]">
+              <div className="px-6 py-3 bg-[#241820] border-t border-[#49333D] flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-[#B9A6AA]">
                 <span>Contact directly for custom portfolio inquiries or technical evaluations.</span>
-                <span className="font-mono text-[#111111] font-semibold">Email: bajayy1812@gmail.com</span>
+                <span className="font-mono text-[#FFF7F7] font-semibold">Email: bajayy1812@gmail.com</span>
               </div>
             </motion.div>
           </motion.div>

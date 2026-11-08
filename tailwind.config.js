@@ -7,33 +7,30 @@ export default {
   theme: {
     extend: {
       colors: {
-        cream: {
-          DEFAULT: '#F3EEE3',
-          secondary: '#E9E2D5',
-          card: '#FFFFFF',
-          subtle: '#FAF7F0',
+        burgundy: {
+          main: '#171114',
+          secondary: '#241820',
+          card: '#302029',
+          border: '#49333D',
+          hover: '#422633',
+          muted: '#281B22',
         },
-        ink: {
-          DEFAULT: '#111111',
-          light: '#242424',
-          subtle: '#3A3A3A',
+        rose: {
+          DEFAULT: '#E87991',
+          hover: '#D4637B',
+          secondary: '#D6A6A0',
+          subtle: 'rgba(232, 121, 145, 0.12)',
+          glow: 'rgba(232, 121, 145, 0.25)',
         },
-        orange: {
-          DEFAULT: '#D9541E',
-          hover: '#C24513',
-          light: '#F4733E',
-          subtle: 'rgba(217, 84, 30, 0.08)',
-          glow: 'rgba(217, 84, 30, 0.25)',
-        },
-        muted: {
-          DEFAULT: '#77736B',
-          light: '#918D85',
-          dark: '#59564F',
+        text: {
+          primary: '#FFF7F7',
+          secondary: '#B9A6AA',
+          muted: '#8D7B80',
         },
         border: {
-          DEFAULT: '#D8D0C2',
-          subtle: '#E2DBD0',
-          strong: '#BDB3A3',
+          DEFAULT: '#49333D',
+          subtle: '#38252E',
+          strong: '#5E424F',
         },
       },
       fontFamily: {
@@ -42,12 +39,12 @@ export default {
         mono: ['"JetBrains Mono"', 'Fira Code', 'monospace'],
       },
       boxShadow: {
-        'card': '0 2px 12px rgba(17, 17, 17, 0.04)',
-        'card-hover': '0 8px 24px rgba(17, 17, 17, 0.08)',
-        'orange-glow': '0 4px 20px rgba(217, 84, 30, 0.25)',
+        'card': '0 4px 20px rgba(0, 0, 0, 0.35)',
+        'card-hover': '0 8px 30px rgba(0, 0, 0, 0.5)',
+        'rose-glow': '0 4px 20px rgba(232, 121, 145, 0.25)',
       },
       borderColor: {
-        DEFAULT: '#D8D0C2',
+        DEFAULT: '#49333D',
       },
     },
   },

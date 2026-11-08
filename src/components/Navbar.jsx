@@ -49,7 +49,7 @@ export default function Navbar() {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-[#F3EEE3]/90 backdrop-blur-md border-b border-[#D8D0C2] py-3.5 shadow-sm'
+          ? 'bg-[#171114]/90 backdrop-blur-md border-b border-[#49333D] py-3.5 shadow-lg'
           : 'bg-transparent py-5'
       }`}
     >
@@ -59,16 +59,16 @@ export default function Navbar() {
           onClick={() => handleNavClick('#home')}
           className="text-left group flex items-center gap-2 focus:outline-none"
         >
-          <span className="font-mono text-xl font-bold tracking-tight text-[#111111] group-hover:text-[#D9541E] transition-colors">
-            AJAY<span className="text-[#D9541E]">.</span>
+          <span className="font-mono text-xl font-bold tracking-tight text-[#FFF7F7] group-hover:text-[#E87991] transition-colors">
+            AJAY<span className="text-[#E87991]">.</span>
           </span>
-          <span className="hidden sm:inline-block text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-[#E9E2D5] text-[#77736B] border border-[#D8D0C2]">
+          <span className="hidden sm:inline-block text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-[#241820] text-[#B9A6AA] border border-[#49333D]">
             Full Stack
           </span>
         </button>
 
         {/* Desktop Nav Items */}
-        <ul className="hidden md:flex items-center gap-1 bg-[#E9E2D5]/80 backdrop-blur-sm px-2.5 py-1.5 rounded-full border border-[#D8D0C2]">
+        <ul className="hidden md:flex items-center gap-1 bg-[#241820]/80 backdrop-blur-sm px-2.5 py-1.5 rounded-full border border-[#49333D]">
           {navItems.map((item) => {
             const isActive = activeSection === item.href.slice(1);
             return (
@@ -77,20 +77,20 @@ export default function Navbar() {
                   onClick={() => handleNavClick(item.href)}
                   className={`relative px-3.5 py-1.5 text-xs font-semibold rounded-full transition-colors duration-200 ${
                     isActive
-                      ? 'text-[#111111]'
-                      : 'text-[#77736B] hover:text-[#D9541E]'
+                      ? 'text-[#FFF7F7]'
+                      : 'text-[#B9A6AA] hover:text-[#E87991]'
                   }`}
                 >
                   {isActive && (
                     <motion.div
                       layoutId="navPill"
-                      className="absolute inset-0 rounded-full bg-[#FFFFFF] shadow-sm border border-[#D8D0C2]"
+                      className="absolute inset-0 rounded-full bg-[#302029] shadow-sm border border-[#E87991]/40"
                       transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                     />
                   )}
                   <span className="relative z-10 flex items-center gap-1.5">
                     {isActive && (
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#D9541E]" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#E87991]" />
                     )}
                     {item.label}
                   </span>
@@ -100,7 +100,7 @@ export default function Navbar() {
           })}
         </ul>
 
-        {/* Right Action: Resume */}
+        {/* Right Action: Download Resume */}
         <div className="hidden md:flex items-center gap-3">
           <a
             href={RESUME_PATH}
@@ -115,7 +115,7 @@ export default function Navbar() {
         {/* Mobile Menu Trigger */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2 rounded-lg bg-[#E9E2D5] border border-[#D8D0C2] text-[#111111] hover:text-[#D9541E] focus:outline-none"
+          className="md:hidden p-2 rounded-lg bg-[#241820] border border-[#49333D] text-[#FFF7F7] hover:text-[#E87991] focus:outline-none"
           aria-label="Toggle navigation menu"
         >
           {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
@@ -130,7 +130,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden bg-[#F3EEE3] border-b border-[#D8D0C2] px-6 py-5 shadow-lg"
+            className="md:hidden bg-[#171114] border-b border-[#49333D] px-6 py-5 shadow-2xl"
           >
             <div className="flex flex-col gap-2">
               {navItems.map((item) => {
@@ -141,16 +141,16 @@ export default function Navbar() {
                     onClick={() => handleNavClick(item.href)}
                     className={`text-left px-3.5 py-2.5 rounded-lg text-sm font-semibold transition-colors flex items-center justify-between ${
                       isActive
-                        ? 'bg-[#E9E2D5] text-[#D9541E] border border-[#D8D0C2]'
-                        : 'text-[#77736B] hover:text-[#111111] hover:bg-[#E9E2D5]/50'
+                        ? 'bg-[#302029] text-[#E87991] border border-[#49333D]'
+                        : 'text-[#B9A6AA] hover:text-[#FFF7F7] hover:bg-[#241820]'
                     }`}
                   >
                     <span>{item.label}</span>
-                    {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#D9541E]" />}
+                    {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#E87991]" />}
                   </button>
                 );
               })}
-              <div className="pt-3 border-t border-[#D8D0C2] flex flex-col gap-2">
+              <div className="pt-3 border-t border-[#49333D] flex flex-col gap-2">
                 <a
                   href={RESUME_PATH}
                   download="Ajay_B_Full_Stack_Developer_Resume_Final.pdf"
