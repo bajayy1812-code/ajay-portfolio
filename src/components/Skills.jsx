@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import {
-  Code2, Server, Database, Terminal, CheckCheck, Wrench, Shield, Layers
+  Code2, Server, Database, Terminal, CheckCheck, Wrench, ChevronRight
 } from 'lucide-react';
 
 const fadeUp = {
@@ -14,35 +14,32 @@ const skillCategories = [
   {
     title: 'Frontend Development',
     icon: Code2,
-    badge: 'Core Stack',
-    accent: '#6366F1',
-    description: 'Building responsive, accessible, and dynamic user interfaces with modular component architecture.',
+    badge: 'Core UI',
+    description: 'Building responsive, accessible, and performant user interfaces with modular component architecture.',
     skills: [
-      { name: 'React.js', context: 'Hooks, Component Lifecycle, State Management' },
-      { name: 'JavaScript (ES6+)', context: 'Async/Await, Closures, DOM Manipulation' },
-      { name: 'HTML5', context: 'Semantic Architecture, Accessibility' },
-      { name: 'CSS3 / Tailwind', context: 'Flexbox, Grid, Responsive Design Systems' },
+      { name: 'React.js', context: 'Hooks, Lifecycle, State Management, SPA' },
+      { name: 'JavaScript (ES6+)', context: 'Async/Await, Closures, DOM, Modular JS' },
+      { name: 'HTML5', context: 'Semantic Structure, Accessibility (a11y)' },
+      { name: 'CSS3 / Tailwind', context: 'Flexbox, CSS Grid, Design Systems' },
     ],
   },
   {
     title: 'Backend Development',
     icon: Server,
-    badge: 'API & Server',
-    accent: '#22D3EE',
-    description: 'Designing scalable RESTful APIs, routing middleware, and server-side request pipelines.',
+    badge: 'API & Services',
+    description: 'Architecting scalable RESTful APIs, request middleware pipelines, and controller abstractions.',
     skills: [
-      { name: 'Node.js', context: 'Event-driven Runtime, Asynchronous I/O' },
-      { name: 'Express.js', context: 'REST Architecture, Middleware, Controllers' },
+      { name: 'Node.js', context: 'Event-driven Asynchronous Runtime' },
+      { name: 'Express.js', context: 'Routing, Custom Middleware, Controllers' },
     ],
   },
   {
-    title: 'Database Management',
+    title: 'Database Systems',
     icon: Database,
     badge: 'Persistence',
-    accent: '#6366F1',
-    description: 'Schema modeling, indexing, relational constraints, and persistent CRUD operations.',
+    description: 'Schema modeling, relational indexing, document aggregations, and persistent CRUD operations.',
     skills: [
-      { name: 'MongoDB', context: 'Mongoose ODM, Document Schemas, Aggregations' },
+      { name: 'MongoDB', context: 'Mongoose ODM, Document Schemas, Aggregation' },
       { name: 'SQL', context: 'Relational Queries, Joins, Table Constraints' },
     ],
   },
@@ -50,34 +47,31 @@ const skillCategories = [
     title: 'Programming Languages',
     icon: Terminal,
     badge: 'Foundations',
-    accent: '#22D3EE',
-    description: 'Core syntax and algorithmic problem solving across primary languages.',
+    description: 'Algorithmic problem solving, clean code syntax, and data structures implementation.',
     skills: [
-      { name: 'JavaScript', context: 'Primary Language for Full Stack Development' },
-      { name: 'Python', context: 'Scripting, Automation & Algorithmic Problem Solving' },
+      { name: 'JavaScript', context: 'Primary Language for Full Stack Web Engineering' },
+      { name: 'Python', context: 'Scripting, Automation, Algorithmic Logic' },
     ],
   },
   {
     title: 'Testing & Automation',
     icon: CheckCheck,
     badge: 'Quality Assurance',
-    accent: '#6366F1',
-    description: 'End-to-end automated testing to ensure workflow reliability and cross-browser consistency.',
+    description: 'End-to-end automated testing to guarantee user journey integrity and cross-browser reliability.',
     skills: [
       { name: 'Playwright', context: 'E2E Testing, UI Automation, Test Assertions' },
     ],
   },
   {
-    title: 'Tools & Technologies',
+    title: 'Tools & Workflow',
     icon: Wrench,
-    badge: 'DevOps & Workflow',
-    accent: '#22D3EE',
-    description: 'Everyday developer toolsets for version control, endpoint inspection, and collaborative engineering.',
+    badge: 'Developer Environment',
+    description: 'Industry-standard version control, API debugging, and collaborative team development.',
     skills: [
-      { name: 'Git', context: 'Branching, Merge Workflows, Version Tracking' },
-      { name: 'GitHub', context: 'Remote Repositories, Issue Tracking, CI/CD Actions' },
-      { name: 'VS Code', context: 'Primary Code Editor, Extensions, Debugging' },
-      { name: 'Postman', context: 'API Endpoint Validation, Environment Variables' },
+      { name: 'Git', context: 'Branching, Commit Workflows, Merge Conflict Resolution' },
+      { name: 'GitHub', context: 'Remote Repositories, Issue Tracking, Versioning' },
+      { name: 'VS Code', context: 'Primary Development Environment & Debugging' },
+      { name: 'Postman', context: 'API Endpoint Validation & Testing Suites' },
     ],
   },
 ];
@@ -87,7 +81,7 @@ export default function Skills() {
   const inView = useInView(ref, { once: true, margin: '-60px' });
 
   return (
-    <section id="skills" className="section-padding bg-[#0B0F19] relative border-t border-[#1E293B]">
+    <section id="skills" className="section-padding bg-[#F3EEE3] relative border-t border-[#D8D0C2]">
       <div className="container-custom" ref={ref}>
         <motion.div
           initial="hidden"
@@ -100,91 +94,93 @@ export default function Skills() {
           {/* Section Header */}
           <motion.div variants={fadeUp} className="mb-12">
             <div className="flex items-center gap-2 mb-2">
-              <span className="w-6 h-px bg-[#22D3EE]" />
-              <span className="text-xs font-mono uppercase tracking-widest text-[#22D3EE]">Technical Skills</span>
+              <span className="w-6 h-px bg-[#D9541E]" />
+              <span className="text-xs font-mono uppercase tracking-widest text-[#D9541E] font-bold">Technical Skills</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#F8FAFC]">
-              Categorized <span className="text-gradient-accent">Skill Set.</span>
+            <h2 className="text-3xl sm:text-4xl font-bold text-[#111111]">
+              Engineered for <span className="editorial-serif font-medium text-[#D9541E]">Precision & Scale.</span>
             </h2>
-            <p className="mt-2 text-sm sm:text-base text-[#94A3B8] max-w-2xl">
-              Authentic technical capabilities verified through real-world academic projects, internship experience, and coding practice.
+            <p className="mt-2 text-sm sm:text-base text-[#77736B] max-w-2xl">
+              Categorized technical competencies verified through hands-on project implementations and formal training.
             </p>
           </motion.div>
 
           {/* Categorized Skills Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {skillCategories.map((category) => {
-              const Icon = category.icon;
+            {skillCategories.map((category, idx) => {
+              const IconComponent = category.icon;
               return (
                 <motion.div
                   key={category.title}
                   variants={fadeUp}
-                  className="glass-card rounded-xl p-6 flex flex-col justify-between glass-card-hover"
+                  className="editorial-card p-6 flex flex-col justify-between hover:shadow-md hover:border-[#BDB3A3] transition-all duration-200"
                 >
                   <div>
-                    {/* Header */}
+                    {/* Card Header */}
                     <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center gap-2.5">
-                        <div
-                          className="w-9 h-9 rounded-lg flex items-center justify-center"
-                          style={{
-                            backgroundColor: `${category.accent}15`,
-                            border: `1px solid ${category.accent}30`,
-                            color: category.accent,
-                          }}
-                        >
-                          <Icon size={18} />
-                        </div>
-                        <h3 className="text-sm font-bold text-[#F8FAFC]">{category.title}</h3>
+                      <div className="p-2.5 rounded-lg bg-[#E9E2D5] text-[#D9541E] border border-[#D8D0C2]">
+                        <IconComponent size={18} />
                       </div>
-                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#111827] text-[#94A3B8] border border-[#1E293B]">
+                      <span className="text-[10px] font-mono uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-[#E9E2D5] text-[#111111] border border-[#D8D0C2]">
                         {category.badge}
                       </span>
                     </div>
 
-                    <p className="text-xs text-[#94A3B8] mb-4 leading-relaxed">
+                    <h3 className="text-base font-bold text-[#111111] mb-1.5">
+                      {category.title}
+                    </h3>
+                    <p className="text-xs text-[#77736B] leading-relaxed mb-4">
                       {category.description}
                     </p>
-
-                    {/* Skill Pills with Context */}
-                    <div className="space-y-2 mb-2">
-                      {category.skills.map((skill) => (
-                        <div
-                          key={skill.name}
-                          className="p-2.5 rounded-lg bg-[#111827]/70 border border-[#1E293B] hover:border-[#334155] transition-colors"
-                        >
-                          <div className="flex items-center justify-between">
-                            <span className="text-xs font-semibold text-[#F8FAFC] font-mono">
-                              {skill.name}
-                            </span>
-                            <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: category.accent }} />
-                          </div>
-                          <span className="text-[11px] text-[#94A3B8] block mt-0.5">
-                            {skill.context}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
                   </div>
 
-                  <div className="pt-3 mt-4 border-t border-[#1E293B]/70 flex items-center justify-between text-[11px] text-[#64748B] font-mono">
-                    <span>Verified in Projects</span>
-                    <span>Hands-On</span>
+                  {/* Skills List */}
+                  <div className="pt-3 border-t border-[#D8D0C2] space-y-2">
+                    {category.skills.map((skill) => (
+                      <div
+                        key={skill.name}
+                        className="group flex flex-col p-2 rounded-lg bg-[#E9E2D5]/40 hover:bg-[#E9E2D5] transition-colors border border-transparent hover:border-[#D8D0C2]"
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-semibold text-[#111111] group-hover:text-[#D9541E] transition-colors">
+                            {skill.name}
+                          </span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#D8D0C2] group-hover:bg-[#D9541E] transition-colors" />
+                        </div>
+                        <span className="text-[10px] font-mono text-[#77736B] mt-0.5">
+                          {skill.context}
+                        </span>
+                      </div>
+                    ))}
                   </div>
                 </motion.div>
               );
             })}
           </div>
 
-          {/* Authenticity Note */}
+          {/* Problem Solving & DSA Highlight */}
           <motion.div
             variants={fadeUp}
-            className="mt-8 p-4 rounded-xl bg-[#151D2E] border border-[#1E293B] flex items-center gap-3 text-xs text-[#94A3B8]"
+            className="mt-8 p-6 rounded-xl bg-[#E9E2D5]/70 border border-[#D8D0C2] flex flex-col sm:flex-row sm:items-center justify-between gap-4"
           >
-            <Shield size={16} className="text-[#22D3EE] flex-shrink-0" />
-            <p>
-              <strong className="text-[#F8FAFC]">Authenticity Promise:</strong> All skills listed reflect technologies actively applied in project codebases, internship deliverables, and test automation scripts. No inflated percentages.
-            </p>
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-[#FFFFFF] border border-[#D8D0C2] flex items-center justify-center text-[#D9541E] font-bold font-mono text-base">
+                100+
+              </div>
+              <div>
+                <h4 className="text-sm font-bold text-[#111111]">
+                  Algorithmic Problem Solving (DSA)
+                </h4>
+                <p className="text-xs text-[#77736B]">
+                  Actively solved 100+ data structure & algorithm problems focusing on arrays, strings, two pointers, and recursion.
+                </p>
+              </div>
+            </div>
+
+            <div className="inline-flex items-center gap-2 text-xs font-mono text-[#D9541E] font-bold px-3 py-1.5 rounded-lg bg-[#FFFFFF] border border-[#D8D0C2] self-start sm:self-auto">
+              <span>HackerRank Verified</span>
+              <ChevronRight size={13} />
+            </div>
           </motion.div>
         </motion.div>
       </div>

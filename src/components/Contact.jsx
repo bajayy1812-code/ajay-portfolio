@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { Mail, Send, MapPin, Copy, Check, AlertCircle, CheckCircle2, MessageSquare } from 'lucide-react';
+import { Mail, Send, MapPin, Copy, Check, AlertCircle, CheckCircle2, MessageSquare, ArrowRight } from 'lucide-react';
 
 const GithubIcon = ({ size = 18 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
@@ -59,7 +59,7 @@ export default function Contact() {
       return;
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+$/;
     if (!emailRegex.test(formData.email.trim())) {
       setStatus('error');
       setErrorMessage('Please provide a valid email address.');
@@ -68,7 +68,6 @@ export default function Contact() {
 
     setStatus('sending');
 
-    // Create a robust mailto fallback that immediately launches the recruiter's native client
     const mailSubject = encodeURIComponent(formData.subject || `Inquiry from ${formData.name}`);
     const mailBody = encodeURIComponent(
       `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
@@ -84,7 +83,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="section-padding bg-[#0B0F19] relative border-t border-[#1E293B]">
+    <section id="contact" className="section-padding bg-[#E9E2D5]/40 relative border-t border-[#D8D0C2]">
       <div className="container-custom" ref={ref}>
         <motion.div
           initial="hidden"
@@ -97,226 +96,205 @@ export default function Contact() {
           {/* Section Header */}
           <motion.div variants={fadeUp} className="mb-12">
             <div className="flex items-center gap-2 mb-2">
-              <span className="w-6 h-px bg-[#6366F1]" />
-              <span className="text-xs font-mono uppercase tracking-widest text-[#6366F1]">Get In Touch</span>
+              <span className="w-6 h-px bg-[#D9541E]" />
+              <span className="text-xs font-mono uppercase tracking-widest text-[#D9541E] font-bold">Get In Touch</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#F8FAFC]">
-              Let's Connect & <span className="text-gradient-accent">Collaborate.</span>
+            <h2 className="text-3xl sm:text-4xl font-bold text-[#111111]">
+              Let's Discuss <span className="editorial-serif font-medium text-[#D9541E]">Opportunities.</span>
             </h2>
-            <p className="mt-2 text-sm sm:text-base text-[#94A3B8] max-w-2xl">
-              I am open to full-time engineering roles, frontend or full stack opportunities, and technical discussions.
+            <p className="mt-2 text-sm sm:text-base text-[#77736B] max-w-2xl">
+              Currently open to full-time engineering roles, MERN stack developer positions, and technical collaborations.
             </p>
           </motion.div>
 
           <div className="grid lg:grid-cols-12 gap-8 items-start">
-            {/* Left Column: Direct Communication Channels */}
-            <motion.div variants={fadeUp} className="lg:col-span-5 space-y-4">
-              {/* Email Card with 1-Click Copy */}
-              <div className="glass-card rounded-2xl p-6 border border-[#1E293B]">
-                <div className="flex items-start justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="p-2.5 rounded-lg bg-[#6366F1]/10 text-[#6366F1] border border-[#6366F1]/20">
-                      <Mail size={18} />
-                    </div>
-                    <div>
-                      <span className="text-[11px] font-mono text-[#94A3B8] uppercase tracking-wider block">
-                        Direct Email
-                      </span>
-                      <a
-                        href="mailto:bajayy1812@gmail.com"
-                        className="text-sm font-bold text-[#F8FAFC] hover:text-[#22D3EE] transition-colors"
-                      >
-                        bajayy1812@gmail.com
-                      </a>
-                    </div>
+            {/* Left Contact Information & Editorial Metadata */}
+            <motion.div variants={fadeUp} className="lg:col-span-5 space-y-6">
+              {/* Status / Availability Card (Inspired by Reference) */}
+              <div className="editorial-card p-6 space-y-4">
+                <div className="flex items-center justify-between pb-3 border-b border-[#D8D0C2]">
+                  <div>
+                    <span className="text-[10px] font-mono uppercase text-[#77736B] block">Status</span>
+                    <span className="text-xs font-bold text-[#D9541E] flex items-center gap-1.5 mt-0.5">
+                      <span className="w-2 h-2 rounded-full bg-[#D9541E] animate-pulse" />
+                      AVAILABLE FOR SELECT ROLES
+                    </span>
                   </div>
-
-                  <button
-                    onClick={handleCopyEmail}
-                    className="p-2 rounded-lg bg-[#0B0F19] border border-[#1E293B] text-[#94A3B8] hover:text-[#F8FAFC] transition-colors"
-                    title="Copy email to clipboard"
-                    aria-label="Copy email address"
-                  >
-                    {copied ? <Check size={14} className="text-green-400" /> : <Copy size={14} />}
-                  </button>
+                  <div className="text-right">
+                    <span className="text-[10px] font-mono uppercase text-[#77736B] block">Response</span>
+                    <span className="text-xs font-semibold text-[#111111] font-mono">WITHIN 24 HOURS</span>
+                  </div>
                 </div>
-                {copied && (
-                  <span className="text-[11px] font-mono text-green-400 mt-2 block">
-                    ✓ Email address copied to clipboard!
+
+                <div>
+                  <span className="text-[10px] font-mono uppercase text-[#77736B] block">Location</span>
+                  <span className="text-sm font-semibold text-[#111111] flex items-center gap-1.5 mt-0.5">
+                    <MapPin size={14} className="text-[#D9541E]" /> Coimbatore, Tamil Nadu, India
                   </span>
-                )}
+                </div>
               </div>
 
-              {/* LinkedIn Link Card */}
-              <a
-                href="https://www.linkedin.com/in/ajay-b-0b0789328/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="glass-card rounded-2xl p-6 border border-[#1E293B] flex items-center justify-between glass-card-hover group"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-lg bg-[#22D3EE]/10 text-[#22D3EE] border border-[#22D3EE]/20">
-                    <LinkedinIcon size={18} />
-                  </div>
-                  <div>
-                    <span className="text-[11px] font-mono text-[#94A3B8] uppercase tracking-wider block">
-                      Professional Network
-                    </span>
-                    <span className="text-sm font-bold text-[#F8FAFC] group-hover:text-[#22D3EE] transition-colors">
-                      Ajay B on LinkedIn
-                    </span>
-                  </div>
-                </div>
-                <span className="text-xs font-mono text-[#64748B] group-hover:text-[#F8FAFC] transition-colors">
-                  View Profile ↗
+              {/* Direct Email Card with One-Click Copy */}
+              <div className="editorial-card p-6">
+                <span className="text-xs font-mono uppercase text-[#77736B] font-bold block mb-2">
+                  Direct Email Address
                 </span>
-              </a>
-
-              {/* GitHub Link Card */}
-              <a
-                href="https://github.com/bajayy1812-code"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="glass-card rounded-2xl p-6 border border-[#1E293B] flex items-center justify-between glass-card-hover group"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-lg bg-[#6366F1]/10 text-[#6366F1] border border-[#6366F1]/20">
-                    <GithubIcon size={18} />
-                  </div>
-                  <div>
-                    <span className="text-[11px] font-mono text-[#94A3B8] uppercase tracking-wider block">
-                      Source Code & Repositories
-                    </span>
-                    <span className="text-sm font-bold text-[#F8FAFC] group-hover:text-[#6366F1] transition-colors">
-                      @bajayy1812-code on GitHub
-                    </span>
-                  </div>
+                <div className="flex items-center justify-between p-3 rounded-lg bg-[#FAF7F0] border border-[#D8D0C2]">
+                  <span className="font-mono text-xs sm:text-sm font-semibold text-[#111111]">
+                    bajayy1812@gmail.com
+                  </span>
+                  <button
+                    onClick={handleCopyEmail}
+                    className="p-1.5 rounded-md bg-[#E9E2D5] hover:bg-[#D9541E] hover:text-white text-[#111111] transition-colors flex items-center gap-1 text-xs"
+                    title="Copy Email"
+                  >
+                    {copied ? (
+                      <>
+                        <Check size={13} className="text-[#D9541E]" />
+                        <span className="text-[11px] font-bold">Copied</span>
+                      </>
+                    ) : (
+                      <>
+                        <Copy size={13} />
+                        <span className="text-[11px]">Copy</span>
+                      </>
+                    )}
+                  </button>
                 </div>
-                <span className="text-xs font-mono text-[#64748B] group-hover:text-[#F8FAFC] transition-colors">
-                  Repositories ↗
-                </span>
-              </a>
+              </div>
 
-              {/* Location & Status Card */}
-              <div className="glass-card rounded-2xl p-6 border border-[#1E293B]">
-                <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-lg bg-[#111827] text-[#94A3B8] border border-[#1E293B]">
-                    <MapPin size={18} />
-                  </div>
-                  <div>
-                    <span className="text-[11px] font-mono text-[#64748B] uppercase tracking-wider block">
-                      Based In
-                    </span>
-                    <span className="text-sm font-semibold text-[#F8FAFC]">
-                      Coimbatore, Tamil Nadu, India
-                    </span>
-                  </div>
+              {/* Verified Professional Profiles */}
+              <div className="editorial-card p-6">
+                <span className="text-xs font-mono uppercase text-[#77736B] font-bold block mb-3">
+                  Verified Engineering Profiles
+                </span>
+                <div className="grid grid-cols-2 gap-3">
+                  <a
+                    href="https://github.com/bajayy1812-code"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-3 rounded-lg bg-[#FAF7F0] border border-[#D8D0C2] hover:border-[#D9541E] hover:bg-[#FFFFFF] transition-all flex items-center gap-2.5 text-xs font-semibold text-[#111111]"
+                  >
+                    <GithubIcon size={16} />
+                    <span>GitHub</span>
+                  </a>
+
+                  <a
+                    href="https://www.linkedin.com/in/ajay-b-0b0789328/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-3 rounded-lg bg-[#FAF7F0] border border-[#D8D0C2] hover:border-[#D9541E] hover:bg-[#FFFFFF] transition-all flex items-center gap-2.5 text-xs font-semibold text-[#111111]"
+                  >
+                    <LinkedinIcon size={16} />
+                    <span>LinkedIn</span>
+                  </a>
                 </div>
               </div>
             </motion.div>
 
-            {/* Right Column: Contact Form */}
+            {/* Right: Functional Message Form */}
             <motion.div variants={fadeUp} className="lg:col-span-7">
-              <form
-                onSubmit={handleSubmit}
-                className="glass-card rounded-2xl p-6 sm:p-8 border border-[#1E293B] space-y-4"
-                noValidate
-              >
-                <div className="flex items-center justify-between pb-3 border-b border-[#1E293B]">
-                  <h3 className="text-sm font-mono uppercase tracking-wider text-[#F8FAFC] font-semibold flex items-center gap-2">
-                    <MessageSquare size={16} className="text-[#6366F1]" />
-                    Send a Message
-                  </h3>
-                  <span className="text-[11px] font-mono text-[#64748B]">
-                    Direct Mail Delivery
-                  </span>
-                </div>
+              <div className="editorial-card p-6 sm:p-8">
+                <h3 className="text-lg font-bold text-[#111111] mb-2 flex items-center gap-2">
+                  <MessageSquare size={17} className="text-[#D9541E]" />
+                  Send an Inquiry
+                </h3>
+                <p className="text-xs text-[#77736B] mb-6">
+                  Fill in your details below and your preferred mail client will launch with a pre-formatted inquiry.
+                </p>
 
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-mono text-[#94A3B8] mb-1.5 uppercase">
-                      Name <span className="text-[#6366F1]">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      placeholder="e.g. Hiring Manager / Recruiter"
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-[#0B0F19] border border-[#1E293B] text-sm text-[#F8FAFC] placeholder-[#64748B] focus:outline-none focus:border-[#6366F1] transition-colors"
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-mono text-[#94A3B8] mb-1.5 uppercase">
-                      Email Address <span className="text-[#6366F1]">*</span>
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      placeholder="name@company.com"
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-[#0B0F19] border border-[#1E293B] text-sm text-[#F8FAFC] placeholder-[#64748B] focus:outline-none focus:border-[#6366F1] transition-colors"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-mono text-[#94A3B8] mb-1.5 uppercase">
-                    Subject
-                  </label>
-                  <input
-                    type="text"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    placeholder="Full Stack Developer Opportunity / Project Inquiry"
-                    className="w-full px-3.5 py-2.5 rounded-lg bg-[#0B0F19] border border-[#1E293B] text-sm text-[#F8FAFC] placeholder-[#64748B] focus:outline-none focus:border-[#6366F1] transition-colors"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-mono text-[#94A3B8] mb-1.5 uppercase">
-                    Message <span className="text-[#6366F1]">*</span>
-                  </label>
-                  <textarea
-                    name="message"
-                    rows={4}
-                    value={formData.message}
-                    onChange={handleChange}
-                    placeholder="Briefly describe the role, project, or topic you'd like to discuss..."
-                    className="w-full px-3.5 py-2.5 rounded-lg bg-[#0B0F19] border border-[#1E293B] text-sm text-[#F8FAFC] placeholder-[#64748B] focus:outline-none focus:border-[#6366F1] transition-colors resize-none"
-                    required
-                  />
-                </div>
-
-                {/* Validation and Success Notifications */}
                 {status === 'error' && (
-                  <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-xs flex items-center gap-2">
+                  <div className="mb-4 p-3 rounded-lg bg-[#D9541E]/10 border border-[#D9541E]/30 text-xs text-[#D9541E] flex items-center gap-2 font-medium">
                     <AlertCircle size={15} />
                     <span>{errorMessage}</span>
                   </div>
                 )}
 
                 {status === 'success' && (
-                  <div className="p-3 rounded-lg bg-green-500/10 border border-green-500/20 text-green-400 text-xs flex items-center gap-2">
-                    <CheckCircle2 size={15} />
-                    <span>Your message has been initiated in your default email client. Thank you for connecting!</span>
+                  <div className="mb-4 p-3 rounded-lg bg-[#E9E2D5] border border-[#D8D0C2] text-xs text-[#111111] flex items-center gap-2 font-medium">
+                    <CheckCircle2 size={15} className="text-[#D9541E]" />
+                    <span>Inquiry prepared! Launching your mail client...</span>
                   </div>
                 )}
 
-                <button
-                  type="submit"
-                  disabled={status === 'sending'}
-                  className="w-full py-3 rounded-lg bg-[#6366F1] hover:bg-[#4F46E5] text-white font-semibold text-xs tracking-wider uppercase transition-all duration-200 flex items-center justify-center gap-2 shadow-md shadow-[#6366F1]/20 disabled:opacity-50"
-                >
-                  <Send size={14} />
-                  <span>{status === 'sending' ? 'Preparing Email...' : 'Send Message'}</span>
-                </button>
-              </form>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-mono uppercase tracking-wider text-[#111111] font-semibold mb-1.5">
+                        Your Name *
+                      </label>
+                      <input
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        placeholder="e.g. Jane Doe"
+                        className="w-full px-3.5 py-2.5 rounded-lg bg-[#FAF7F0] border border-[#D8D0C2] text-xs text-[#111111] placeholder-[#77736B] focus:outline-none focus:border-[#D9541E] focus:bg-[#FFFFFF] transition-all"
+                        required
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-mono uppercase tracking-wider text-[#111111] font-semibold mb-1.5">
+                        Your Email *
+                      </label>
+                      <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        placeholder="e.g. jane@company.com"
+                        className="w-full px-3.5 py-2.5 rounded-lg bg-[#FAF7F0] border border-[#D8D0C2] text-xs text-[#111111] placeholder-[#77736B] focus:outline-none focus:border-[#D9541E] focus:bg-[#FFFFFF] transition-all"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-mono uppercase tracking-wider text-[#111111] font-semibold mb-1.5">
+                      Subject
+                    </label>
+                    <input
+                      type="text"
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleChange}
+                      placeholder="e.g. Full Stack Developer Opportunity"
+                      className="w-full px-3.5 py-2.5 rounded-lg bg-[#FAF7F0] border border-[#D8D0C2] text-xs text-[#111111] placeholder-[#77736B] focus:outline-none focus:border-[#D9541E] focus:bg-[#FFFFFF] transition-all"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-mono uppercase tracking-wider text-[#111111] font-semibold mb-1.5">
+                      Message *
+                    </label>
+                    <textarea
+                      name="message"
+                      rows={5}
+                      value={formData.message}
+                      onChange={handleChange}
+                      placeholder="Tell me a little about your team, role scope, and timeline..."
+                      className="w-full px-3.5 py-2.5 rounded-lg bg-[#FAF7F0] border border-[#D8D0C2] text-xs text-[#111111] placeholder-[#77736B] focus:outline-none focus:border-[#D9541E] focus:bg-[#FFFFFF] transition-all resize-none"
+                      required
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={status === 'sending'}
+                    className="btn-primary w-full py-3 text-sm mt-2 font-semibold"
+                  >
+                    {status === 'sending' ? (
+                      <span>Preparing Inquiry...</span>
+                    ) : (
+                      <>
+                        <span>Send Inquiry</span>
+                        <ArrowRight size={16} />
+                      </>
+                    )}
+                  </button>
+                </form>
+              </div>
             </motion.div>
           </div>
         </motion.div>

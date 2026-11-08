@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Download, FileText, ArrowUpRight } from 'lucide-react';
+import { Menu, X, Download } from 'lucide-react';
 
 const navItems = [
   { label: 'Home', href: '#home' },
@@ -49,7 +49,7 @@ export default function Navbar() {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-[#0B0F19]/90 backdrop-blur-md border-b border-[#1E293B] py-3.5 shadow-lg'
+          ? 'bg-[#F3EEE3]/90 backdrop-blur-md border-b border-[#D8D0C2] py-3.5 shadow-sm'
           : 'bg-transparent py-5'
       }`}
     >
@@ -57,38 +57,43 @@ export default function Navbar() {
         {/* Brand Logo */}
         <button
           onClick={() => handleNavClick('#home')}
-          className="text-left group flex items-center gap-1.5 focus:outline-none"
+          className="text-left group flex items-center gap-2 focus:outline-none"
         >
-          <span className="font-mono text-xl font-bold tracking-tight text-[#F8FAFC]">
-            AJAY<span className="text-[#6366F1]">.</span>
+          <span className="font-mono text-xl font-bold tracking-tight text-[#111111] group-hover:text-[#D9541E] transition-colors">
+            AJAY<span className="text-[#D9541E]">.</span>
           </span>
-          <span className="hidden sm:inline-block text-[11px] font-mono px-2 py-0.5 rounded bg-[#151D2E] text-[#94A3B8] border border-[#1E293B]">
-            dev
+          <span className="hidden sm:inline-block text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-[#E9E2D5] text-[#77736B] border border-[#D8D0C2]">
+            Full Stack
           </span>
         </button>
 
         {/* Desktop Nav Items */}
-        <ul className="hidden md:flex items-center gap-1 bg-[#151D2E]/80 backdrop-blur-sm px-3 py-1.5 rounded-full border border-[#1E293B]">
+        <ul className="hidden md:flex items-center gap-1 bg-[#E9E2D5]/80 backdrop-blur-sm px-2.5 py-1.5 rounded-full border border-[#D8D0C2]">
           {navItems.map((item) => {
             const isActive = activeSection === item.href.slice(1);
             return (
               <li key={item.href}>
                 <button
                   onClick={() => handleNavClick(item.href)}
-                  className={`relative px-3.5 py-1.5 text-xs font-medium rounded-full transition-colors duration-200 ${
+                  className={`relative px-3.5 py-1.5 text-xs font-semibold rounded-full transition-colors duration-200 ${
                     isActive
-                      ? 'text-[#F8FAFC]'
-                      : 'text-[#94A3B8] hover:text-[#F8FAFC]'
+                      ? 'text-[#111111]'
+                      : 'text-[#77736B] hover:text-[#D9541E]'
                   }`}
                 >
                   {isActive && (
                     <motion.div
                       layoutId="navPill"
-                      className="absolute inset-0 rounded-full bg-[#6366F1]/20 border border-[#6366F1]/40"
+                      className="absolute inset-0 rounded-full bg-[#FFFFFF] shadow-sm border border-[#D8D0C2]"
                       transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                     />
                   )}
-                  <span className="relative z-10">{item.label}</span>
+                  <span className="relative z-10 flex items-center gap-1.5">
+                    {isActive && (
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#D9541E]" />
+                    )}
+                    {item.label}
+                  </span>
                 </button>
               </li>
             );
@@ -100,7 +105,7 @@ export default function Navbar() {
           <a
             href={RESUME_PATH}
             download="Ajay_B_Full_Stack_Developer_Resume_Final.pdf"
-            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#6366F1] hover:bg-[#4F46E5] text-white text-xs font-semibold tracking-wide transition-all duration-200 shadow-md shadow-[#6366F1]/20"
+            className="btn-primary text-xs py-2 px-4 shadow-sm"
           >
             <Download size={13} />
             <span>Resume</span>
@@ -110,7 +115,7 @@ export default function Navbar() {
         {/* Mobile Menu Trigger */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2 rounded-lg bg-[#151D2E] border border-[#1E293B] text-[#94A3B8] hover:text-[#F8FAFC] focus:outline-none"
+          className="md:hidden p-2 rounded-lg bg-[#E9E2D5] border border-[#D8D0C2] text-[#111111] hover:text-[#D9541E] focus:outline-none"
           aria-label="Toggle navigation menu"
         >
           {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
@@ -125,7 +130,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden bg-[#0B0F19] border-b border-[#1E293B] px-6 py-5 shadow-2xl"
+            className="md:hidden bg-[#F3EEE3] border-b border-[#D8D0C2] px-6 py-5 shadow-lg"
           >
             <div className="flex flex-col gap-2">
               {navItems.map((item) => {
@@ -134,25 +139,25 @@ export default function Navbar() {
                   <button
                     key={item.href}
                     onClick={() => handleNavClick(item.href)}
-                    className={`text-left px-3.5 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                    className={`text-left px-3.5 py-2.5 rounded-lg text-sm font-semibold transition-colors flex items-center justify-between ${
                       isActive
-                        ? 'bg-[#151D2E] text-[#6366F1] border border-[#1E293B]'
-                        : 'text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#151D2E]/50'
+                        ? 'bg-[#E9E2D5] text-[#D9541E] border border-[#D8D0C2]'
+                        : 'text-[#77736B] hover:text-[#111111] hover:bg-[#E9E2D5]/50'
                     }`}
                   >
-                    {item.label}
+                    <span>{item.label}</span>
+                    {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#D9541E]" />}
                   </button>
                 );
               })}
-
-              <div className="pt-3 mt-2 border-t border-[#1E293B] flex items-center gap-3">
+              <div className="pt-3 border-t border-[#D8D0C2] flex flex-col gap-2">
                 <a
                   href={RESUME_PATH}
                   download="Ajay_B_Full_Stack_Developer_Resume_Final.pdf"
-                  className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#6366F1] text-white text-xs font-semibold shadow-md"
+                  className="btn-primary text-center py-2.5 text-xs w-full"
                 >
-                  <Download size={14} />
-                  <span>Download Resume PDF</span>
+                  <Download size={14} className="inline mr-1.5" />
+                  Download Resume
                 </a>
               </div>
             </div>

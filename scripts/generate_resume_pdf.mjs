@@ -14,30 +14,29 @@ async function generateResume() {
   const helveticaBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
   const helveticaOblique = await pdfDoc.embedFont(StandardFonts.HelveticaOblique);
   
-  // Colors (Modern Developer Indigo & Cyan Palette for Print/Digital)
-  const darkNavy = rgb(0.043, 0.059, 0.098); // #0B0F19
-  const primaryIndigo = rgb(0.388, 0.400, 0.945); // #6366F1
-  const secondaryCyan = rgb(0.133, 0.827, 0.933); // #22D3EE
-  const charcoal = rgb(0.15, 0.18, 0.24);
-  const slate = rgb(0.35, 0.40, 0.48);
-  const dividerColor = rgb(0.85, 0.88, 0.92);
+  // Colors (Editorial Cream + Ink Black + Burnt Orange Palette)
+  const darkInk = rgb(0.067, 0.067, 0.067); // #111111
+  const burntOrange = rgb(0.851, 0.329, 0.118); // #D9541E
+  const charcoal = rgb(0.18, 0.18, 0.18);
+  const slate = rgb(0.42, 0.40, 0.38); // #77736B
+  const dividerColor = rgb(0.85, 0.82, 0.76); // #D8D0C2
   
-  // Header top banner
+  // Header top banner (Ink Black with Burnt Orange Accent)
   page.drawRectangle({
     x: 0,
     y: height - 95,
     width: width,
     height: 95,
-    color: darkNavy,
+    color: darkInk,
   });
 
-  // Top accent line (Indigo)
+  // Top accent line (Burnt Orange)
   page.drawRectangle({
     x: 0,
     y: height - 4,
     width: width,
     height: 4,
-    color: primaryIndigo,
+    color: burntOrange,
   });
 
   // Header Text
@@ -46,7 +45,7 @@ async function generateResume() {
     y: height - 42,
     size: 24,
     font: helveticaBold,
-    color: rgb(0.97, 0.98, 1.0),
+    color: rgb(0.98, 0.98, 0.98),
   });
 
   page.drawText('Aspiring Full Stack Developer  |  MERN Stack Developer', {
@@ -54,7 +53,7 @@ async function generateResume() {
     y: height - 62,
     size: 11,
     font: helveticaBold,
-    color: secondaryCyan,
+    color: burntOrange,
   });
 
   page.drawText('Coimbatore, India   *   bajayy1812@gmail.com   *   linkedin.com/in/ajay-b-0b0789328   *   github.com/bajayy1812-code', {
@@ -62,7 +61,7 @@ async function generateResume() {
     y: height - 80,
     size: 8.5,
     font: helvetica,
-    color: rgb(0.88, 0.90, 0.95),
+    color: rgb(0.88, 0.88, 0.88),
   });
 
   let curY = height - 116;
@@ -74,7 +73,7 @@ async function generateResume() {
       y: curY,
       size: 10,
       font: helveticaBold,
-      color: primaryIndigo,
+      color: burntOrange,
     });
     page.drawLine({
       start: { x: leftX + helveticaBold.widthOfTextAtSize(title.toUpperCase(), 10) + 10, y: curY + 3 },
@@ -104,7 +103,7 @@ async function generateResume() {
     y: curY,
     size: 9.5,
     font: helveticaBold,
-    color: darkNavy,
+    color: darkInk,
   });
   page.drawText('2023 - 2027', {
     x: width - leftX - 60,
@@ -127,7 +126,7 @@ async function generateResume() {
     y: curY,
     size: 9,
     font: helveticaBold,
-    color: primaryIndigo,
+    color: burntOrange,
   });
   curY -= 12;
   page.drawText('Location: Coimbatore, Tamil Nadu, India', {
@@ -146,7 +145,7 @@ async function generateResume() {
     y: curY,
     size: 9.5,
     font: helveticaBold,
-    color: darkNavy,
+    color: darkInk,
   });
   page.drawText('2025', {
     x: width - leftX - 35,
@@ -162,7 +161,7 @@ async function generateResume() {
     y: curY,
     size: 9,
     font: helveticaBold,
-    color: primaryIndigo,
+    color: burntOrange,
   });
   curY -= 14;
 
@@ -175,7 +174,7 @@ async function generateResume() {
   ];
 
   for (const bullet of internBullets) {
-    page.drawText('*', { x: leftX + 4, y: curY, size: 8, font: helveticaBold, color: primaryIndigo });
+    page.drawText('*', { x: leftX + 4, y: curY, size: 8, font: helveticaBold, color: burntOrange });
     page.drawText(bullet, { x: leftX + 16, y: curY, size: 8.5, font: helvetica, color: charcoal });
     curY -= 12;
   }
@@ -190,7 +189,7 @@ async function generateResume() {
     y: curY,
     size: 9.5,
     font: helveticaBold,
-    color: darkNavy,
+    color: darkInk,
   });
   page.drawText('React.js, Node.js, Express.js, MongoDB Atlas, JWT, bcrypt', {
     x: width - leftX - 250,
@@ -201,28 +200,30 @@ async function generateResume() {
   });
   curY -= 13;
 
-  const proj1Bullets = [
-    'Built full-stack fitness management platform featuring role-based access control (Admin / Member) and protected routing.',
-    'Implemented member registration, attendance logs, BMI calculation, and diet plan allocations with secure REST APIs.',
-    'Engineered an interactive administrative dashboard equipped with real-time membership analytics and statistics.'
+  const ironPulseBullets = [
+    'Architected an end-to-end full-stack gym management platform with administrative and member access tiers.',
+    'Implemented stateless JWT authentication, password hashing with bcrypt, and role-based access control (RBAC).',
+    'Engineered membership subscription tracking, daily check-in verification, automated BMI assessments, and diet modules.',
+    'Formulated MongoDB database schemas with Mongoose ODM and crafted modular RESTful API endpoints.'
   ];
-  for (const bullet of proj1Bullets) {
-    page.drawText('*', { x: leftX + 4, y: curY, size: 8, font: helveticaBold, color: primaryIndigo });
+
+  for (const bullet of ironPulseBullets) {
+    page.drawText('*', { x: leftX + 4, y: curY, size: 8, font: helveticaBold, color: burntOrange });
     page.drawText(bullet, { x: leftX + 16, y: curY, size: 8.5, font: helvetica, color: charcoal });
-    curY -= 11.5;
+    curY -= 12;
   }
   curY -= 6;
 
   // Project 2
-  page.drawText('Expense Tracker - Personal Finance Dashboard', {
+  page.drawText('Expense Tracker - Personal Finance & Ledger Application', {
     x: leftX,
     y: curY,
     size: 9.5,
     font: helveticaBold,
-    color: darkNavy,
+    color: darkInk,
   });
-  page.drawText('JavaScript, Node.js, Express.js, MongoDB, Mongoose, REST APIs', {
-    x: width - leftX - 260,
+  page.drawText('JavaScript (ES6+), Node.js, Express.js, MongoDB, RESTful APIs', {
+    x: width - leftX - 265,
     y: curY,
     size: 8,
     font: helveticaOblique,
@@ -230,76 +231,67 @@ async function generateResume() {
   });
   curY -= 13;
 
-  const proj2Bullets = [
-    'Developed dynamic finance tracking application supporting automated expense categorization and net income calculation.',
-    'Engineered full CRUD operations with client-side form validation and persistent MongoDB data modeling.',
-    'Created a responsive analytics overview providing visual spending summaries and category breakdowns.'
+  const expenseBullets = [
+    'Developed a responsive full-stack income and expenditure tracking portal with persistent MongoDB database storage.',
+    'Engineered dynamic net balance calculations, multi-category transaction classification, and date-range ledger filtering.',
+    'Built full CRUD operations backed by strict client and server-side form validations for financial numerical integrity.'
   ];
-  for (const bullet of proj2Bullets) {
-    page.drawText('*', { x: leftX + 4, y: curY, size: 8, font: helveticaBold, color: primaryIndigo });
+
+  for (const bullet of expenseBullets) {
+    page.drawText('*', { x: leftX + 4, y: curY, size: 8, font: helveticaBold, color: burntOrange });
     page.drawText(bullet, { x: leftX + 16, y: curY, size: 8.5, font: helvetica, color: charcoal });
-    curY -= 11.5;
+    curY -= 12;
   }
   curY -= 8;
 
   // --- TECHNICAL SKILLS ---
-  drawSectionHeader('Technical Skills & Competencies');
-
-  const skillGroups = [
-    { label: 'Frontend Development:', list: 'HTML, CSS, JavaScript, React.js, Tailwind CSS, Responsive Web Design' },
-    { label: 'Backend Development:', list: 'Node.js, Express.js, RESTful APIs, Middleware, JWT, bcrypt' },
-    { label: 'Databases:', list: 'MongoDB, MongoDB Atlas, Mongoose ODM, SQL' },
-    { label: 'Programming Languages:', list: 'JavaScript (ES6+), Python' },
-    { label: 'Testing & Automation:', list: 'Playwright (E2E Test Automation)' },
-    { label: 'Tools & Workflow:', list: 'Git, GitHub, VS Code, Postman, Browser DevTools' }
+  drawSectionHeader('Technical Skills');
+  
+  const skillLines = [
+    { label: 'Frontend Development:', text: 'React.js, JavaScript (ES6+), HTML5, CSS3, Tailwind CSS, Responsive Web Design' },
+    { label: 'Backend Development:', text: 'Node.js, Express.js, RESTful API Design, Middleware, JWT, bcrypt' },
+    { label: 'Database Systems:', text: 'MongoDB, MongoDB Atlas, Mongoose ODM, SQL (Relational Queries & Constraints)' },
+    { label: 'Programming & Testing:', text: 'JavaScript, Python, Playwright (Automated E2E Testing)' },
+    { label: 'Tools & Workflow:', text: 'Git, GitHub, VS Code, Postman, Linux Terminal' }
   ];
 
-  for (const sg of skillGroups) {
-    page.drawText(sg.label, { x: leftX, y: curY, size: 8.5, font: helveticaBold, color: darkNavy });
-    const labelW = helveticaBold.widthOfTextAtSize(sg.label, 8.5);
-    page.drawText(sg.list, { x: leftX + labelW + 6, y: curY, size: 8.5, font: helvetica, color: charcoal });
-    curY -= 12.5;
+  for (const skill of skillLines) {
+    page.drawText(skill.label, { x: leftX, y: curY, size: 8.5, font: helveticaBold, color: darkInk });
+    const labelW = helveticaBold.widthOfTextAtSize(skill.label, 8.5);
+    page.drawText(skill.text, { x: leftX + labelW + 6, y: curY, size: 8.5, font: helvetica, color: charcoal });
+    curY -= 13;
   }
   curY -= 6;
 
   // --- CERTIFICATIONS & ACHIEVEMENTS ---
   drawSectionHeader('Certifications & Achievements');
+  
+  const achievements = [
+    { name: 'JavaScript (Basic & Intermediate)', org: 'HackerRank Certified Competency' },
+    { name: 'Introduction to MERN Stack', org: 'Simplilearn SkillUp Verified Course' },
+    { name: 'Data Structures & Algorithms', org: '100+ Problems Solved on HackerRank & Competitive Platforms' }
+  ];
 
-  page.drawText('* JavaScript Certification - HackerRank', {
-    x: leftX + 4,
-    y: curY,
-    size: 8.5,
-    font: helveticaBold,
-    color: darkNavy,
-  });
-  page.drawText('* 100+ Data Structures & Algorithms Problems Solved', {
-    x: width / 2,
-    y: curY,
-    size: 8.5,
-    font: helveticaBold,
-    color: darkNavy,
-  });
-  curY -= 13;
+  for (const ach of achievements) {
+    page.drawText('*', { x: leftX + 4, y: curY, size: 8, font: helveticaBold, color: burntOrange });
+    page.drawText(ach.name, { x: leftX + 16, y: curY, size: 8.5, font: helveticaBold, color: darkInk });
+    const nameW = helveticaBold.widthOfTextAtSize(ach.name, 8.5);
+    page.drawText(`- ${ach.org}`, { x: leftX + 16 + nameW + 6, y: curY, size: 8.5, font: helvetica, color: slate });
+    curY -= 13;
+  }
 
-  page.drawText('* Introduction to MERN Stack - Simplilearn SkillUp', {
-    x: leftX + 4,
-    y: curY,
-    size: 8.5,
-    font: helveticaBold,
-    color: darkNavy,
-  });
-  page.drawText('Strong foundation in algorithmic problem-solving and optimization', {
-    x: width / 2 + 8,
-    y: curY,
-    size: 8,
-    font: helveticaOblique,
-    color: slate,
-  });
-
+  // Save PDF
   const pdfBytes = await pdfDoc.save();
-  const outPath = path.resolve('public/resume/Ajay_B_Full_Stack_Developer_Resume_Final.pdf');
+  const outDir = path.resolve('public/resume');
+  if (!fs.existsSync(outDir)) {
+    fs.mkdirSync(outDir, { recursive: true });
+  }
+  const outPath = path.join(outDir, 'Ajay_B_Full_Stack_Developer_Resume_Final.pdf');
   fs.writeFileSync(outPath, pdfBytes);
-  console.log('Successfully generated resume PDF at:', outPath);
+  console.log(`Resume PDF successfully generated at ${outPath}`);
 }
 
-generateResume().catch(console.error);
+generateResume().catch((err) => {
+  console.error('Error generating PDF:', err);
+  process.exit(1);
+});

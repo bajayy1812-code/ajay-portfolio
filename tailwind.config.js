@@ -7,46 +7,47 @@ export default {
   theme: {
     extend: {
       colors: {
-        bg: {
-          main: '#0B0F19',
-          secondary: '#111827',
-          card: '#151D2E',
-          surface: '#1E293B',
+        cream: {
+          DEFAULT: '#F3EEE3',
+          secondary: '#E9E2D5',
+          card: '#FFFFFF',
+          subtle: '#FAF7F0',
         },
-        primary: {
-          DEFAULT: '#6366F1',
-          hover: '#4F46E5',
-          light: '#818CF8',
-          dark: '#4338CA',
+        ink: {
+          DEFAULT: '#111111',
+          light: '#242424',
+          subtle: '#3A3A3A',
         },
-        secondary: {
-          DEFAULT: '#22D3EE',
-          hover: '#06B6D4',
-          light: '#67E8F9',
-          dark: '#0891B2',
+        orange: {
+          DEFAULT: '#D9541E',
+          hover: '#C24513',
+          light: '#F4733E',
+          subtle: 'rgba(217, 84, 30, 0.08)',
+          glow: 'rgba(217, 84, 30, 0.25)',
         },
-        text: {
-          primary: '#F8FAFC',
-          secondary: '#94A3B8',
-          muted: '#64748B',
+        muted: {
+          DEFAULT: '#77736B',
+          light: '#918D85',
+          dark: '#59564F',
         },
         border: {
-          DEFAULT: '#1E293B',
-          light: '#334155',
+          DEFAULT: '#D8D0C2',
+          subtle: '#E2DBD0',
+          strong: '#BDB3A3',
         },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-        mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+        sans: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        serif: ['"Playfair Display"', 'Georgia', 'serif'],
+        mono: ['"JetBrains Mono"', 'Fira Code', 'monospace'],
       },
       boxShadow: {
-        'indigo-glow': '0 0 25px rgba(99, 102, 241, 0.25)',
-        'cyan-glow': '0 0 25px rgba(34, 211, 238, 0.25)',
-        'card': '0 4px 20px rgba(0, 0, 0, 0.3)',
-        'card-hover': '0 10px 30px rgba(0, 0, 0, 0.45)',
+        'card': '0 2px 12px rgba(17, 17, 17, 0.04)',
+        'card-hover': '0 8px 24px rgba(17, 17, 17, 0.08)',
+        'orange-glow': '0 4px 20px rgba(217, 84, 30, 0.25)',
       },
       borderColor: {
-        DEFAULT: '#1E293B',
+        DEFAULT: '#D8D0C2',
       },
     },
   },
